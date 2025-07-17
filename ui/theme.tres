@@ -1,7 +1,56 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://buel7ed306f6m"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://buel7ed306f6m"]
 
 [ext_resource type="FontFile" uid="uid://b0cnm1ispwxqq" path="res://ui/fonts/WinkyRough-Regular.ttf" id="1_rqugq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6lx7k"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.174863, 0.149147, 0.173781, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iqtc0"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.192157, 0.137255, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7any1"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.335247, 0.250635, 0.347308, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqugq"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.190278, 0.136578, 0.199205, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fgq6"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.152114, 0.116914, 0.177266, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jf26r"]
+bg_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
 
 [resource]
 default_font = ExtResource("1_rqugq")
 default_font_size = 14
+Button/styles/disabled = SubResource("StyleBoxFlat_6lx7k")
+Button/styles/focus = SubResource("StyleBoxFlat_iqtc0")
+Button/styles/hover = SubResource("StyleBoxFlat_7any1")
+Button/styles/normal = SubResource("StyleBoxFlat_rqugq")
+Button/styles/pressed = SubResource("StyleBoxFlat_3fgq6")
+Panel/styles/panel = SubResource("StyleBoxFlat_jf26r")

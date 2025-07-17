@@ -130,6 +130,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Health" type="Button" parent="MarginContainer/Control/VBoxContainer/PawnDropdown/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 text = "Health"
 
