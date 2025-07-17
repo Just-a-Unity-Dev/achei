@@ -2,6 +2,7 @@ extends BaseOrder
 
 var target: Character
 var time_since_last_hit: float = 0.0
+var progress: float = 1.0
 
 var weapon_data: GunData
 
@@ -31,7 +32,9 @@ func do(delta: float) -> void:
 	if cached_accuracy == -1: # Refresh the cached accuracy
 		cached_accuracy = BulletManager.calculate_accuracy(target, host, weapon_data)
 	
+	progress = time_since_last_hit / (weapon_data.base_reload + weapon_data.base_cooldown)
 	if cached_accuracy <= 0.0:
+		progress = 0.0
 		set_status("Attack: Refusing to fire: 0% chance of hit")
 		return # Do not waste ammo
 	if time_since_last_hit < (weapon_data.base_reload):

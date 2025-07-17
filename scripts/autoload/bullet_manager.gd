@@ -5,7 +5,7 @@ func calculate_accuracy(target: Character, host: Character, gun_data: GunData) -
 	
 	var distance = host.global_position.distance_to(target.global_position) / 32
 	if distance < gun_data.minimum_range:
-		accuracy = 0.0
+		return 0.0
 	elif distance < gun_data.short_range:
 		accuracy = 0.65
 	elif distance < gun_data.medium_range:
@@ -13,7 +13,7 @@ func calculate_accuracy(target: Character, host: Character, gun_data: GunData) -
 	elif distance < gun_data.long_range:
 		accuracy = 0.4
 	else:
-		accuracy = 0.0
+		return 0.0
 	
 	# TODO: Proper skill modifiers
 	accuracy += (host.skills.firearms / 20)
@@ -22,7 +22,7 @@ func calculate_accuracy(target: Character, host: Character, gun_data: GunData) -
 	if host.velocity.length() > 0:
 		accuracy -= 0.05 # Target movement penalty
 	
-	return accuracy
+	return max(accuracy, 0)
 
 ## Spawns a bullet visualizer and applies damage to the target.
 func create_bullet(target: Character, host: Character, damage: int) -> void:

@@ -59,6 +59,11 @@ func _draw() -> void:
 				previous_position = order.destination
 			if "target" in order:
 				draw_circle(to_local(order.target.global_position), 22, Color.RED * TRANSPARENCY, false, 2)
+				
+				# Draw ranged combat
+				var angle = global_position.angle_to_point(order.target.global_position)
+				var progress = deg_to_rad(45 * (1.0 - order.progress))
+				draw_arc(Vector2.ZERO, 32, angle - progress, angle + progress, 3, Color.WHITE * TRANSPARENCY, 4)
 			i += 1
 		
 		if current_weapon != null:
