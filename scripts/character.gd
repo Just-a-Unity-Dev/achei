@@ -36,10 +36,10 @@ func _draw() -> void:
 		var i = 0
 		for order in list_of_orders:
 			if "destination" in order:
-				draw_line(to_local(previous_position), to_local(order.destination), Color(1,1,1,.5), 2)
-				var circle_size = 16
-				if i == list_of_orders.size() - 1: circle_size = 32
-				draw_circle(to_local(order.destination), circle_size, Color.PALE_GREEN * Color(1,1,1,0.5), false, 4)
+				draw_line(to_local(previous_position), to_local(order.destination), Color(1,1,1,.8), 2)
+				var circle_size = 8
+				if i == list_of_orders.size() - 1: circle_size = 16
+				draw_circle(to_local(order.destination), circle_size, Color.PALE_GREEN * Color(1,1,1,0.8), false, 4)
 				previous_position = order.destination
 			i += 1
 
@@ -79,7 +79,7 @@ func trigger_info_update() -> void:
 		values.append(order_string)
 	else:
 		values.append("Idle")
-	values.append("Speed: %.2f m/s" % [(cache_speed / 64) * get_physics_process_delta_time()])
+	values.append("Speed: %.2f m/s" % [(cache_speed / 32) * get_physics_process_delta_time()])
 	
 	for i in range(values.size()):
 		new_info["key"+str(i+1)] = values[i]

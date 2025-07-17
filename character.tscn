@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bg10dp8klqjy3" path="res://scripts/skillstats.gd" id="6_0qfo5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pjt0s"]
-radius = 32.0
+radius = 16.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wfnr8"]
 shader = ExtResource("3_wa5vi")
@@ -20,6 +20,8 @@ shader_parameter/radius = 1.0
 shader_parameter/line_thickness = 0.03
 
 [node name="Pawn" type="CharacterBody2D" node_paths=PackedStringArray("health", "skills")]
+collision_layer = 2
+collision_mask = 6
 input_pickable = true
 script = ExtResource("1_wfnr8")
 health = NodePath("HealthStatsComponent")
@@ -33,10 +35,10 @@ shape = SubResource("CircleShape2D_pjt0s")
 
 [node name="SelectedSprite" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_wfnr8")
-offset_left = -31.0
-offset_top = -32.0
-offset_right = 31.0
-offset_bottom = 32.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
 mouse_filter = 2
 
 [node name="Selectable" type="Node" parent="." node_paths=PackedStringArray("get_position_from", "show_when_selected")]

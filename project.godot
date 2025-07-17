@@ -23,3 +23,7 @@ SelectionManager="*res://scripts/selection_manager.gd"
 
 theme/custom="uid://buel7ed306f6m"
 theme/custom_font="uid://b0cnm1ispwxqq"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

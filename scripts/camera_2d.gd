@@ -50,7 +50,7 @@ func _draw():
 		draw_line(start_pos_screen, end_pos_screen, Color(1,1,1))
 		draw_circle(start_pos_screen, 2, Color(1,1,1))
 		draw_circle(end_pos_screen, 2, Color(1,1,1))
-		ruler_label.text = "%.2fm" % [start_pos_world.distance_to(end_pos_world) / 64]
+		ruler_label.text = "%.2fm" % [start_pos_world.distance_to(end_pos_world) / 32]
 		ruler_label.global_position = get_viewport_rect().size / 2
 
 ## Handles the sending of orders to selectables.
