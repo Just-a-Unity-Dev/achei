@@ -7,19 +7,33 @@ class_name Character
 @onready var selectable = $Selectable
 var destination: Vector2 = Vector2.ZERO
 
-const BASE_SPEED = 5000
+const BASE_SPEED = 2650
 var cache_speed: int = 0
 
 func recalculate_speed():
-	cache_speed = BASE_SPEED * max(health.consciousness * 2, 1) * health.movement
+	var speed = BASE_SPEED
+	speed += skills.endurance * 25
+	speed *= max(health.consciousness * 2, 1)
+	speed *= health.movement
+	speed *= (1.0 - health.pain)
+	
+	cache_speed = speed
 
 func _ready() -> void:
 	selectable.received_order.connect(_received_order)
 	selectable.selected.connect(_selected)
+	selectable.deselected.connect(_deselected)
 	recalculate_speed()
 
 func _selected():
 	trigger_info_update()
+
+func _deselected():
+	pass
+
+func _draw() -> void:
+	if destination != Vector2.ZERO:
+		draw_circle(destination - global_position, 32, Color.PALE_GREEN * Color(1,1,1,0.5), false, 4)
 
 func _received_order(parameters: Dictionary):
 	var mouse_pos = parameters["mouse_pos"]
@@ -35,8 +49,7 @@ func trigger_info_update() -> void:
 		values.append("Current order: Move to position")
 	else:
 		values.append("Idle.")
-	values.append("Speed: %.2fu/s" % [(cache_speed / 64) * get_process_delta_time()])
-	#values.append("Stats: %d STR, %d FIN, %d TOG, %d END, %d PER, %d COM" % [strength, finesse, toughness, endurance, perception, composure])
+	values.append("Speed: %.2f m/s" % [(cache_speed / 64) * get_physics_process_delta_time()])
 	
 	for i in range(values.size()):
 		new_info["key"+str(i+1)] = values[i]
@@ -52,3 +65,4 @@ func _physics_process(delta: float) -> void:
 			velocity = direction * delta * cache_speed
 		
 		move_and_slide()
+		queue_redraw()

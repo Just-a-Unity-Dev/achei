@@ -3,7 +3,7 @@ class_name SkillStatsComponent
 
 @export_category("Body")
 @export var strength:		float = 1.0 # How strong are you?
-@export var endurance:		float = 1.0 # How long can you endure stress?
+@export var endurance:		float = 1.0 # How long can you endure physical stress?
 @export var sneak:			float = 1.0 # How good are you at sneaking?
 
 @export_category("Ingenuinity")
