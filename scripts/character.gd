@@ -31,10 +31,16 @@ func _selected(): trigger_info_update()
 
 func _draw() -> void:
 	if destination != Vector2.ZERO and selectable.is_selected:
-		var current_position = global_position
+		var previous_position = global_position
+		var i = 0
 		for order in list_of_orders:
 			if "destination" in order:
-				draw_circle(order.destination - global_position, 32, Color.PALE_GREEN * Color(1,1,1,0.5), false, 4)
+				draw_line(to_local(previous_position), to_local(order.destination), Color(1,1,1,.5), 2)
+				var circle_size = 16
+				if i == list_of_orders.size() - 1: circle_size = 32
+				draw_circle(to_local(order.destination), circle_size, Color.PALE_GREEN * Color(1,1,1,0.5), false, 4)
+				previous_position = order.destination
+			i += 1
 
 func add_order(order: BaseOrder, parameters: Dictionary):
 	order.setup(self, parameters)
