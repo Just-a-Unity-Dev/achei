@@ -4,7 +4,7 @@ class_name Selectable
 
 @export var selectable_id: StringName
 @export var get_position_from: Node2D
-@export var selection_range: float = 32.0
+@export var selection_range: float = 16.0
 @export var show_when_selected: CanvasItem
 
 var info: Dictionary
