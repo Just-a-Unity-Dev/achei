@@ -41,6 +41,7 @@ mouse_filter = 2
 
 [node name="Selectable" type="Node" parent="." node_paths=PackedStringArray("get_position_from", "show_when_selected")]
 script = ExtResource("2_pjt0s")
+selectable_id = &"Pawn"
 get_position_from = NodePath("..")
 show_when_selected = NodePath("../SelectedSprite")
 metadata/_custom_type_script = "uid://daipew5657usq"
