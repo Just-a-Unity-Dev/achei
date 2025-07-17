@@ -12,7 +12,6 @@ var cache_speed: int = 0
 
 func recalculate_speed():
 	cache_speed = BASE_SPEED * max(health.consciousness * 2, 1) * health.movement
-	print(cache_speed)
 
 func _ready() -> void:
 	selectable.received_order.connect(_received_order)
