@@ -13,3 +13,7 @@ script = ExtResource("1_80nbo")
 position = Vector2(115, 94)
 
 [node name="Control" parent="." instance=ExtResource("3_feb5d")]
+
+[node name="Pawn" parent="." instance=ExtResource("2_e2o6t")]
+position = Vector2(531, 200)
+character_name = "Naomi Reade"
