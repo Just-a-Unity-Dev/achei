@@ -31,7 +31,10 @@ func _selected(): trigger_info_update()
 
 func _draw() -> void:
 	if destination != Vector2.ZERO and selectable.is_selected:
-		draw_circle(destination - global_position, 32, Color.PALE_GREEN * Color(1,1,1,0.5), false, 4)
+		var current_position = global_position
+		for order in list_of_orders:
+			if "destination" in order:
+				draw_circle(order.destination - global_position, 32, Color.PALE_GREEN * Color(1,1,1,0.5), false, 4)
 
 func add_order(order: BaseOrder, parameters: Dictionary):
 	order.setup(self, parameters)
@@ -59,9 +62,12 @@ func trigger_info_update() -> void:
 	values.append("HP: %d/%d" % [health.hp, health.max_hp])
 	
 	if list_of_orders.size() > 0:
-		values.append("Current order: %s" % list_of_orders[0].current_status)
+		var order_string = "Current order: %s" % list_of_orders[0].current_status
+		if list_of_orders.size() != 1:
+			order_string += " (and %d more...)" % [list_of_orders.size() - 1]
+		values.append(order_string)
 	else:
-		values.append("Idle.")
+		values.append("Idle")
 	values.append("Speed: %.2f m/s" % [(cache_speed / 64) * get_physics_process_delta_time()])
 	
 	for i in range(values.size()):

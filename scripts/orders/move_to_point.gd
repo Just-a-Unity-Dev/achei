@@ -2,8 +2,12 @@ extends BaseOrder
 
 var destination: Vector2
 
+func setup(new_host: Character, new_parameters: Dictionary) -> void:
+	super(new_host, new_parameters)
+	destination = parameters["mouse_pos"]
+
 func start() -> void:
-	set_status("Moving to position.")
+	set_status("Moving to position")
 	destination = parameters["mouse_pos"]
 	super()
 
