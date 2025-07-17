@@ -24,8 +24,12 @@ var end_pos_world: Vector2
 var start_pos_screen: Vector2 # Screen: used to draw stuff
 var end_pos_screen: Vector2
 
-var dragging_selection_box := false #  For selecting units
-var dragging_ruler := false # For the ruler
+enum DragMode {
+	NONE = 0,
+	SELECT = 1,
+	RULER = 2
+}
+var drag_mode: DragMode = DragMode.NONE
 var ruler_label := Label.new()
 
 func _init() -> void:
@@ -40,9 +44,9 @@ func _ready():
 	ruler_label.hide()
 
 func _draw():
-	if dragging_selection_box:
+	if drag_mode == DragMode.SELECT:
 		draw_rect(Rect2(start_pos_screen, end_pos_screen - start_pos_screen), Color(1,1,1), false, -1.0, false)
-	if dragging_ruler:
+	elif drag_mode == DragMode.RULER:
 		draw_line(start_pos_screen, end_pos_screen, Color(1,1,1))
 		draw_circle(start_pos_screen, 2, Color(1,1,1))
 		draw_circle(end_pos_screen, 2, Color(1,1,1))
@@ -54,9 +58,12 @@ func handle_order_sending():
 	SelectionManager.send_orders(SelectionManager.selected_list, {"mouse_pos": get_global_mouse_position()})
 
 ## Handles several LMB interactions such as selecting and ruler mode.
-func handle_lmb_interactions(event: InputEvent):
-	dragging_selection_box = event.pressed and not event.shift_pressed
-	dragging_ruler = event.pressed and event.shift_pressed
+func handle_lmb_interactions(event: InputEventMouseButton):
+	if drag_mode == DragMode.NONE:
+		if event.shift_pressed:
+			drag_mode = DragMode.RULER
+		else:
+			drag_mode = DragMode.SELECT
 	
 	if event.pressed:
 		# Input began, assign start_pos
@@ -66,11 +73,11 @@ func handle_lmb_interactions(event: InputEvent):
 		end_pos_screen = Vector2.ZERO
 		end_pos_world = Vector2.ZERO
 		
-		if event.shift_pressed:
+		if drag_mode == DragMode.RULER:
 			# Show the distance label if we're in ruler mode
 			ruler_label.show()
 	else:
-		if not event.shift_pressed:
+		if drag_mode == DragMode.SELECT:
 			# If we're using selection box, do some quick work
 			if end_pos_world == Vector2.ZERO or (end_pos_world.distance_to(start_pos_world) < 16):
 				# If we just clicked (no motion) or the selection box is so small, then just select at mouse pos
@@ -79,15 +86,17 @@ func handle_lmb_interactions(event: InputEvent):
 				# Otherwise, just get all selectables in a box
 				var selected = SelectionManager.get_selectable_in_box(start_pos_world, end_pos_world)
 				SelectionManager.assign_new_selected_list(selected)
-		if event.shift_pressed: # Just hide the ruler
+		elif drag_mode == DragMode.RULER: # Just hide the ruler
 			ruler_label.hide()
+		
+		drag_mode = DragMode.NONE
 		queue_redraw()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if event.button_mask == MOUSE_BUTTON_MASK_MIDDLE: # Pans the camera around
 			position -= event.relative / zoom
-		if dragging_selection_box or dragging_ruler: # Sets the end_pos parameters and triggers redraw
+		if drag_mode != DragMode.NONE: # Sets the end_pos parameters and triggers redraw
 			end_pos_screen = get_local_mouse_position()
 			end_pos_world = get_global_mouse_position()
 			queue_redraw()

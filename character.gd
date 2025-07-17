@@ -36,7 +36,7 @@ func trigger_info_update() -> void:
 		values.append("Current order: Move to position")
 	else:
 		values.append("Idle.")
-	values.append("Speed: %.2fu/s" % [(cache_speed * get_process_delta_time()) / 64])
+	values.append("Speed: %.2fu/s" % [(cache_speed / 64) * get_process_delta_time()])
 	#values.append("Stats: %d STR, %d FIN, %d TOG, %d END, %d PER, %d COM" % [strength, finesse, toughness, endurance, perception, composure])
 	
 	for i in range(values.size()):
@@ -45,10 +45,11 @@ func trigger_info_update() -> void:
 
 func _physics_process(delta: float) -> void:
 	if destination != Vector2.ZERO:
-		var direction = global_position.direction_to(destination)
 		if global_position.distance_to(destination) < 1.5:
 			destination = Vector2.ZERO
 			trigger_info_update()
-		velocity = direction * delta * cache_speed
+		else:
+			var direction = global_position.direction_to(destination)
+			velocity = direction * delta * cache_speed
 		
 		move_and_slide()
