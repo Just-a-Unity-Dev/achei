@@ -28,7 +28,6 @@ signal died
 var is_dead = false
 
 func kill():
-	hp = 0.0
 	is_dead = true
 	died.emit()
 	

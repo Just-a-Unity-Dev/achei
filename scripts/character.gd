@@ -40,6 +40,7 @@ func _ready() -> void:
 func _on_death():
 	velocity = Vector2.ZERO
 	clear_orders()
+	queue_redraw()
 
 func _selected(): trigger_info_update()
 
@@ -47,6 +48,7 @@ const TRANSPARENCY = Color(1,1,1,.75)
 
 func _draw() -> void:
 	# TODO: Document
+	if health.is_dead: return
 	if selectable.is_selected:
 		var previous_position = global_position
 		var i = 0
@@ -74,10 +76,12 @@ func _draw() -> void:
 
 # TODO: Document
 func add_order(order: BaseOrder, parameters: Dictionary):
+	if health.is_dead: return
 	order.setup(self, parameters)
 	list_of_orders.push_back(order)
 
 func add_order_first(order: BaseOrder, parameters: Dictionary):
+	if health.is_dead: return
 	order.setup(self, parameters)
 	list_of_orders.push_front(order)
 
@@ -132,6 +136,7 @@ func trigger_info_update() -> void:
 # TODO: Document
 var previous_tile: String = "None"
 func _physics_process(delta: float) -> void:
+	if health.is_dead: return
 	if list_of_orders.size() > 0:
 		var current_order = list_of_orders[0]
 		if not current_order.update_status.is_connected(trigger_info_update):
