@@ -6,8 +6,8 @@
 script = ExtResource("1_fqyh4")
 gun_name = "longbow"
 accuracy_skill = &"archery"
-damage_min = 2
-damage_max = 6
+damage_min = 67
+damage_max = 92
 shots_fired = 1
 base_cooldown = 4.0
 base_reload = 2.5

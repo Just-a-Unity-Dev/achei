@@ -5,8 +5,9 @@
 [resource]
 script = ExtResource("1_ixnwk")
 gun_name = "pump shotgun"
-damage_min = 1
-damage_max = 2
+accuracy_skill = &"firearms"
+damage_min = 22
+damage_max = 31
 shots_fired = 4
 base_cooldown = 2.1
 base_reload = 1.3

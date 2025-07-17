@@ -5,21 +5,21 @@ class_name HealthStatsComponent
 
 @export_category("Wounds")
 #@export var wounds: Array[Wound]
-@export var hp: float = 10.0
-@export var max_hp: float = 10.0
+@export var torso: HealthComponent = HealthComponent.make(320, 320)
 
 @export_category("Immediate health")
-@export var pain: float = 0.0
-@export var blood: float = 1.0
-@export var consciousness: float = 1.0
-@export var manipulation: float = 1.0
-@export var movement: float = 1.0
-@export var psychokinetic_sensitvity: float = 0.5
+@export var pain := 0.0
+@export var blood: HealthComponent = HealthComponent.make(0, 320)
+@export var consciousness := 1.0
+@export var handling := 1.0
+@export var movement := 1.0
+@export var sight := 1.0
+@export var psychokinetic_sensitvity := 0.5
 
 @export_category("Long-term")
 @export var hunger: float = 1.0
 @export var thirst: float = 1.0
-@export var temperature: float = 36.0
+@export var temperature: float = 36.5
 @export var sleep: float = 1.0
 @export var comfort: float = 1.0
 @export var stress: float = 0.0
@@ -33,13 +33,10 @@ func kill():
 	
 	host.global_rotation_degrees = 90
 
-# TODO: Implement proper wounds.
 func take_damage(amount: int):
+	torso.take_damage(amount)
+	
 	var severity = 0
-	if (hp - amount) <= 0:
+	if consciousness <= 0:
 		severity = PopupManager.SEVERITY_HIGH
 	PopupManager.popup(str(amount), host.global_position, severity)
-	hp -= amount
-	
-	if hp <= 0:
-		kill()

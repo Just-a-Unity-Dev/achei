@@ -1,14 +1,67 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnllv6lcql7oh"]
+[gd_scene load_steps=7 format=3 uid="uid://dnllv6lcql7oh"]
 
 [ext_resource type="Script" uid="uid://dppju8023hmcu" path="res://scripts/hud.gd" id="1_37p78"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("select_container", "base_frame", "pawn_dropdown", "menu_lists")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_640wx"]
+bg_color = Color(0.41, 0.1189, 0.1189, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64ctp"]
+bg_color = Color(0.41, 0.215933, 0.1189, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8sq4i"]
+bg_color = Color(0.1189, 0.215933, 0.41, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37p78"]
+bg_color = Color(0.351563, 0.351563, 0.351563, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2258"]
+bg_color = Color(0.1189, 0.41, 0.133455, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("select_container", "base_frame", "pawn_dropdown", "menu_lists", "blood_container", "pain_container", "conscious_container", "handling_container", "movement_container", "sight_container", "hunger_container", "thirst_container", "temperature_container", "sleep_container", "comfort_container", "stress_container", "head_container", "torso_container", "right_arm_container", "right_leg_container", "left_arm_container", "left_leg_container")]
 process_mode = 3
 script = ExtResource("1_37p78")
 select_container = NodePath("MarginContainer/Control/SelectContainer")
 base_frame = NodePath("MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer/BaseFrame")
 pawn_dropdown = NodePath("MarginContainer/Control/SelectContainer/PawnDropdown")
 menu_lists = [NodePath("MarginContainer/Control/SelectContainer/Health")]
+blood_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Blood")
+pain_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Pain")
+conscious_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Consciousness")
+handling_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Manipulation")
+movement_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Movement")
+sight_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Sight")
+hunger_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Hunger")
+thirst_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Thirst")
+temperature_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Temperature")
+sleep_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Sleep")
+comfort_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Comfort")
+stress_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Stress")
+head_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/Head")
+torso_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/Torso")
+right_arm_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/RightArm")
+right_leg_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/RightLeg")
+left_arm_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/LeftArm")
+left_leg_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/LeftLeg")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -35,8 +88,7 @@ grow_vertical = 2
 alignment = 2
 
 [node name="Health" type="Panel" parent="MarginContainer/Control/SelectContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 320)
+custom_minimum_size = Vector2(0, 375)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/SelectContainer/Health"]
@@ -56,67 +108,312 @@ layout_mode = 2
 
 [node name="title" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 text = "Health"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="BaseFrame" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Left" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="key1" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
+[node name="Blood" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
 layout_mode = 2
-text = "Object"
 
-[node name="key2" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Blood"]
 layout_mode = 2
-text = "Object"
+text = "Blood"
 
-[node name="key3" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
+[node name="Lowering" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Blood"]
+custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
-text = "Object"
 
-[node name="key4" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Blood"]
 layout_mode = 2
-text = "Object"
+size_flags_horizontal = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_640wx")
+max_value = 1.0
+step = 0.0
+value = 1.0
 
-[node name="key5" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
+[node name="Pain" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
 layout_mode = 2
-text = "Object"
 
-[node name="key6" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Pain"]
+custom_minimum_size = Vector2(63, 0)
 layout_mode = 2
-text = "Object"
+text = "Pain"
 
-[node name="BaseFrame2" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Pain"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Consciousness" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Consciousness"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Conscious"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Consciousness"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Manipulation" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Manipulation"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Handling"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Manipulation"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Movement" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Movement"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Movement"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Sight" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Sight"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Sight"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Sight"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="Hunger" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Hunger"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Hunger"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Hunger"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_64ctp")
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Thirst" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Thirst"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Thirst"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Thirst"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_8sq4i")
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Temperature" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Temperature"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Temp"
+
+[node name="Panel" type="Panel" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Temperature"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_37p78")
+
+[node name="Label" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Temperature/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "37°c"
+horizontal_alignment = 1
+
+[node name="Sleep" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Sleep"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Sleep"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Sleep"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Comfort" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Comfort"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Comfort"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Comfort"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Stress" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Stress"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Stress"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Stress"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Right" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="key1" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="Head" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right"]
 layout_mode = 2
-text = "Object"
 
-[node name="key2" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/Head"]
+custom_minimum_size = Vector2(63, 0)
 layout_mode = 2
-text = "Object"
+text = "Head"
 
-[node name="key3" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/Head"]
 layout_mode = 2
-text = "Object"
+size_flags_horizontal = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_a2258")
+max_value = 1.0
+step = 0.0
+value = 1.0
 
-[node name="key4" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="Torso" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right"]
 layout_mode = 2
-text = "Object"
 
-[node name="key5" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/Torso"]
+custom_minimum_size = Vector2(63, 0)
 layout_mode = 2
-text = "Object"
+text = "Torso"
 
-[node name="key6" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/Torso"]
 layout_mode = 2
-text = "Object"
+size_flags_horizontal = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_a2258")
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="LeftArm" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/LeftArm"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Left Arm"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/LeftArm"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_a2258")
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="RightArm" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/RightArm"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Right Arm"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/RightArm"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_a2258")
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="LeftLeg" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/LeftLeg"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Left Leg"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/LeftLeg"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_a2258")
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="RightLeg" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/RightLeg"]
+custom_minimum_size = Vector2(63, 0)
+layout_mode = 2
+text = "Right Leg"
+
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/RightLeg"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_a2258")
+max_value = 1.0
+step = 0.0
+value = 1.0
 
 [node name="PawnDropdown" type="Panel" parent="MarginContainer/Control/SelectContainer"]
 custom_minimum_size = Vector2(0, 39)

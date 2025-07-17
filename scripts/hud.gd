@@ -5,11 +5,64 @@ extends CanvasLayer
 
 @export var menu_lists: Array[Panel]
 
+@export_category("Health menu")
+@export var blood_container: HBoxContainer
+@export var pain_container: HBoxContainer
+@export var conscious_container: HBoxContainer
+@export var handling_container: HBoxContainer
+@export var movement_container: HBoxContainer
+@export var sight_container: HBoxContainer
+@export var hunger_container: HBoxContainer
+@export var thirst_container: HBoxContainer
+@export var temperature_container: HBoxContainer
+@export var sleep_container: HBoxContainer
+@export var comfort_container: HBoxContainer
+@export var stress_container: HBoxContainer
+
+@export var head_container: HBoxContainer
+@export var torso_container: HBoxContainer
+@export var right_arm_container: HBoxContainer
+@export var right_leg_container: HBoxContainer
+@export var left_arm_container: HBoxContainer
+@export var left_leg_container: HBoxContainer
+
 var current_focus: Selectable
 
 func _ready() -> void:
 	SelectionManager.new_selected.connect(_on_new_selected)
 	select_container.hide()
+
+func generic_update_container(container: HBoxContainer, value: float, max_value: float = -1.0):
+	var bar: ProgressBar = container.get_node("Label")
+	bar.value = value
+	if max_value != -1.0:
+		bar.max_value = max_value
+
+func update_health_hud():
+	if current_focus == null: return
+	var character = current_focus.get_parent()
+	
+	if character is Character:
+		print(character)
+		generic_update_container(blood_container, character.health.blood.hp, character.health.blood.max_hp)
+		generic_update_container(pain_container, character.health.pain)
+		generic_update_container(conscious_container, character.health.consciousness)
+		generic_update_container(handling_container, character.health.handling)
+		generic_update_container(movement_container, character.health.movement)
+		generic_update_container(sight_container, character.health.sight)
+		generic_update_container(hunger_container, character.health.hunger)
+		generic_update_container(thirst_container, character.health.thirst)
+		#generic_update_container(temperature_container, character.health.temperature)
+		generic_update_container(sleep_container, character.health.sleep)
+		generic_update_container(comfort_container, character.health.comfort)
+		generic_update_container(stress_container, character.health.stress)
+		
+		#head_container
+		generic_update_container(torso_container, character.health.torso.hp, character.health.torso.max_hp)
+		#right_arm_container
+		#right_leg_container
+		#left_arm_container
+		#left_leg_container
 
 var base_physics_ticks_per_second = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 func _unhandled_input(event: InputEvent) -> void:
@@ -34,7 +87,7 @@ func enable_menu(to_enable: Panel):
 			to_enable.show()
 
 func _on_health_pressed() -> void:
-	enable_menu($MarginContainer/Control/VBoxContainer/Health)
+	enable_menu($MarginContainer/Control/SelectContainer/Health)
 
 func update_hud(info: Dictionary):
 	for label in base_frame.get_children():
@@ -46,6 +99,9 @@ func update_hud(info: Dictionary):
 
 func _info_updated(new_info: Dictionary):
 	update_hud(new_info)
+
+func _process(delta: float) -> void:
+	update_health_hud()
 
 func _on_new_selected():
 	select_container.hide()

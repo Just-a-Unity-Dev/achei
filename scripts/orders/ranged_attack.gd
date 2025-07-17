@@ -27,7 +27,7 @@ func end(succeed: bool) -> void:
 
 var cached_accuracy: float = -1
 func do(delta: float) -> void:
-	if target.health.hp <= 0 and end_when_target_dies:
+	if target.health.is_dead and end_when_target_dies:
 		end(true) # End this order when the target is dead
 	time_since_last_hit += delta
 	 

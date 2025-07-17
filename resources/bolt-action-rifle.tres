@@ -5,8 +5,9 @@
 [resource]
 script = ExtResource("1_bkg0d")
 gun_name = "bolt action rifle"
-damage_min = 3
-damage_max = 5
+accuracy_skill = &"firearms"
+damage_min = 60
+damage_max = 83
 shots_fired = 1
 base_cooldown = 1.5
 base_reload = 1.5

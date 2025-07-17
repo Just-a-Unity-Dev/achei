@@ -117,7 +117,7 @@ func trigger_info_update() -> void:
 		new_info.title = "%s (dead)" % character_name
 		values.append("Dead.")
 	else:
-		values.append("HP: %d/%d" % [health.hp, health.max_hp])
+		values.append("HP: %.2f%%" % [health.consciousness * 100])
 	
 		if list_of_orders.size() > 0:
 			var order_string = "Current order: %s" % list_of_orders[0].current_status
