@@ -30,6 +30,7 @@ func _ready() -> void:
 func _selected(): trigger_info_update()
 
 func _draw() -> void:
+	# TODO: Document
 	if destination != Vector2.ZERO and selectable.is_selected:
 		var previous_position = global_position
 		var i = 0
@@ -42,16 +43,19 @@ func _draw() -> void:
 				previous_position = order.destination
 			i += 1
 
+# TODO: Document
 func add_order(order: BaseOrder, parameters: Dictionary):
 	order.setup(self, parameters)
 	list_of_orders.push_back(order)
 
+# TODO: Document
 func clear_orders():
 	if list_of_orders.size() > 0:
 		var current_order = list_of_orders[0]
 		current_order.end(false)
 	list_of_orders.clear()
 
+# TODO: Document
 func _received_order(parameters: Dictionary, add_onto: bool):
 	var mouse_pos = parameters["mouse_pos"]
 	destination = mouse_pos
@@ -62,6 +66,7 @@ func _received_order(parameters: Dictionary, add_onto: bool):
 	
 	trigger_info_update()
 
+# TODO: Document
 func trigger_info_update() -> void:
 	var values: Array[String] = []
 	var new_info = {"title": character_name}
@@ -80,6 +85,7 @@ func trigger_info_update() -> void:
 		new_info["key"+str(i+1)] = values[i]
 	selectable.update_info(new_info)
 
+# TODO: Document
 func _physics_process(delta: float) -> void:
 	if list_of_orders.size() > 0:
 		var current_order = list_of_orders[0]
