@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://dmw7wf3p3biai"]
+
+[ext_resource type="Texture2D" uid="uid://dqhvce2p1wsm3" path="res://icon.svg" id="1_glpr6"]
+[ext_resource type="Script" uid="uid://d27y6e5oq1cdg" path="res://character.gd" id="1_wfnr8"]
+[ext_resource type="Script" uid="uid://daipew5657usq" path="res://selectable.gd" id="2_pjt0s"]
+[ext_resource type="Script" uid="uid://dcncxjibw6sg5" path="res://health_stats.gd" id="2_px5sl"]
+[ext_resource type="Shader" uid="uid://d1eh2k82dlrtu" path="res://outline.gdshader" id="3_wa5vi"]
+
+[sub_resource type="Resource" id="Resource_yxww1"]
+script = ExtResource("2_px5sl")
+hp = 10.0
+max_hp = 10.0
+pain = 0.0
+blood = 1.0
+consciousness = 1.0
+manipulation = 1.0
+movement = 1.0
+psychokinetic_sensitvity = 0.5
+hunger = 1.0
+thirst = 1.0
+temperature = 36.0
+sleep = 1.0
+comfort = 1.0
+stress = 1.0
+metadata/_custom_type_script = "uid://dcncxjibw6sg5"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pjt0s"]
+radius = 32.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wfnr8"]
+shader = ExtResource("3_wa5vi")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/direction = -1.0
+shader_parameter/frequency = 8.0
+shader_parameter/speed = 3.0
+shader_parameter/radius = 1.0
+shader_parameter/line_thickness = 0.03
+
+[node name="Pawn" type="CharacterBody2D"]
+input_pickable = true
+script = ExtResource("1_wfnr8")
+health = SubResource("Resource_yxww1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_glpr6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pjt0s")
+
+[node name="Selectable" type="Node" parent="." node_paths=PackedStringArray("get_position_from", "show_when_selected")]
+script = ExtResource("2_pjt0s")
+get_position_from = NodePath("..")
+show_when_selected = NodePath("../SelectedSprite")
+metadata/_custom_type_script = "uid://daipew5657usq"
+
+[node name="SelectedSprite" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_wfnr8")
+offset_left = -31.0
+offset_top = -32.0
+offset_right = 31.0
+offset_bottom = 32.0
+mouse_filter = 2
