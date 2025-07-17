@@ -17,4 +17,4 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SelectionManager="*res://selection_manager.gd"
+SelectionManager="*res://scripts/selection_manager.gd"
