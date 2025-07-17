@@ -54,8 +54,8 @@ func _draw():
 		ruler_label.global_position = get_viewport_rect().size / 2
 
 ## Handles the sending of orders to selectables.
-func handle_order_sending():
-	SelectionManager.send_orders(SelectionManager.selected_list, {"mouse_pos": get_global_mouse_position()})
+func handle_order_sending(add_onto: bool):
+	SelectionManager.send_orders(SelectionManager.selected_list, {"mouse_pos": get_global_mouse_position()}, add_onto)
 
 ## Handles several LMB interactions such as selecting and ruler mode.
 func handle_lmb_interactions(event: InputEventMouseButton):
@@ -110,6 +110,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				zoom_in()
 		
 		if event.button_index == MOUSE_BUTTON_RIGHT and not event.is_pressed():
-			handle_order_sending()
+			handle_order_sending(event.shift_pressed)
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			handle_lmb_interactions(event)

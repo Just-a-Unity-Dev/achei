@@ -13,7 +13,7 @@ var is_selected = false
 signal selected
 signal deselected
 signal info_updated(info: Dictionary)
-signal received_order(parameters: Dictionary)
+signal received_order(parameters: Dictionary, add_onto: bool)
 
 func _ready() -> void:
 	selected.connect(_on_select)

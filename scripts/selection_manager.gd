@@ -45,12 +45,12 @@ func get_selectable_in_box(top_left: Vector2, bottom_right: Vector2) -> Array[Se
 			selected.append(unit)
 	return selected
 
-func send_order(object: Selectable, parameters: Dictionary):
-	object.received_order.emit(parameters)
+func send_order(object: Selectable, parameters: Dictionary, add_onto: bool):
+	object.received_order.emit(parameters, add_onto)
 
-func send_orders(objects: Array[Selectable], parameters: Dictionary):
+func send_orders(objects: Array[Selectable], parameters: Dictionary, add_onto: bool):
 	for object in objects:
-		send_order(object, parameters)
+		send_order(object, parameters, add_onto)
 
 func try_select_at_position(pos: Vector2):
 	var new_selected_units: Array[Selectable] = []
