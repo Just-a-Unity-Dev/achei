@@ -7,7 +7,6 @@ class_name Character
 @export var tilemap: TileMapLayer
 
 @onready var selectable = $Selectable
-var destination: Vector2 = Vector2.ZERO
 
 var list_of_orders: Array[BaseOrder]
 
@@ -27,6 +26,9 @@ func recalculate_speed():
 	
 	cache_speed = speed
 
+func _init() -> void:
+	add_to_group("character")
+
 func _ready() -> void:
 	selectable.received_order.connect(_received_order)
 	selectable.selected.connect(_selected)
@@ -36,7 +38,7 @@ func _selected(): trigger_info_update()
 
 func _draw() -> void:
 	# TODO: Document
-	if destination != Vector2.ZERO and selectable.is_selected:
+	if selectable.is_selected:
 		var previous_position = global_position
 		var i = 0
 		for order in list_of_orders:
@@ -46,12 +48,18 @@ func _draw() -> void:
 				if i == list_of_orders.size() - 1: circle_size = 16
 				draw_circle(to_local(order.destination), circle_size, Color.PALE_GREEN * Color(1,1,1,0.8), false, 4)
 				previous_position = order.destination
+			if "target" in order:
+				draw_circle(to_local(order.target.global_position), 22, Color.RED * Color(1,1,1,0.8), false, 2)
 			i += 1
 
 # TODO: Document
 func add_order(order: BaseOrder, parameters: Dictionary):
 	order.setup(self, parameters)
 	list_of_orders.push_back(order)
+
+func add_order_first(order: BaseOrder, parameters: Dictionary):
+	order.setup(self, parameters)
+	list_of_orders.push_front(order)
 
 # TODO: Document
 func clear_orders():
@@ -63,9 +71,14 @@ func clear_orders():
 # TODO: Document
 func _received_order(parameters: Dictionary, add_onto: bool):
 	var mouse_pos = parameters["mouse_pos"]
-	destination = mouse_pos
 	
-	var order = preload("res://scripts/orders/move_to_point.gd").new()
+	# TODO: Parameters have a "order_type"
+	var order: BaseOrder
+	if "target" in parameters.keys():
+		order = preload("res://scripts/orders/melee_attack.gd").new()
+	else:
+		order = preload("res://scripts/orders/move_to_point.gd").new()
+	
 	if not add_onto: clear_orders()
 	add_order(order, parameters)
 	

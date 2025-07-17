@@ -55,7 +55,20 @@ func _draw():
 
 ## Handles the sending of orders to selectables.
 func handle_order_sending(add_onto: bool):
-	SelectionManager.send_orders(SelectionManager.selected_list, {"mouse_pos": get_global_mouse_position()}, add_onto)
+	var target: Character
+	var mouse_pos = get_global_mouse_position()
+	
+	for character in get_tree().get_nodes_in_group("character"):
+		if character is Character:
+			if mouse_pos.distance_to(character.global_position) < character.selectable.selection_range:
+				if character.selectable not in SelectionManager.selected_list:
+					target = character
+					break
+	
+	var parameters = {"mouse_pos": mouse_pos}
+	if target != null:
+		parameters["target"] = target
+	SelectionManager.send_orders(SelectionManager.selected_list, parameters, add_onto)
 
 ## Handles several LMB interactions such as selecting and ruler mode.
 func handle_lmb_interactions(event: InputEventMouseButton):
