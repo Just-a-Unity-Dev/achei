@@ -5,24 +5,7 @@
 [ext_resource type="Script" uid="uid://daipew5657usq" path="res://selectable.gd" id="2_pjt0s"]
 [ext_resource type="Script" uid="uid://dcncxjibw6sg5" path="res://health_stats.gd" id="2_px5sl"]
 [ext_resource type="Shader" uid="uid://d1eh2k82dlrtu" path="res://outline.gdshader" id="3_wa5vi"]
-
-[sub_resource type="Resource" id="Resource_yxww1"]
-script = ExtResource("2_px5sl")
-hp = 10.0
-max_hp = 10.0
-pain = 0.0
-blood = 1.0
-consciousness = 1.0
-manipulation = 1.0
-movement = 1.0
-psychokinetic_sensitvity = 0.5
-hunger = 1.0
-thirst = 1.0
-temperature = 36.0
-sleep = 1.0
-comfort = 1.0
-stress = 1.0
-metadata/_custom_type_script = "uid://dcncxjibw6sg5"
+[ext_resource type="Script" uid="uid://bg10dp8klqjy3" path="res://skillstats.gd" id="6_0qfo5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pjt0s"]
 radius = 32.0
@@ -36,10 +19,11 @@ shader_parameter/speed = 3.0
 shader_parameter/radius = 1.0
 shader_parameter/line_thickness = 0.03
 
-[node name="Pawn" type="CharacterBody2D"]
+[node name="Pawn" type="CharacterBody2D" node_paths=PackedStringArray("health", "skills")]
 input_pickable = true
 script = ExtResource("1_wfnr8")
-health = SubResource("Resource_yxww1")
+health = NodePath("HealthStatsComponent")
+skills = NodePath("SkillStatsComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_glpr6")
@@ -60,3 +44,11 @@ offset_top = -32.0
 offset_right = 31.0
 offset_bottom = 32.0
 mouse_filter = 2
+
+[node name="HealthStatsComponent" type="Node" parent="."]
+script = ExtResource("2_px5sl")
+metadata/_custom_type_script = "uid://dcncxjibw6sg5"
+
+[node name="SkillStatsComponent" type="Node" parent="."]
+script = ExtResource("6_0qfo5")
+metadata/_custom_type_script = "uid://bg10dp8klqjy3"

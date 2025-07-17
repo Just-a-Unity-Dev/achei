@@ -1,21 +1,23 @@
-extends Resource
-class_name HealthStats
+extends Node
+class_name HealthStatsComponent
 
 @export_category("Wounds")
 #@export var wounds: Array[Wound]
 @export var hp: float = 10.0
 @export var max_hp: float = 10.0
 
-@export_category("Health")
+@export_category("Immediate health")
 @export var pain: float = 0.0
 @export var blood: float = 1.0
 @export var consciousness: float = 1.0
 @export var manipulation: float = 1.0
 @export var movement: float = 1.0
 @export var psychokinetic_sensitvity: float = 0.5
+
+@export_category("Long-term")
 @export var hunger: float = 1.0
 @export var thirst: float = 1.0
 @export var temperature: float = 36.0
 @export var sleep: float = 1.0
 @export var comfort: float = 1.0
-@export var stress: float = 1.0
+@export var stress: float = 0.0
