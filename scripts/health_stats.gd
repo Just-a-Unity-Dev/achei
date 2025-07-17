@@ -24,12 +24,13 @@ class_name HealthStatsComponent
 @export var comfort: float = 1.0
 @export var stress: float = 0.0
 
-signal dead
+signal died
 var is_dead = false
 
-func die():
+func kill():
+	hp = 0.0
 	is_dead = true
-	dead.emit()
+	died.emit()
 	
 	host.global_rotation_degrees = 90
 
@@ -42,4 +43,4 @@ func take_damage(amount: int):
 	hp -= amount
 	
 	if hp <= 0:
-		die()
+		kill()

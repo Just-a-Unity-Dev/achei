@@ -34,7 +34,12 @@ func _init() -> void:
 func _ready() -> void:
 	selectable.received_order.connect(_received_order)
 	selectable.selected.connect(_selected)
+	health.died.connect(_on_death)
 	recalculate_speed()
+
+func _on_death():
+	velocity = Vector2.ZERO
+	clear_orders()
 
 func _selected(): trigger_info_update()
 
