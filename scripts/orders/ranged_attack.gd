@@ -15,6 +15,13 @@ func start() -> void:
 	set_status("Attacking other pawn with ranged")
 	super()
 
+var bullets: Array[Sprite2D] = []
+
+func end(succeed: bool) -> void:
+	for bullet in bullets:
+		bullet.queue_free()
+	super(succeed)
+
 func do(delta: float) -> void:
 	if target.health.hp <= 0:
 		end(true) # End this order when the target is dead
@@ -30,8 +37,10 @@ func do(delta: float) -> void:
 		var base_accuracy = 0.5
 		if randf() < base_accuracy:
 			# Hit!
-			target.health.take_damage(randi_range(weapon_data.damage_min, weapon_data.damage_max))
+			var damage = randi_range(weapon_data.damage_min, weapon_data.damage_max)
+			BulletManager.create_bullet(target, host, damage)
 		else:
 			# Miss
-			pass
+			BulletManager.create_bullet(target, host, 0)
+		await target.get_tree().create_timer(weapon_data.time_between_shots)
 	time_since_last_hit = 0.0

@@ -1,0 +1,28 @@
+extends Node
+
+## Spawns a bullet visualizer and applies damage to the target.
+func create_bullet(target: Character, host: Character, damage: int):
+	var end_pos = target.global_position
+	var direction = host.global_position.direction_to(target.global_position)
+	var hit = damage > 0
+	if not hit:
+		end_pos = target.global_position + (direction * randf_range(64, 128))
+	end_pos += Vector2.ONE * 32 * randf_range(-1, 1)
+	
+	var sprite = Sprite2D.new()
+	sprite.texture = preload("res://textures/bullet.png")
+	sprite.name = "VisBullet"
+	sprite.global_position = host.global_position
+	
+	host.get_tree().current_scene.add_child(sprite)
+	sprite.look_at(end_pos)
+	
+	var duration = (host.global_position.distance_to(end_pos) / 32) * 0.02
+	var tween = host.create_tween().bind_node(sprite)
+	tween.tween_property(sprite, "global_position", end_pos, duration)
+	
+	await tween.finished
+	sprite.queue_free()
+	
+	if not hit: return
+	target.health.take_damage(damage)

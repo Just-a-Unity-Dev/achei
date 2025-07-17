@@ -7,3 +7,5 @@ class_name GunData
 @export var base_cooldown: float = 0
 @export var base_reload: float = 0
 @export var shots_fired: int = 0
+@export var time_between_shots: int = 0
+@export var max_range: float = 0
