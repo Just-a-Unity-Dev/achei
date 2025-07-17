@@ -100,7 +100,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				zoom_in()
 		
-		if event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.button_index == MOUSE_BUTTON_RIGHT and not event.is_pressed():
 			handle_order_sending()
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			handle_lmb_interactions(event)

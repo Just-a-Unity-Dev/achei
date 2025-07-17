@@ -12,7 +12,7 @@ var is_selected = false
 signal selected
 signal deselected
 signal info_updated(info: Dictionary)
-signal received_order(mouse_pos: Vector2, parameters: Dictionary)
+signal received_order(parameters: Dictionary)
 
 func _ready() -> void:
 	selected.connect(_on_select)
