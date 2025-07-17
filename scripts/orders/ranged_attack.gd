@@ -1,7 +1,7 @@
 extends BaseOrder
 
 var target: Character
-var time_since_last_hit: float = 3.0
+var time_since_last_hit: float = 0.0
 
 var weapon_data: GunData
 
@@ -9,6 +9,7 @@ func setup(new_host: Character, new_parameters: Dictionary) -> void:
 	super(new_host, new_parameters)
 	target = new_parameters["target"]
 	weapon_data = new_host.current_weapon
+	time_since_last_hit = weapon_data.base_reload
 
 func start() -> void:
 	set_status("Attacking other pawn with ranged")
@@ -29,7 +30,7 @@ func do(delta: float) -> void:
 		var base_accuracy = 0.5
 		if randf() < base_accuracy:
 			# Hit!
-			target.health.hp -= randi_range(weapon_data.damage_min, weapon_data.damage_max)
+			target.health.take_damage(randi_range(weapon_data.damage_min, weapon_data.damage_max))
 		else:
 			# Miss
 			pass

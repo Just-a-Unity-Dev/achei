@@ -1,6 +1,8 @@
 extends Node
 class_name HealthStatsComponent
 
+@export var host: Character
+
 @export_category("Wounds")
 #@export var wounds: Array[Wound]
 @export var hp: float = 10.0
@@ -21,3 +23,23 @@ class_name HealthStatsComponent
 @export var sleep: float = 1.0
 @export var comfort: float = 1.0
 @export var stress: float = 0.0
+
+signal dead
+var is_dead = false
+
+func die():
+	is_dead = true
+	dead.emit()
+	
+	host.global_rotation_degrees = 90
+
+# TODO: Implement proper wounds.
+func take_damage(amount: int):
+	var severity = 0
+	if (hp - amount) <= 0:
+		severity = PopupManager.SEVERITY_HIGH
+	PopupManager.popup(str(amount), host.global_position, severity)
+	hp -= amount
+	
+	if hp <= 0:
+		die()
