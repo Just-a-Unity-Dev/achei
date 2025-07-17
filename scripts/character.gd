@@ -17,7 +17,7 @@ var cache_speed: int = 0
 
 func recalculate_speed():
 	var speed = BASE_SPEED
-	speed += skills.endurance * 25
+	speed += skills.endurance.get_modifier() * 25
 	speed *= max(health.consciousness * 2, 1)
 	speed *= health.movement
 	speed *= (1.0 - health.pain)

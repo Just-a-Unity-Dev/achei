@@ -186,4 +186,55 @@ text = "Object"
 layout_mode = 2
 text = "Object"
 
+[node name="Panel" type="Panel" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="pause" type="Button" parent="MarginContainer/Control/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "pause"
+
+[node name="1x" type="Button" parent="MarginContainer/Control/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1x"
+
+[node name="2x" type="Button" parent="MarginContainer/Control/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2x"
+
+[node name="3x" type="Button" parent="MarginContainer/Control/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "3x"
+
+[node name="4x" type="Button" parent="MarginContainer/Control/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "4x"
+
 [connection signal="pressed" from="MarginContainer/Control/VBoxContainer/PawnDropdown/HBoxContainer/Health" to="." method="_on_health_pressed"]

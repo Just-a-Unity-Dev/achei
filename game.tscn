@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://brsnh5kbbgsol" path="res://scripts/camera_2d.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dmw7wf3p3biai" path="res://character.tscn" id="2_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://dnllv6lcql7oh" path="res://hud.tscn" id="3_feb5d"]
-[ext_resource type="Resource" uid="uid://c4a3tvvdjysds" path="res://resources/pump-shotgun.tres" id="4_7jktm"]
+[ext_resource type="Resource" uid="uid://d1pok748pxmcn" path="res://resources/longbow.tres" id="4_7jktm"]
 [ext_resource type="Texture2D" uid="uid://brcae181nretk" path="res://textures/terrain-atlas.png" id="4_fc0e3"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_fc0e3"]
