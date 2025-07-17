@@ -75,7 +75,7 @@ func _received_order(parameters: Dictionary, add_onto: bool):
 	# TODO: Parameters have a "order_type"
 	var order: BaseOrder
 	if "target" in parameters.keys():
-		order = preload("res://scripts/orders/melee_attack.gd").new()
+		order = preload("res://scripts/orders/ranged_attack.gd").new()
 	else:
 		order = preload("res://scripts/orders/move_to_point.gd").new()
 	
@@ -125,8 +125,6 @@ func _physics_process(delta: float) -> void:
 			trigger_info_update()
 		else:
 			current_order.do(delta)
-	else:
-		velocity = Vector2.ZERO
 	
 	var coords = tilemap.local_to_map(position)
 	var tile = tilemap.get_cell_tile_data(coords)

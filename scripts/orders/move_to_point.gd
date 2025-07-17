@@ -19,3 +19,11 @@ func do(delta: float) -> void:
 		else:
 			var direction = host.global_position.direction_to(destination)
 			host.velocity = direction * delta * host.cache_speed
+
+func end(succeed: bool):
+	if host.list_of_orders.size() <= 1: # This is the last order
+		host.velocity = Vector2.ZERO
+	else:
+		if "destination" not in host.list_of_orders[1]: # Next order is not a movement order
+			host.velocity = Vector2.ZERO
+	super(succeed)
