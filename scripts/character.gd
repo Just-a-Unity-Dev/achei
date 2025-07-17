@@ -49,30 +49,31 @@ const TRANSPARENCY = Color(1,1,1,.75)
 func _draw() -> void:
 	# TODO: Document
 	if health.is_dead: return
-	if selectable.is_selected:
-		var previous_position = global_position
-		var i = 0
-		for order in list_of_orders:
-			if "destination" in order:
-				draw_line(to_local(previous_position), to_local(order.destination), Color(1,1,1,.8), 2)
-				var circle_size = 8
-				if i == list_of_orders.size() - 1: circle_size = 16
-				draw_circle(to_local(order.destination), circle_size, Color.PALE_GREEN * TRANSPARENCY, false, 4)
-				previous_position = order.destination
-			if "target" in order:
+	var previous_position = global_position
+	var i = 0
+	for order in list_of_orders:
+		if "destination" in order:
+			if not selectable.is_selected: continue
+			draw_line(to_local(previous_position), to_local(order.destination), Color(1,1,1,.8), 2)
+			var circle_size = 8
+			if i == list_of_orders.size() - 1: circle_size = 16
+			draw_circle(to_local(order.destination), circle_size, Color.PALE_GREEN * TRANSPARENCY, false, 4)
+			previous_position = order.destination
+		if "target" in order:
+			if selectable.is_selected:
 				draw_circle(to_local(order.target.global_position), 22, Color.RED * TRANSPARENCY, false, 2)
-				
-				# Draw ranged combat
-				var angle = global_position.angle_to_point(order.target.global_position)
-				var progress = deg_to_rad(45 * (1.0 - order.progress))
-				draw_arc(Vector2.ZERO, 32, angle - progress, angle + progress, 3, Color.WHITE * TRANSPARENCY, 4)
-			i += 1
-		
-		if current_weapon != null:
-			draw_circle(Vector2.ZERO, current_weapon.minimum_range * 32, Color.DARK_RED * TRANSPARENCY, false, 2.20)
-			draw_circle(Vector2.ZERO, current_weapon.short_range * 32, Color.GREEN * TRANSPARENCY, false, 2.20)
-			draw_circle(Vector2.ZERO, current_weapon.medium_range * 32, Color.YELLOW * TRANSPARENCY, false, 2.20)
-			draw_circle(Vector2.ZERO, current_weapon.long_range * 32, Color.RED * TRANSPARENCY, false, 2.20)
+			
+			# Draw ranged combat
+			var angle = global_position.angle_to_point(order.target.global_position)
+			var progress = deg_to_rad(45 * (1.0 - order.progress))
+			draw_arc(Vector2.ZERO, 32, angle - progress, angle + progress, 3, Color.WHITE * TRANSPARENCY, 4)
+		i += 1
+	
+	if current_weapon != null and selectable.is_selected:
+		draw_circle(Vector2.ZERO, current_weapon.minimum_range * 32, Color.DARK_RED * TRANSPARENCY, false, 2.20)
+		draw_circle(Vector2.ZERO, current_weapon.short_range * 32, Color.GREEN * TRANSPARENCY, false, 2.20)
+		draw_circle(Vector2.ZERO, current_weapon.medium_range * 32, Color.YELLOW * TRANSPARENCY, false, 2.20)
+		draw_circle(Vector2.ZERO, current_weapon.long_range * 32, Color.RED * TRANSPARENCY, false, 2.20)
 
 # TODO: Document
 func add_order(order: BaseOrder, parameters: Dictionary):
@@ -112,17 +113,21 @@ func _received_order(parameters: Dictionary, add_onto: bool):
 func trigger_info_update() -> void:
 	var values: Array[String] = []
 	var new_info = {"title": character_name}
-	values.append("HP: %d/%d" % [health.hp, health.max_hp])
-	
-	if list_of_orders.size() > 0:
-		var order_string = "Current order: %s" % list_of_orders[0].current_status
-		if list_of_orders.size() != 1:
-			order_string += " (and %d more...)" % [list_of_orders.size() - 1]
-		values.append(order_string)
+	if health.is_dead: 
+		new_info.title = "%s (dead)" % character_name
+		values.append("Dead.")
 	else:
-		values.append("Idling around")
+		values.append("HP: %d/%d" % [health.hp, health.max_hp])
 	
-	if current_weapon != null: values.append("Holding a %s" % current_weapon.gun_name)
+		if list_of_orders.size() > 0:
+			var order_string = "Current order: %s" % list_of_orders[0].current_status
+			if list_of_orders.size() != 1:
+				order_string += " (and %d more...)" % [list_of_orders.size() - 1]
+			values.append(order_string)
+		else:
+			values.append("Idling around")
+	
+		if current_weapon != null: values.append("Holding a %s" % current_weapon.gun_name)
 	
 	var coords = tilemap.local_to_map(position)
 	var tile = tilemap.get_cell_tile_data(coords)
