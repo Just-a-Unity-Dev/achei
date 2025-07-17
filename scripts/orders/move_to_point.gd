@@ -21,6 +21,8 @@ func do(delta: float) -> void:
 			host.velocity = direction * delta * host.cache_speed
 
 func end(succeed: bool):
+	if not succeed: # Move order failed, stop moving
+		host.velocity = Vector2.ZERO
 	if host.list_of_orders.size() <= 1: # This is the last order
 		host.velocity = Vector2.ZERO
 	else:
