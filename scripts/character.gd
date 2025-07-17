@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name Character
 
+@export var character_name: String = "Rain Caldwell"
 @export var health: HealthStatsComponent
 @export var skills: SkillStatsComponent
 
@@ -42,7 +43,7 @@ func _received_order(parameters: Dictionary):
 
 func trigger_info_update() -> void:
 	var values: Array[String] = []
-	var new_info = {"title": name}
+	var new_info = {"title": character_name}
 	values.append("HP: %d/%d" % [health.hp, health.max_hp])
 	
 	if destination != Vector2.ZERO:
