@@ -3,15 +3,15 @@ extends Node
 func calculate_accuracy(target: Character, host: Character, gun_data: GunData) -> float:
 	var accuracy = 0.5
 	
-	var distance = host.global_position.distance_to(target.global_position)
+	var distance = host.global_position.distance_to(target.global_position) / 32
 	if distance < gun_data.minimum_range:
 		accuracy = 0.0
 	elif distance < gun_data.short_range:
-		accuracy = 0.85
+		accuracy = 0.65
 	elif distance < gun_data.medium_range:
-		accuracy = 0.6
-	elif distance < gun_data.long_range:
 		accuracy = 0.5
+	elif distance < gun_data.long_range:
+		accuracy = 0.4
 	else:
 		accuracy = 0.0
 	

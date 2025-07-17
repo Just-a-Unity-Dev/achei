@@ -6,10 +6,13 @@
 script = ExtResource("1_ixnwk")
 gun_name = "pump shotgun"
 damage_min = 1
-damage_max = 3
+damage_max = 2
+shots_fired = 4
 base_cooldown = 2.1
 base_reload = 1.3
-shots_fired = 4
 time_between_shots = 0
-max_range = 16.0
+minimum_range = 1.5
+short_range = 4.0
+medium_range = 6.5
+long_range = 9.0
 metadata/_custom_type_script = "uid://ba1r3g08i6j7a"

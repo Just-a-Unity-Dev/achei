@@ -22,15 +22,23 @@ func end(succeed: bool) -> void:
 		bullet.queue_free()
 	super(succeed)
 
+var cached_accuracy: float = -1
 func do(delta: float) -> void:
 	if target.health.hp <= 0:
 		end(true) # End this order when the target is dead
 	time_since_last_hit += delta
+	 
+	if cached_accuracy == -1: # Refresh the cached accuracy
+		cached_accuracy = BulletManager.calculate_accuracy(target, host, weapon_data)
+	
+	if cached_accuracy <= 0.0:
+		set_status("Attack: Refusing to fire: 0% chance of hit")
+		return # Do not waste ammo
 	if time_since_last_hit < (weapon_data.base_reload):
-		set_status("Attack: Reloading weapon")
+		set_status("Attack: Reloading weapon (%.2f%% chance to hit)" % (cached_accuracy * 100))
 		return # Can't fire if we are reloading
 	if time_since_last_hit < (weapon_data.base_reload + weapon_data.base_cooldown):
-		set_status("Attack: Aiming weapon")
+		set_status("Attack: Aiming weapon (%.2f%% chance to hit)"  % (cached_accuracy * 100))
 		return # Can't fire if we are on cooldown
 	
 	for i in range(weapon_data.shots_fired):
@@ -43,4 +51,5 @@ func do(delta: float) -> void:
 			# Miss
 			BulletManager.create_bullet(target, host, 0)
 		await target.get_tree().create_timer(weapon_data.time_between_shots)
+	cached_accuracy = -1
 	time_since_last_hit = 0.0
