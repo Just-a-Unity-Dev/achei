@@ -33,7 +33,7 @@ func _deselected():
 	pass
 
 func _draw() -> void:
-	if destination != Vector2.ZERO:
+	if destination != Vector2.ZERO and selectable.is_selected:
 		draw_circle(destination - global_position, 32, Color.PALE_GREEN * Color(1,1,1,0.5), false, 4)
 
 func _received_order(parameters: Dictionary):

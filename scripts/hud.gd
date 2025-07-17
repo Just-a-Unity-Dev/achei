@@ -28,12 +28,16 @@ func _on_new_selected():
 	current_focus = null
 	
 	var selected_list = SelectionManager.selected_list
-	if selected_list.size() != 1:
-		return # TODO: Multiple select UI
-	
 	panel.show()
-	
-	# Allows the UI to update when the selectable requests for an update / info autoreload
-	current_focus = SelectionManager.selected_list[0]
-	current_focus.info_updated.connect(_info_updated)
-	update_hud(current_focus.info)
+	if selected_list.size() < 1:
+		# Selected no objects, so just hide the HUD
+		panel.hide()
+	elif selected_list.size() > 1:
+		# Selected more than one object, so show multiple objects
+		update_hud({"title": "Multiple objects (x%d)" % selected_list.size()})
+	else:
+		# Selected exactly one object, so set up funky things
+		# Allows the UI to update when the selectable requests for an update / info autoreload
+		current_focus = SelectionManager.selected_list[0]
+		current_focus.info_updated.connect(_info_updated)
+		update_hud(current_focus.info)
