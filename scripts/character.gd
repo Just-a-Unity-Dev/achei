@@ -4,6 +4,7 @@ class_name Character
 @export var character_name: String = "Rain Caldwell"
 @export var health: HealthStatsComponent
 @export var skills: SkillStatsComponent
+@export var tilemap: TileMapLayer
 
 @onready var selectable = $Selectable
 var destination: Vector2 = Vector2.ZERO
@@ -19,6 +20,10 @@ func recalculate_speed():
 	speed *= max(health.consciousness * 2, 1)
 	speed *= health.movement
 	speed *= (1.0 - health.pain)
+	
+	var coords = tilemap.local_to_map(position)
+	var tile = tilemap.get_cell_tile_data(coords)
+	speed *= tile.get_custom_data("movement_penalty")
 	
 	cache_speed = speed
 
@@ -79,6 +84,11 @@ func trigger_info_update() -> void:
 		values.append(order_string)
 	else:
 		values.append("Idle")
+	
+	var coords = tilemap.local_to_map(position)
+	var tile = tilemap.get_cell_tile_data(coords)
+	values.append("Currently on: %s (%d%% speed)" % [tile.get_custom_data("tile_name"), tile.get_custom_data("movement_penalty") * 100])
+	
 	values.append("Speed: %.2f m/s" % [(cache_speed / 32) * get_physics_process_delta_time()])
 	
 	for i in range(values.size()):
@@ -86,6 +96,7 @@ func trigger_info_update() -> void:
 	selectable.update_info(new_info)
 
 # TODO: Document
+var previous_tile: String = "None"
 func _physics_process(delta: float) -> void:
 	if list_of_orders.size() > 0:
 		var current_order = list_of_orders[0]
@@ -103,5 +114,14 @@ func _physics_process(delta: float) -> void:
 			current_order.do(delta)
 	else:
 		velocity = Vector2.ZERO
+	
+	var coords = tilemap.local_to_map(position)
+	var tile = tilemap.get_cell_tile_data(coords)
+	var tile_name = tile.get_custom_data("tile_name")
+	if previous_tile != tile_name:
+		# TODO: This is a shitty method. Fix this.
+		recalculate_speed()
+		trigger_info_update()
+	
 	move_and_slide()
 	queue_redraw()
