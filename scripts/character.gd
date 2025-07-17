@@ -6,6 +6,8 @@ class_name Character
 @export var skills: SkillStatsComponent
 @export var tilemap: TileMapLayer
 
+@export var current_weapon: GunData
+
 @onready var selectable = $Selectable
 
 var list_of_orders: Array[BaseOrder]
@@ -96,12 +98,13 @@ func trigger_info_update() -> void:
 			order_string += " (and %d more...)" % [list_of_orders.size() - 1]
 		values.append(order_string)
 	else:
-		values.append("Idle")
+		values.append("Idling around")
+	
+	if current_weapon != null: values.append("Holding a %s" % current_weapon.gun_name)
 	
 	var coords = tilemap.local_to_map(position)
 	var tile = tilemap.get_cell_tile_data(coords)
 	values.append("Currently on: %s (%d%% speed)" % [tile.get_custom_data("tile_name"), tile.get_custom_data("movement_penalty") * 100])
-	
 	values.append("Speed: %.2f m/s" % [(cache_speed / 32) * get_physics_process_delta_time()])
 	
 	for i in range(values.size()):
