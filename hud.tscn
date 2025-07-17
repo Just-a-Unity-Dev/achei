@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dppju8023hmcu" path="res://scripts/hud.gd" id="1_37p78"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("gui", "base_frame", "pawn_dropdown", "menu_lists")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("select_container", "base_frame", "pawn_dropdown", "menu_lists")]
+process_mode = 3
 script = ExtResource("1_37p78")
-gui = NodePath("MarginContainer")
-base_frame = NodePath("MarginContainer/Control/VBoxContainer/SelectMenu/MarginContainer/BaseFrame")
-pawn_dropdown = NodePath("MarginContainer/Control/VBoxContainer/PawnDropdown")
-menu_lists = [NodePath("MarginContainer/Control/VBoxContainer/Health")]
+select_container = NodePath("MarginContainer/Control/SelectContainer")
+base_frame = NodePath("MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer/BaseFrame")
+pawn_dropdown = NodePath("MarginContainer/Control/SelectContainer/PawnDropdown")
+menu_lists = [NodePath("MarginContainer/Control/SelectContainer/Health")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -25,7 +26,7 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control"]
+[node name="SelectContainer" type="VBoxContainer" parent="MarginContainer/Control"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -33,12 +34,12 @@ offset_right = 420.0
 grow_vertical = 2
 alignment = 2
 
-[node name="Health" type="Panel" parent="MarginContainer/Control/VBoxContainer"]
+[node name="Health" type="Panel" parent="MarginContainer/Control/SelectContainer"]
 visible = false
 custom_minimum_size = Vector2(0, 320)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/VBoxContainer/Health"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/SelectContainer/Health"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,78 +51,78 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer"]
+[node name="title" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Health"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="BaseFrame" type="VBoxContainer" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="key1" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
-layout_mode = 2
-text = "Object"
-
-[node name="key2" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
-layout_mode = 2
-text = "Object"
-
-[node name="key3" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
-layout_mode = 2
-text = "Object"
-
-[node name="key4" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
-layout_mode = 2
-text = "Object"
-
-[node name="key5" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
-layout_mode = 2
-text = "Object"
-
-[node name="key6" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
-layout_mode = 2
-text = "Object"
-
-[node name="BaseFrame2" type="VBoxContainer" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="BaseFrame" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="key1" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="key1" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="key2" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="key2" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="key3" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="key3" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="key4" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="key4" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="key5" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="key5" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="key6" type="Label" parent="MarginContainer/Control/VBoxContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+[node name="key6" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="PawnDropdown" type="Panel" parent="MarginContainer/Control/VBoxContainer"]
+[node name="BaseFrame2" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="key1" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+layout_mode = 2
+text = "Object"
+
+[node name="key2" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+layout_mode = 2
+text = "Object"
+
+[node name="key3" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+layout_mode = 2
+text = "Object"
+
+[node name="key4" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+layout_mode = 2
+text = "Object"
+
+[node name="key5" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+layout_mode = 2
+text = "Object"
+
+[node name="key6" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/BaseFrame2"]
+layout_mode = 2
+text = "Object"
+
+[node name="PawnDropdown" type="Panel" parent="MarginContainer/Control/SelectContainer"]
 custom_minimum_size = Vector2(0, 39)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/VBoxContainer/PawnDropdown"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/PawnDropdown"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -129,16 +130,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Health" type="Button" parent="MarginContainer/Control/VBoxContainer/PawnDropdown/HBoxContainer"]
+[node name="Health" type="Button" parent="MarginContainer/Control/SelectContainer/PawnDropdown/HBoxContainer"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 text = "Health"
 
-[node name="SelectMenu" type="Panel" parent="MarginContainer/Control/VBoxContainer"]
+[node name="SelectMenu" type="Panel" parent="MarginContainer/Control/SelectContainer"]
 custom_minimum_size = Vector2(420, 208)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/VBoxContainer/SelectMenu"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/SelectContainer/SelectMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -150,43 +151,43 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="BaseFrame" type="VBoxContainer" parent="MarginContainer/Control/VBoxContainer/SelectMenu/MarginContainer"]
+[node name="BaseFrame" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="MarginContainer/Control/VBoxContainer/SelectMenu/MarginContainer/BaseFrame"]
+[node name="title" type="Label" parent="MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer/BaseFrame"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Object"
 
-[node name="key1" type="Label" parent="MarginContainer/Control/VBoxContainer/SelectMenu/MarginContainer/BaseFrame"]
+[node name="key1" type="Label" parent="MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="key2" type="Label" parent="MarginContainer/Control/VBoxContainer/SelectMenu/MarginContainer/BaseFrame"]
+[node name="key2" type="Label" parent="MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="key3" type="Label" parent="MarginContainer/Control/VBoxContainer/SelectMenu/MarginContainer/BaseFrame"]
+[node name="key3" type="Label" parent="MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="key4" type="Label" parent="MarginContainer/Control/VBoxContainer/SelectMenu/MarginContainer/BaseFrame"]
+[node name="key4" type="Label" parent="MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="key5" type="Label" parent="MarginContainer/Control/VBoxContainer/SelectMenu/MarginContainer/BaseFrame"]
+[node name="key5" type="Label" parent="MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="key6" type="Label" parent="MarginContainer/Control/VBoxContainer/SelectMenu/MarginContainer/BaseFrame"]
+[node name="key6" type="Label" parent="MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="key7" type="Label" parent="MarginContainer/Control/VBoxContainer/SelectMenu/MarginContainer/BaseFrame"]
+[node name="key7" type="Label" parent="MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer/BaseFrame"]
 layout_mode = 2
 text = "Object"
 
-[node name="Panel" type="Panel" parent="MarginContainer/Control"]
+[node name="TimeScale" type="Panel" parent="MarginContainer/Control"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -198,7 +199,7 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/TimeScale"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -210,31 +211,27 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/Panel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/TimeScale/MarginContainer"]
 layout_mode = 2
 
-[node name="pause" type="Button" parent="MarginContainer/Control/Panel/MarginContainer/HBoxContainer"]
+[node name="pause" type="Button" parent="MarginContainer/Control/TimeScale/MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "pause"
 
-[node name="1x" type="Button" parent="MarginContainer/Control/Panel/MarginContainer/HBoxContainer"]
+[node name="1x" type="Button" parent="MarginContainer/Control/TimeScale/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1x"
 
-[node name="2x" type="Button" parent="MarginContainer/Control/Panel/MarginContainer/HBoxContainer"]
+[node name="2x" type="Button" parent="MarginContainer/Control/TimeScale/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "2x"
 
-[node name="3x" type="Button" parent="MarginContainer/Control/Panel/MarginContainer/HBoxContainer"]
+[node name="3x" type="Button" parent="MarginContainer/Control/TimeScale/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "3x"
 
-[node name="4x" type="Button" parent="MarginContainer/Control/Panel/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "4x"
-
-[connection signal="pressed" from="MarginContainer/Control/VBoxContainer/PawnDropdown/HBoxContainer/Health" to="." method="_on_health_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/SelectContainer/PawnDropdown/HBoxContainer/Health" to="." method="_on_health_pressed"]

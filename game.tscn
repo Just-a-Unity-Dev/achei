@@ -54,6 +54,7 @@ sources/2 = SubResource("TileSetAtlasSource_7jktm")
 [node name="Node" type="Node"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
 script = ExtResource("1_80nbo")
 
 [node name="Control" parent="." instance=ExtResource("3_feb5d")]

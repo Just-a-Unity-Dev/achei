@@ -13,7 +13,7 @@ func start() -> void:
 
 func do(delta: float) -> void:
 	if destination != Vector2.ZERO:
-		if host.global_position.distance_to(destination) < 1.5:
+		if host.global_position.distance_to(destination) < 8:
 			destination = Vector2.ZERO
 			end(true)
 		else:
