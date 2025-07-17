@@ -1,7 +1,24 @@
 extends Node
 
+func calculate_accuracy(target: Character, host: Character, gun_data: GunData) -> float:
+	var accuracy = 0.5
+	
+	var distance = host.global_position.distance_to(target.global_position)
+	if distance < gun_data.minimum_range:
+		accuracy = 0.0
+	elif distance < gun_data.short_range:
+		accuracy = 0.85
+	elif distance < gun_data.medium_range:
+		accuracy = 0.6
+	elif distance < gun_data.long_range:
+		accuracy = 0.5
+	else:
+		accuracy = 0.0
+	
+	return accuracy
+
 ## Spawns a bullet visualizer and applies damage to the target.
-func create_bullet(target: Character, host: Character, damage: int):
+func create_bullet(target: Character, host: Character, damage: int) -> void:
 	var end_pos = target.global_position
 	var direction = host.global_position.direction_to(target.global_position)
 	var hit = damage > 0

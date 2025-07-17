@@ -34,8 +34,8 @@ func do(delta: float) -> void:
 		return # Can't fire if we are on cooldown
 	
 	for i in range(weapon_data.shots_fired):
-		var base_accuracy = 0.5
-		if randf() < base_accuracy:
+		var accuracy = BulletManager.calculate_accuracy(target, host, weapon_data)
+		if randf() < accuracy:
 			# Hit!
 			var damage = randi_range(weapon_data.damage_min, weapon_data.damage_max)
 			BulletManager.create_bullet(target, host, damage)
