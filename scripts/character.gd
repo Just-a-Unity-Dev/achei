@@ -43,6 +43,8 @@ func _on_death():
 
 func _selected(): trigger_info_update()
 
+const TRANSPARENCY = Color(1,1,1,.75)
+
 func _draw() -> void:
 	# TODO: Document
 	if selectable.is_selected:
@@ -53,11 +55,17 @@ func _draw() -> void:
 				draw_line(to_local(previous_position), to_local(order.destination), Color(1,1,1,.8), 2)
 				var circle_size = 8
 				if i == list_of_orders.size() - 1: circle_size = 16
-				draw_circle(to_local(order.destination), circle_size, Color.PALE_GREEN * Color(1,1,1,0.8), false, 4)
+				draw_circle(to_local(order.destination), circle_size, Color.PALE_GREEN * TRANSPARENCY, false, 4)
 				previous_position = order.destination
 			if "target" in order:
-				draw_circle(to_local(order.target.global_position), 22, Color.RED * Color(1,1,1,0.8), false, 2)
+				draw_circle(to_local(order.target.global_position), 22, Color.RED * TRANSPARENCY, false, 2)
 			i += 1
+		
+		if current_weapon != null:
+			draw_circle(Vector2.ZERO, current_weapon.minimum_range * 32, Color.DARK_RED * TRANSPARENCY, false, 2.20)
+			draw_circle(Vector2.ZERO, current_weapon.short_range * 32, Color.GREEN * TRANSPARENCY, false, 2.20)
+			draw_circle(Vector2.ZERO, current_weapon.medium_range * 32, Color.YELLOW * TRANSPARENCY, false, 2.20)
+			draw_circle(Vector2.ZERO, current_weapon.long_range * 32, Color.RED * TRANSPARENCY, false, 2.20)
 
 # TODO: Document
 func add_order(order: BaseOrder, parameters: Dictionary):

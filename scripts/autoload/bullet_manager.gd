@@ -15,6 +15,13 @@ func calculate_accuracy(target: Character, host: Character, gun_data: GunData) -
 	else:
 		accuracy = 0.0
 	
+	# TODO: Proper skill modifiers
+	accuracy += (host.skills.firearms / 20)
+	accuracy -= (0.3 * (1.0 - host.health.consciousness)) # Low consciousness penalty
+	
+	if host.velocity.length() > 0:
+		accuracy -= 0.05 # Target movement penalty
+	
 	return accuracy
 
 ## Spawns a bullet visualizer and applies damage to the target.
