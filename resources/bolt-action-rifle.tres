@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="GunData" load_steps=2 format=3 uid="uid://ia666tgat1hs"]
+[gd_resource type="Resource" script_class="GunData" load_steps=3 format=3 uid="uid://ia666tgat1hs"]
 
 [ext_resource type="Script" uid="uid://ba1r3g08i6j7a" path="res://scripts/resources/gun_data.gd" id="1_bkg0d"]
+[ext_resource type="Texture2D" uid="uid://c2l1wgqsst4va" path="res://textures/bolt-action-rifle.png" id="1_v70ul"]
 
 [resource]
 script = ExtResource("1_bkg0d")
 gun_name = "bolt action rifle"
 accuracy_skill = &"firearms"
+image = ExtResource("1_v70ul")
 damage_min = 120
 damage_max = 165
 shots_fired = 1

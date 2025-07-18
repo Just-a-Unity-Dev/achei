@@ -14,13 +14,12 @@ class_name Character
 
 var list_of_orders: Array[BaseOrder]
 
-const BASE_SPEED = 2650
+const BASE_SPEED = 4650
 var cache_speed: int = 0
 
 func recalculate_speed():
 	var speed = BASE_SPEED
 	speed += skills.endurance.get_modifier() * 25
-	speed *= max(health._actual_awareness * 2, 1)
 	speed *= health._actual_movement
 	
 	var coords = tilemap.local_to_map(position)

@@ -12,6 +12,9 @@ var cache_recalculate := true
 
 var target_host: Character
 
+var cg: Node2D
+var sprite: Sprite2D
+
 func setup(new_subject: Character, new_target: Noun = null, new_with: Noun = null, new_parameters: Dictionary = {}) -> void:
 	super(new_subject, new_target, new_with, new_parameters)
 	if target == null:
@@ -20,6 +23,9 @@ func setup(new_subject: Character, new_target: Noun = null, new_with: Noun = nul
 		return end(false) # ... how can we ranged attack if we don't have a ranged weapon?
 	if target.host is not Character:
 		return end(false)
+	
+	cg = subject.get_node("CurrentGun")
+	sprite = cg.get_node("Sprite")
 	
 	target_host = new_target.host
 	weapon_data = subject.current_weapon
@@ -33,17 +39,28 @@ func recalculate_cache():
 
 func start() -> void:
 	set_status("Attacking other pawn with ranged")
+	cg.show()
 	super()
+
+func end(succeed: bool):
+	cg.hide()
+	cg.rotation = 0.0
+	print("ended")
+	super(succeed)
 
 func do(delta: float) -> void:
 	if target_host.health.current_state != end_when_target_is_not_state:
 		end(true) # End this order when the target is dead
 	time_since_last_hit += delta
-	 
+	
+	cg.look_at(target_host.global_position)
+	sprite.flip_v = (cg.rotation_degrees > 90 and cg.rotation_degrees < 180) or (cg.rotation_degrees < -90 and cg.rotation_degrees > -180)
+	print(cg.rotation_degrees)
+	sprite.flip_h = false
+	
 	if cache_recalculate: # Refresh the cached accuracy
 		recalculate_cache()
 		cache_recalculate = false
-		print("Cache recalculated")
 	
 	var reload_time = cache_reload_time
 	var aim_time = cache_aiming_time
