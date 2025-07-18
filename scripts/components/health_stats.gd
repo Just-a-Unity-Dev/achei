@@ -5,6 +5,8 @@ class_name HealthStatsComponent
 
 @export_category("Wounds")
 #@export var wounds: Array[Wound]
+@export var starting_limbs: Array[LimbData]
+var limbs: Array[LimbComponent]
 @export var torso: HealthComponent = HealthComponent.make(320, 320)
 
 @export_category("Immediate health")
@@ -14,8 +16,8 @@ class_name HealthStatsComponent
 @export var base_pain := 0.0
 var _actual_pain: float = 0.0
 
-@export var base_consciousness := 1.0
-var _actual_consciousness: float = 1.0
+@export var base_consciousness := 0.0
+var _actual_consciousness: float = 0.0
 
 @export var base_handling := 1.0
 var _actual_handling: float = 1.0
@@ -44,7 +46,33 @@ func kill():
 	host.global_rotation_degrees = 90
 
 func _ready() -> void:
+	initialize_limbs()
+	adjust_base_stats()
 	recalculate_stats()
+
+func health_delta():
+	adjust_base_stats()
+	recalculate_stats()
+	print("Stats updated")
+
+func initialize_limbs():
+	for limb_data in starting_limbs:
+		var limb = LimbComponent.new()
+		limb.limb_data = limb_data
+		limb.max_hp = limb_data.max_health
+		limb.hp = limb_data.health
+		limb.health_changed.connect(health_delta.unbind(1))
+		limbs.append(limb)
+
+func adjust_base_stats():
+	for limb in limbs:
+		for key in limb.limb_data.factors.keys():
+			self[key] = 0
+	for limb in limbs:
+		var data = limb.limb_data
+		for key in data.factors.keys():
+			var hp_percent = limb.hp / limb.max_hp
+			self[key] += data.factors[key] * hp_percent
 
 func recalculate_stats():
 	base_pain = _actual_pain
@@ -64,10 +92,14 @@ func recalculate_stats():
 	_actual_sight = base_handling * _actual_consciousness
 
 func take_damage(amount: int):
-	torso.take_damage(amount)
+	limbs[randi() % 6].take_damage(amount)
+	
+	adjust_base_stats()
+	recalculate_stats()
 	
 	var severity = 0
 	if _actual_consciousness <= 0:
 		severity = PopupManager.SEVERITY_HIGH
+		kill()
 	
 	PopupManager.popup(str(amount), host.global_position, severity)

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="LimbData" load_steps=2 format=3 uid="uid://5sg64cvrm6dr"]
+
+[ext_resource type="Script" uid="uid://lxfq1jxx0biu" path="res://scripts/resources/limb_data.gd" id="1_wpxgh"]
+
+[resource]
+script = ExtResource("1_wpxgh")
+limb_id = &"human_head"
+gui_bar_name = &"Head"
+limb_name = "Head"
+health = 240.0
+max_health = 240.0
+critical = true
+removeable = true
+factors = Dictionary[StringName, float]({
+&"base_consciousness": 1.0,
+&"base_sight": 1.0
+})
+metadata/_custom_type_script = "uid://lxfq1jxx0biu"

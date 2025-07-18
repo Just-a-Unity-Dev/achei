@@ -7,11 +7,11 @@ func calculate_accuracy(target: Character, host: Character, gun_data: GunData) -
 	if distance < gun_data.minimum_range:
 		return 0.0
 	elif distance < gun_data.short_range:
-		accuracy = 0.65
+		accuracy = 0.8
 	elif distance < gun_data.medium_range:
-		accuracy = 0.5
+		accuracy = 0.7
 	elif distance < gun_data.long_range:
-		accuracy = 0.4
+		accuracy = 0.5
 	else:
 		return 0.0
 	

@@ -19,12 +19,7 @@ extends CanvasLayer
 @export var comfort_container: HBoxContainer
 @export var stress_container: HBoxContainer
 
-@export var head_container: HBoxContainer
-@export var torso_container: HBoxContainer
-@export var right_arm_container: HBoxContainer
-@export var right_leg_container: HBoxContainer
-@export var left_arm_container: HBoxContainer
-@export var left_leg_container: HBoxContainer
+@export var limb_source_container: BoxContainer
 
 var current_focus: Selectable
 
@@ -56,8 +51,15 @@ func update_health_hud():
 		generic_update_container(comfort_container, character.health.comfort)
 		generic_update_container(stress_container, character.health.stress)
 		
+		for limb in character.health.limbs:
+			generic_update_container(
+				limb_source_container.get_node(str(limb.limb_data.gui_bar_name)),
+				limb.hp,
+				limb.max_hp
+			)
+			
+		
 		#head_container
-		generic_update_container(torso_container, character.health.torso.hp, character.health.torso.max_hp)
 		#right_arm_container
 		#right_leg_container
 		#left_arm_container

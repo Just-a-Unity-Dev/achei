@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LimbData" load_steps=2 format=3 uid="uid://cpygdhw1xr6fo"]
+
+[ext_resource type="Script" uid="uid://lxfq1jxx0biu" path="res://scripts/resources/limb_data.gd" id="1_jydk6"]
+
+[resource]
+script = ExtResource("1_jydk6")
+limb_id = &"human_torso"
+gui_bar_name = &"Torso"
+limb_name = "torso"
+health = 320.0
+max_health = 320.0
+critical = true
+removeable = false
+factors = Dictionary[StringName, float]({})
+metadata/_custom_type_script = "uid://lxfq1jxx0biu"

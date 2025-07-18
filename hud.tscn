@@ -37,7 +37,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("select_container", "base_frame", "pawn_dropdown", "menu_lists", "blood_container", "pain_container", "conscious_container", "handling_container", "movement_container", "sight_container", "hunger_container", "thirst_container", "temperature_container", "sleep_container", "comfort_container", "stress_container", "head_container", "torso_container", "right_arm_container", "right_leg_container", "left_arm_container", "left_leg_container")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("select_container", "base_frame", "pawn_dropdown", "menu_lists", "blood_container", "pain_container", "conscious_container", "handling_container", "movement_container", "sight_container", "hunger_container", "thirst_container", "temperature_container", "sleep_container", "comfort_container", "stress_container", "limb_source_container")]
 process_mode = 3
 script = ExtResource("1_37p78")
 select_container = NodePath("MarginContainer/Control/SelectContainer")
@@ -56,12 +56,7 @@ temperature_container = NodePath("MarginContainer/Control/SelectContainer/Health
 sleep_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Sleep")
 comfort_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Comfort")
 stress_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Stress")
-head_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/Head")
-torso_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/Torso")
-right_arm_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/RightArm")
-right_leg_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/RightLeg")
-left_arm_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/LeftArm")
-left_leg_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right/LeftLeg")
+limb_source_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15

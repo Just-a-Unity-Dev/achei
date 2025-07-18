@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="LimbData" load_steps=2 format=3 uid="uid://b261xsgjo0pm2"]
+
+[ext_resource type="Script" uid="uid://lxfq1jxx0biu" path="res://scripts/resources/limb_data.gd" id="1_g7ehp"]
+
+[resource]
+script = ExtResource("1_g7ehp")
+limb_id = &"human_right_arm"
+gui_bar_name = &"RightArm"
+limb_name = "right arm"
+health = 190.0
+max_health = 190.0
+critical = false
+removeable = true
+factors = Dictionary[StringName, float]({
+&"base_handling": 0.5
+})
+metadata/_custom_type_script = "uid://lxfq1jxx0biu"

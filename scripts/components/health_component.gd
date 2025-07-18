@@ -6,6 +6,7 @@ class_name HealthComponent
 @export var max_hp: float = 10.0
 var popup_at: Node2D
 
+signal health_changed(delta: float)
 signal died
 var is_dead = false
 
@@ -26,7 +27,10 @@ func take_damage(amount: int):
 		if (hp - amount) <= 0:
 			severity = PopupManager.SEVERITY_HIGH
 		PopupManager.popup(str(amount), popup_at.global_position, severity)
+	
+	var prev_hp = hp
 	hp -= amount
+	health_changed.emit(hp - prev_hp)
 	
 	if hp <= 0:
 		kill()
