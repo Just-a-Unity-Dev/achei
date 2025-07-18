@@ -5,14 +5,14 @@ var time_since_last_hit: float = 0.0
 var progress: float = 1.0
 
 var weapon_data: GunData
-var end_when_target_dies: bool = true
+var end_when_target_is_not_state: int = -1
 
 func setup(new_host: Character, new_parameters: Dictionary) -> void:
 	super(new_host, new_parameters)
 	target = new_parameters["target"]
 	weapon_data = new_host.current_weapon
 	time_since_last_hit = weapon_data.base_reload
-	end_when_target_dies = not target.health.is_dead
+	end_when_target_is_not_state = target.health.current_state
 
 func start() -> void:
 	set_status("Attacking other pawn with ranged")
@@ -27,7 +27,7 @@ func end(succeed: bool) -> void:
 
 var cached_accuracy: float = -1
 func do(delta: float) -> void:
-	if target.health.is_dead and end_when_target_dies:
+	if target.health.current_state != end_when_target_is_not_state:
 		end(true) # End this order when the target is dead
 	time_since_last_hit += delta
 	 

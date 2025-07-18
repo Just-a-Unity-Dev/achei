@@ -6,6 +6,8 @@ class_name Character
 @export var skills: SkillStatsComponent
 @export var tilemap: TileMapLayer
 
+@export var sprite: Sprite2D
+
 @export var current_weapon: GunData
 
 @onready var noun = $Noun
@@ -34,7 +36,15 @@ func _ready() -> void:
 	noun.received_order.connect(_received_order)
 	noun.selected.connect(_selected)
 	health.died.connect(_on_death)
+	health.state_change.connect(_on_state_change)
 	recalculate_speed()
+
+func _on_state_change(new_state: int):
+	var tween = get_tree().create_tween().bind_node(sprite)
+	if new_state != 0:
+		tween.tween_property(sprite, "rotation_degrees", 90, .15)
+	else:
+		tween.tween_property(sprite, "rotation_degrees", 0, .15)
 
 func _on_death():
 	velocity = Vector2.ZERO
@@ -48,7 +58,7 @@ const TRANSPARENCY = Color(1,1,1,.75)
 func _draw() -> void:
 	# Basic draw function drawing move orders/atttack orders.
 	# This should be delegated into the orders themselves to _draw, but it's fine ... for now.
-	if health.is_dead: return
+	if health.current_state != health.State.ALIVE: return
 	
 	var previous_position = global_position
 	var i = 0
@@ -78,13 +88,13 @@ func _draw() -> void:
 
 ## Queues an order, and places it at the back of the list
 func add_order(order: BaseOrder, parameters: Dictionary):
-	if health.is_dead: return
+	if health.current_state != health.State.ALIVE: return
 	order.setup(self, parameters)
 	list_of_orders.push_back(order)
 
 ## Overrides the current order and places this order at the front of the list
 func add_order_first(order: BaseOrder, parameters: Dictionary):
-	if health.is_dead: return
+	if health.current_state != health.State.ALIVE: return
 	order.setup(self, parameters)
 	list_of_orders.push_front(order)
 
@@ -116,9 +126,12 @@ func _received_order(parameters: Dictionary, add_onto: bool):
 func trigger_info_update() -> void:
 	var values: Array[String] = []
 	var new_info = {"title": character_name}
-	if health.is_dead: 
+	if health.current_state == health.State.DEAD: 
 		new_info.title = "%s (dead)" % character_name
 		values.append("Dead.")
+	elif health.current_state == health.State.DOWN_AND_OUT: 
+		new_info.title = "%s (downed)" % character_name
+		values.append("Downed for reason: %d" % health.down_reason)
 	else:
 		values.append("HP: %.2f%%" % [health._actual_awareness * 100])
 	
@@ -145,7 +158,8 @@ func trigger_info_update() -> void:
 var previous_tile: String = "None"
 
 func _physics_process(delta: float) -> void:
-	if health.is_dead: return
+	queue_redraw()
+	if health.current_state != health.State.ALIVE: return
 	# Do the list of orders
 	if list_of_orders.size() > 0:
 		var current_order = list_of_orders[0]
@@ -172,4 +186,3 @@ func _physics_process(delta: float) -> void:
 		trigger_info_update()
 	
 	move_and_slide()
-	queue_redraw()

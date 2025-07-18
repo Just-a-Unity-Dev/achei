@@ -37,13 +37,30 @@ var _actual_sight: float = 1.0
 @export var stress: float = 0.0
 
 signal died
-var is_dead = false
+signal state_change(new_state: State)
+var current_state: int = State.ALIVE
+var down_reason: int = DownReason.NOT
+
+enum DownReason {
+	NOT = 0,
+	UNCONSCIOUS = 1,
+	SHOCK = 2,
+	INCAPACITATED = 3
+}
+
+enum State {
+	ALIVE = 0,
+	DOWN_AND_OUT = 1,
+	DEAD = 2
+}
+
+func change_state(state: int):
+	state_change.emit(state)
+	current_state = state
 
 func kill():
-	is_dead = true
+	change_state(State.DEAD)
 	died.emit()
-	
-	host.global_rotation_degrees = 90
 
 func _ready() -> void:
 	initialize_limbs()
@@ -53,6 +70,7 @@ func _ready() -> void:
 func health_delta():
 	adjust_base_stats()
 	recalculate_stats()
+	update_state_on_stats()
 
 var limb_rarities = {}
 func initialize_limbs():
@@ -66,11 +84,26 @@ func initialize_limbs():
 		limb_rarities[limb] = limb_data.chance_to_hit
 		limbs.append(limb)
 
-func is_critical_limb_dead() -> bool:
-	for limb in limbs:
-		if limb.is_dead and limb.limb_data.critical:
-			return true
-	return false
+func update_state_on_stats():
+	if current_state != State.DEAD:
+		var unconscious = _actual_awareness < .2
+		var incapacitated = _actual_movement < .2
+		var shock = _actual_pain > .8
+		if unconscious or incapacitated or shock:
+			change_state(State.DOWN_AND_OUT)
+			
+			if unconscious:
+				down_reason = DownReason.UNCONSCIOUS
+			elif incapacitated:
+				down_reason = DownReason.INCAPACITATED
+			elif shock:
+				down_reason = DownReason.SHOCK
+		else:
+			change_state(State.ALIVE)
+			down_reason = DownReason.NOT
+		
+		if blood.hp <= 0 or _actual_awareness <= 0:
+			kill()
 
 func adjust_base_stats():
 	for limb in limbs:
@@ -79,8 +112,11 @@ func adjust_base_stats():
 	for limb in limbs:
 		var data = limb.limb_data
 		var hp_percent = limb.hp / limb.max_hp
+		if limb.hp <= 0 and limb.limb_data.critical:
+			base_awareness = -100.0
 		for key in data.factors.keys():
 			self[key] += data.factors[key] * hp_percent
+	base_awareness = max(base_awareness, 0)
 
 func recalculate_stats():
 	base_pain = _actual_pain
@@ -114,18 +150,14 @@ func take_damage(amount: int):
 			break
 		item -= limb_rarities[n]
 	
-	var critical_limb_dead = is_critical_limb_dead()
-	if critical_limb_dead:
-		adjust_base_stats()
-		base_awareness = 0.0 # To show to the player
-		recalculate_stats()
-	else:
-		adjust_base_stats()
-		recalculate_stats()
+	adjust_base_stats()
+	recalculate_stats()
+	update_state_on_stats()
 	
 	var severity = 0
-	if _actual_awareness <= 0 or critical_limb_dead:
+	if current_state == State.DEAD:
 		severity = PopupManager.SEVERITY_HIGH
-		kill()
+	elif current_state == State.DOWN_AND_OUT:
+		severity = PopupManager.SEVERITY_MED
 	
 	PopupManager.popup("%s: %d" % [targeted_limb.limb_data.limb_name, amount], host.global_position, severity)
