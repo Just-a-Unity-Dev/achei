@@ -51,6 +51,7 @@ func _on_death():
 	velocity = Vector2.ZERO
 	clear_orders()
 	queue_redraw()
+	trigger_info_update()
 
 func _selected(): trigger_info_update()
 
