@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="GunData" load_steps=2 format=3 uid="uid://c4a3tvvdjysds"]
+[gd_resource type="Resource" script_class="GunData" load_steps=3 format=3 uid="uid://c4a3tvvdjysds"]
 
 [ext_resource type="Script" uid="uid://ba1r3g08i6j7a" path="res://scripts/resources/gun_data.gd" id="1_ixnwk"]
+[ext_resource type="Texture2D" uid="uid://b144chnqqolw2" path="res://textures/pump-shotgun.png" id="1_vrdax"]
 
 [resource]
 script = ExtResource("1_ixnwk")
 gun_name = "pump shotgun"
 accuracy_skill = &"firearms"
+image = ExtResource("1_vrdax")
 damage_min = 33
 damage_max = 62
 shots_fired = 4

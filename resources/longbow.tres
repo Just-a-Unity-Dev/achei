@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="GunData" load_steps=2 format=3 uid="uid://d1pok748pxmcn"]
+[gd_resource type="Resource" script_class="GunData" load_steps=3 format=3 uid="uid://d1pok748pxmcn"]
 
+[ext_resource type="Texture2D" uid="uid://basu5d0pta81u" path="res://textures/bow.png" id="1_eeg8f"]
 [ext_resource type="Script" uid="uid://ba1r3g08i6j7a" path="res://scripts/resources/gun_data.gd" id="1_fqyh4"]
 
 [resource]
 script = ExtResource("1_fqyh4")
 gun_name = "longbow"
 accuracy_skill = &"archery"
+image = ExtResource("1_eeg8f")
 damage_min = 67
 damage_max = 105
 shots_fired = 1

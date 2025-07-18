@@ -7,6 +7,8 @@ class_name Character
 @export var tilemap: TileMapLayer
 
 @export var sprite: Sprite2D
+@export var current_gun_node: Node2D
+@export var current_gun_sprite: Sprite2D
 
 @export var current_weapon: GunData
 
@@ -36,6 +38,8 @@ func _ready() -> void:
 	noun.selected.connect(_selected)
 	health.died.connect(_on_death)
 	health.state_change.connect(_on_state_change)
+	current_gun_sprite.texture = current_weapon.image
+	
 	recalculate_speed()
 
 func _on_state_change(new_state: int):

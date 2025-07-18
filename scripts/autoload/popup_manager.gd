@@ -7,7 +7,7 @@ const SEVERITY_HIGH = 2
 func popup(text: String, where: Vector2, severity: int = 0):
 	var label = PopupLabel.new()
 	label.text = text
-	label.position = where + (Vector2.ONE * 32 * randf_range(-1,1))
+	label.position = where + (Vector2.ONE * (32+16) * randf_range(-1,1))
 	
 	if severity == SEVERITY_LOW:
 		label.add_theme_color_override("font_color", Color(1,1,1))
