@@ -66,6 +66,12 @@ func initialize_limbs():
 		limb_rarities[limb] = limb_data.chance_to_hit
 		limbs.append(limb)
 
+func is_critical_limb_dead() -> bool:
+	for limb in limbs:
+		if limb.is_dead and limb.limb_data.critical:
+			return true
+	return false
+
 func adjust_base_stats():
 	for limb in limbs:
 		for key in limb.limb_data.factors.keys():
@@ -108,11 +114,17 @@ func take_damage(amount: int):
 			break
 		item -= limb_rarities[n]
 	
-	adjust_base_stats()
-	recalculate_stats()
+	var critical_limb_dead = is_critical_limb_dead()
+	if critical_limb_dead:
+		adjust_base_stats()
+		base_awareness = 0.0 # To show to the player
+		recalculate_stats()
+	else:
+		adjust_base_stats()
+		recalculate_stats()
 	
 	var severity = 0
-	if _actual_awareness <= 0:
+	if _actual_awareness <= 0 or critical_limb_dead:
 		severity = PopupManager.SEVERITY_HIGH
 		kill()
 	
