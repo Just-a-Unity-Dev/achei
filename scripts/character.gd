@@ -47,8 +47,10 @@ func _selected(): trigger_info_update()
 const TRANSPARENCY = Color(1,1,1,.75)
 
 func _draw() -> void:
-	# TODO: Document
+	# Basic draw function drawing move orders/atttack orders.
+	# This should be delegated into the orders themselves to _draw, but it's fine ... for now.
 	if health.is_dead: return
+	
 	var previous_position = global_position
 	var i = 0
 	for order in list_of_orders:
@@ -75,26 +77,28 @@ func _draw() -> void:
 		draw_circle(Vector2.ZERO, current_weapon.medium_range * 32, Color.YELLOW * TRANSPARENCY, false, 2.20)
 		draw_circle(Vector2.ZERO, current_weapon.long_range * 32, Color.RED * TRANSPARENCY, false, 2.20)
 
-# TODO: Document
+## Queues an order, and places it at the back of the list
 func add_order(order: BaseOrder, parameters: Dictionary):
 	if health.is_dead: return
 	order.setup(self, parameters)
 	list_of_orders.push_back(order)
 
+## Overrides the current order and places this order at the front of the list
 func add_order_first(order: BaseOrder, parameters: Dictionary):
 	if health.is_dead: return
 	order.setup(self, parameters)
 	list_of_orders.push_front(order)
 
-# TODO: Document
+## Clears the list of orders
 func clear_orders():
 	if list_of_orders.size() > 0:
 		var current_order = list_of_orders[0]
 		current_order.end(false)
 	list_of_orders.clear()
 
-# TODO: Document
 func _received_order(parameters: Dictionary, add_onto: bool):
+	# Camera emits this signal, which then determines what order to do
+	# This will likely be replaced with a verb system some time in the future (please)
 	var mouse_pos = parameters["mouse_pos"]
 	
 	# TODO: Parameters have a "order_type"
@@ -109,7 +113,7 @@ func _received_order(parameters: Dictionary, add_onto: bool):
 	
 	trigger_info_update()
 
-# TODO: Document
+## Updates the Selectable's status info. Expensive, and should be called when an update happens.
 func trigger_info_update() -> void:
 	var values: Array[String] = []
 	var new_info = {"title": character_name}
@@ -138,10 +142,12 @@ func trigger_info_update() -> void:
 		new_info["key"+str(i+1)] = values[i]
 	selectable.update_info(new_info)
 
-# TODO: Document
+## Used for current_tile deltas on trigger_info_update
 var previous_tile: String = "None"
+
 func _physics_process(delta: float) -> void:
 	if health.is_dead: return
+	# Do the list of orders
 	if list_of_orders.size() > 0:
 		var current_order = list_of_orders[0]
 		if not current_order.update_status.is_connected(trigger_info_update):
@@ -157,6 +163,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			current_order.do(delta)
 	
+	# Tile-based movement penalties
 	var coords = tilemap.local_to_map(position)
 	var tile = tilemap.get_cell_tile_data(coords)
 	var tile_name = tile.get_custom_data("tile_name")
