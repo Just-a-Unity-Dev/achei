@@ -7,11 +7,11 @@ func calculate_accuracy(target: Character, host: Character, gun_data: GunData) -
 	if distance < gun_data.minimum_range:
 		return 0.0
 	elif distance < gun_data.short_range:
-		accuracy = 0.8
+		accuracy += 0.15
 	elif distance < gun_data.medium_range:
-		accuracy = 0.7
+		accuracy += 0.0
 	elif distance < gun_data.long_range:
-		accuracy = 0.5
+		accuracy -= 0.15
 	else:
 		return 0.0
 	
@@ -21,7 +21,7 @@ func calculate_accuracy(target: Character, host: Character, gun_data: GunData) -
 	accuracy += (host.health._actual_sight - .5) / 4 # Sightness buff/penalty
 	accuracy -= (0.3 * (1.0 - host.health._actual_awareness)) # Low awareness penalty
 	
-	if host.velocity.length() > 0:
+	if target.velocity.length() > 0:
 		accuracy -= 0.05 # Target movement penalty
 	
 	return max(accuracy, 0)
