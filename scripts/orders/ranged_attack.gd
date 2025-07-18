@@ -39,7 +39,6 @@ func start() -> void:
 func end(succeed: bool):
 	subject.current_gun_node.hide()
 	subject.current_gun_node.rotation = 0.0
-	print("ended")
 	super(succeed)
 
 func do(delta: float) -> void:
