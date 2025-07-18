@@ -21,7 +21,7 @@ var cache_speed: int = 0
 
 func recalculate_speed():
 	var speed = BASE_SPEED
-	speed += skills.endurance.get_modifier() * 25
+	speed += skills.get_modifier(skills.endurance) * 25
 	speed *= health._actual_movement
 	
 	var coords = tilemap.local_to_map(position)
@@ -39,9 +39,6 @@ func _ready() -> void:
 	health.died.connect(_on_death)
 	health.state_change.connect(_on_state_change)
 	current_gun_sprite.texture = current_weapon.image
-	
-	var def = DefinitionManager.load_definition(preload("res://resources/defs/skill.tres"), {"name": "firearms", "xp": 10000})
-	skills.firearms = def
 	
 	recalculate_speed()
 

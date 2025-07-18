@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="Definition" load_steps=3 format=3 uid="uid://bg2dnuduhtnpo"]
+
+[ext_resource type="Script" uid="uid://bg10dp8klqjy3" path="res://scripts/components/skill_stats.gd" id="1_0dy10"]
+[ext_resource type="Script" uid="uid://dgnyexk0rt5db" path="res://scripts/resources/definition.gd" id="2_ywv5f"]
+
+[resource]
+script = ExtResource("2_ywv5f")
+definition_script = ExtResource("1_0dy10")
+keys_to_data = Dictionary[String, String]({
+"archery": "archery",
+"cook": "cook",
+"craft": "craft",
+"doctor": "doctor",
+"endurance": "endurance",
+"engineer": "engineer",
+"farm": "farm",
+"firearms": "firearms",
+"fish": "fish",
+"intimidate": "intimidate",
+"navigate": "navigate",
+"punch": "punch",
+"reason": "reason",
+"repair": "repair",
+"scavenge": "scavenge",
+"slash": "slash",
+"sneak": "sneak",
+"stab": "stab",
+"strength": "strength",
+"throwing": "throwing",
+"toughness": "toughness"
+})
+metadata/_custom_type_script = "uid://dgnyexk0rt5db"

@@ -16,7 +16,7 @@ func calculate_accuracy(target: Character, host: Character, gun_data: GunData) -
 		return 0.0
 	
 	# Relevant weapon skill modifier
-	accuracy += host.skills[gun_data.accuracy_skill].get_modifier()
+	accuracy += host.skills.get_modifier(host.skills[gun_data.accuracy_skill])
 	
 	accuracy += (host.health._actual_sight - .5) / 4 # Sightness buff/penalty
 	accuracy -= (0.3 * (1.0 - host.health._actual_awareness)) # Low awareness penalty
