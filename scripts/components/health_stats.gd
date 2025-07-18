@@ -92,6 +92,7 @@ func recalculate_stats():
 	_actual_sight = base_handling * _actual_consciousness
 
 func take_damage(amount: int):
+	# TODO: Better damage distribution than this bs
 	limbs[randi() % 6].take_damage(amount)
 	
 	adjust_base_stats()
