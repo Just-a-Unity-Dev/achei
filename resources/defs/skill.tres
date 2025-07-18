@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Definition" load_steps=3 format=3 uid="uid://bg2dnuduhtnpo"]
+
+[ext_resource type="Script" uid="uid://8leci1qj60m7" path="res://scripts/components/skill.gd" id="1_1mvwd"]
+[ext_resource type="Script" uid="uid://dgnyexk0rt5db" path="res://scripts/resources/definition.gd" id="1_pxfj7"]
+
+[resource]
+script = ExtResource("1_pxfj7")
+definition_script = ExtResource("1_1mvwd")
+keys_to_data = Dictionary[String, String]({
+"name": "skill_name",
+"xp": "xp"
+})
+metadata/_custom_type_script = "uid://dgnyexk0rt5db"

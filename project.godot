@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SelectionManager="*res://scripts/autoload/selection_manager.gd"
 PopupManager="*res://scripts/autoload/popup_manager.gd"
 BulletManager="*res://scripts/autoload/bullet_manager.gd"
+DefinitionManager="*res://scripts/autoload/definition_manager.gd"
 
 [gui]
 

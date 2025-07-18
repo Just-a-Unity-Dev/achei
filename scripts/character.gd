@@ -40,6 +40,9 @@ func _ready() -> void:
 	health.state_change.connect(_on_state_change)
 	current_gun_sprite.texture = current_weapon.image
 	
+	var def = DefinitionManager.load_definition(preload("res://resources/defs/skill.tres"), {"name": "firearms", "xp": 10000})
+	skills.firearms = def
+	
 	recalculate_speed()
 
 func _on_state_change(new_state: int):

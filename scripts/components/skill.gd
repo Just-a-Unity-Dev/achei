@@ -19,6 +19,12 @@ static func make(new_name: StringName) -> Skill:
 	new.skill_name = new_name
 	return new
 
+func save() -> Dictionary:
+	return {
+		"name": skill_name,
+		"xp": xp
+	}
+
 var xp_amounts = {
 	1: 200,
 	2: 400,
