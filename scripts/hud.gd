@@ -43,13 +43,12 @@ func update_health_hud():
 	var character = current_focus.get_parent()
 	
 	if character is Character:
-		print(character)
 		generic_update_container(blood_container, character.health.blood.hp, character.health.blood.max_hp)
-		generic_update_container(pain_container, character.health.pain)
-		generic_update_container(conscious_container, character.health.consciousness)
-		generic_update_container(handling_container, character.health.handling)
-		generic_update_container(movement_container, character.health.movement)
-		generic_update_container(sight_container, character.health.sight)
+		generic_update_container(pain_container, character.health._actual_pain)
+		generic_update_container(conscious_container, character.health._actual_consciousness)
+		generic_update_container(handling_container, character.health._actual_handling)
+		generic_update_container(movement_container, character.health._actual_movement)
+		generic_update_container(sight_container, character.health._actual_sight)
 		generic_update_container(hunger_container, character.health.hunger)
 		generic_update_container(thirst_container, character.health.thirst)
 		#generic_update_container(temperature_container, character.health.temperature)

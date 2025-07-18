@@ -17,7 +17,7 @@ func calculate_accuracy(target: Character, host: Character, gun_data: GunData) -
 	
 	# TODO: Proper skill modifiers
 	accuracy += host.skills[gun_data.accuracy_skill].get_modifier()
-	accuracy -= (0.3 * (1.0 - host.health.consciousness)) # Low consciousness penalty
+	accuracy -= (0.3 * (1.0 - host.health._actual_consciousness)) # Low consciousness penalty
 	
 	if host.velocity.length() > 0:
 		accuracy -= 0.05 # Target movement penalty
