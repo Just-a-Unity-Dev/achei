@@ -21,7 +21,7 @@ func kill():
 	is_dead = true
 	died.emit()
 
-func take_damage(amount: int):
+func take_damage(amount: float):
 	if popup_at != null:
 		var severity = 0
 		if (hp - amount) <= 0:

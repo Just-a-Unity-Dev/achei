@@ -37,7 +37,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("select_container", "base_frame", "pawn_dropdown", "menu_lists", "blood_container", "pain_container", "conscious_container", "handling_container", "movement_container", "sight_container", "hunger_container", "thirst_container", "temperature_container", "sleep_container", "comfort_container", "stress_container", "limb_source_container")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("select_container", "base_frame", "pawn_dropdown", "menu_lists", "blood_container", "pain_container", "conscious_container", "handling_container", "movement_container", "sight_container", "hunger_container", "thirst_container", "temperature_container", "sleep_container", "comfort_container", "stress_container", "limb_source_container", "bleed_severity_label")]
 process_mode = 3
 script = ExtResource("1_37p78")
 select_container = NodePath("MarginContainer/Control/SelectContainer")
@@ -57,6 +57,7 @@ sleep_container = NodePath("MarginContainer/Control/SelectContainer/Health/Margi
 comfort_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Comfort")
 stress_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Stress")
 limb_source_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Right")
+bleed_severity_label = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Blood/Lowering")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15

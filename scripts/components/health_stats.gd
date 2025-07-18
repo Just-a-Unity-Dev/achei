@@ -66,11 +66,32 @@ func _ready() -> void:
 	initialize_limbs()
 	adjust_base_stats()
 	recalculate_stats()
+	blood.died.connect(update_state_on_stats)
 
 func health_delta():
 	adjust_base_stats()
 	recalculate_stats()
 	update_state_on_stats()
+
+const BLEED_RATE = 1.15
+const BLOOD_HEAL_RATE = 1.15
+const PAIN_HEAL_RATE = 0.005
+const PAIN_PER_DAMAGE = 0.00125
+
+var time_since_last_delta = 0.0
+func _physics_process(delta: float) -> void:
+	_actual_pain = move_toward(_actual_pain, base_pain, PAIN_HEAL_RATE * delta)
+	if bleeding_severity > 0:
+		blood.take_damage(BLEED_RATE * delta * bleeding_severity)
+	elif not blood.is_dead:
+		blood.hp = move_toward(blood.hp, blood.max_hp, BLOOD_HEAL_RATE * delta)
+	
+	# Automatic health deltas
+	if time_since_last_delta > 1.5:
+		health_delta()
+		time_since_last_delta = 0.0
+	else:
+		time_since_last_delta += delta
 
 var limb_rarities = {}
 func initialize_limbs():
@@ -117,10 +138,9 @@ func adjust_base_stats():
 		for key in data.factors.keys():
 			self[key] += data.factors[key] * hp_percent
 	base_awareness = max(base_awareness, 0)
+	base_pain = bleeding_severity / 8
 
 func recalculate_stats():
-	base_pain = _actual_pain
-	
 	var pain_modifier = 0.0
 	if _actual_pain > .1:
 		pain_modifier = -min(_actual_pain / 2, 0.5)
@@ -128,12 +148,21 @@ func recalculate_stats():
 	var blood_modifier = 0.0
 	var blood_percentage = blood.hp / blood.max_hp
 	if blood_percentage <= .9:
-		blood_modifier = -min(.65, 1.0 - blood_percentage)
+		blood_modifier = -max(.25, 1.0 - blood_percentage)
 	_actual_awareness = base_awareness + pain_modifier + blood_modifier
 	
 	_actual_finesse = base_finesse * _actual_awareness
 	_actual_movement = base_movement * _actual_awareness
 	_actual_sight = base_sight * _actual_awareness
+
+func roll_bleed_chance(amount: int):
+	var success = false
+	if amount >= 100: success = true
+	if not success:
+		var required = (float(amount) / 100) - .3
+		success = randf() < required
+	if success:
+		bleeding_severity = min(bleeding_severity + 1, 3)
 
 func take_damage(amount: int):
 	# Choose a random limb to take damage
@@ -149,6 +178,10 @@ func take_damage(amount: int):
 			targeted_limb = n
 			break
 		item -= limb_rarities[n]
+	
+	roll_bleed_chance(amount)
+	
+	_actual_pain += PAIN_PER_DAMAGE * amount
 	
 	adjust_base_stats()
 	recalculate_stats()

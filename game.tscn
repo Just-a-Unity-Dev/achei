@@ -58,7 +58,8 @@ sources/2 = SubResource("TileSetAtlasSource_7jktm")
 process_mode = 3
 script = ExtResource("1_80nbo")
 
-[node name="Control" parent="." instance=ExtResource("3_feb5d")]
+[node name="Control" parent="." node_paths=PackedStringArray("menu_lists") instance=ExtResource("3_feb5d")]
+menu_lists = []
 
 [node name="Pawn" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("2_e2o6t")]
 position = Vector2(-61, -66)

@@ -19,7 +19,9 @@ extends CanvasLayer
 @export var comfort_container: HBoxContainer
 @export var stress_container: HBoxContainer
 
+@export_category("Limb menu")
 @export var limb_source_container: BoxContainer
+@export var bleed_severity_label: Label
 
 var current_focus: Noun
 
@@ -51,19 +53,15 @@ func update_health_hud():
 		generic_update_container(comfort_container, character.health.comfort)
 		generic_update_container(stress_container, character.health.stress)
 		
+		bleed_severity_label.text = ""
+		for x in range(character.health.bleeding_severity): bleed_severity_label.text += "<"
+		
 		for limb in character.health.limbs:
 			generic_update_container(
 				limb_source_container.get_node(str(limb.limb_data.gui_bar_name)),
 				limb.hp,
 				limb.max_hp
 			)
-			
-		
-		#head_container
-		#right_arm_container
-		#right_leg_container
-		#left_arm_container
-		#left_leg_container
 
 var base_physics_ticks_per_second = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 func _unhandled_input(event: InputEvent) -> void:
