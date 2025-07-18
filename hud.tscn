@@ -46,8 +46,8 @@ pawn_dropdown = NodePath("MarginContainer/Control/SelectContainer/PawnDropdown")
 menu_lists = [NodePath("MarginContainer/Control/SelectContainer/Health")]
 blood_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Blood")
 pain_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Pain")
-conscious_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Consciousness")
-handling_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Manipulation")
+conscious_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Awareness")
+handling_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Finesse")
 movement_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Movement")
 sight_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Sight")
 hunger_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Hunger")
@@ -147,30 +147,30 @@ max_value = 1.0
 step = 0.0
 value = 1.0
 
-[node name="Consciousness" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+[node name="Awareness" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Consciousness"]
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Awareness"]
 custom_minimum_size = Vector2(63, 0)
 layout_mode = 2
-text = "Conscious"
+text = "Awareness"
 
-[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Consciousness"]
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Awareness"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.0
 value = 1.0
 
-[node name="Manipulation" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+[node name="Finesse" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left"]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Manipulation"]
+[node name="Name" type="Label" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Finesse"]
 custom_minimum_size = Vector2(63, 0)
 layout_mode = 2
-text = "Handling"
+text = "Finesse"
 
-[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Manipulation"]
+[node name="Label" type="ProgressBar" parent="MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Finesse"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0

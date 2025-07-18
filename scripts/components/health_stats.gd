@@ -16,11 +16,11 @@ var limbs: Array[LimbComponent]
 @export var base_pain := 0.0
 var _actual_pain: float = 0.0
 
-@export var base_consciousness := 0.0
-var _actual_consciousness: float = 0.0
+@export var base_awareness := 0.0
+var _actual_awareness: float = 0.0
 
-@export var base_handling := 1.0
-var _actual_handling: float = 1.0
+@export var base_finesse := 1.0
+var _actual_finesse: float = 1.0
 
 @export var base_movement := 1.0
 var _actual_movement: float = 1.0
@@ -85,11 +85,11 @@ func recalculate_stats():
 	var blood_percentage = blood.hp / blood.max_hp
 	if blood_percentage <= .9:
 		blood_modifier = -min(.65, 1.0 - blood_percentage)
-	_actual_consciousness = base_consciousness + pain_modifier + blood_modifier
+	_actual_awareness = base_awareness + pain_modifier + blood_modifier
 	
-	_actual_handling = base_handling * _actual_consciousness
-	_actual_movement = base_handling * _actual_consciousness
-	_actual_sight = base_handling * _actual_consciousness
+	_actual_finesse = base_finesse * _actual_awareness
+	_actual_movement = base_finesse * _actual_awareness
+	_actual_sight = base_finesse * _actual_awareness
 
 func take_damage(amount: int):
 	# TODO: Better damage distribution than this bs
@@ -99,7 +99,7 @@ func take_damage(amount: int):
 	recalculate_stats()
 	
 	var severity = 0
-	if _actual_consciousness <= 0:
+	if _actual_awareness <= 0:
 		severity = PopupManager.SEVERITY_HIGH
 		kill()
 	

@@ -12,6 +12,6 @@ max_health = 190.0
 critical = false
 removeable = true
 factors = Dictionary[StringName, float]({
-&"base_handling": 0.5
+&"base_finesse": 0.5
 })
 metadata/_custom_type_script = "uid://lxfq1jxx0biu"
