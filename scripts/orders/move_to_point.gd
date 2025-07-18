@@ -2,8 +2,8 @@ extends BaseOrder
 
 var destination: Vector2
 
-func setup(new_host: Character, new_parameters: Dictionary) -> void:
-	super(new_host, new_parameters)
+func setup(new_subject: Character, new_target: Noun = null, new_with: Noun = null, new_parameters: Dictionary = {}) -> void:
+	super(new_subject, null, null, new_parameters)
 	destination = parameters["mouse_pos"]
 
 func start() -> void:
@@ -13,19 +13,19 @@ func start() -> void:
 
 func do(delta: float) -> void:
 	if destination != Vector2.ZERO:
-		if host.global_position.distance_to(destination) < 8:
+		if subject.global_position.distance_to(destination) < 8:
 			destination = Vector2.ZERO
 			end(true)
 		else:
-			var direction = host.global_position.direction_to(destination)
-			host.velocity = direction * delta * host.cache_speed
+			var direction = subject.global_position.direction_to(destination)
+			subject.velocity = direction * delta * subject.cache_speed
 
 func end(succeed: bool):
 	if not succeed: # Move order failed, stop moving
-		host.velocity = Vector2.ZERO
-	if host.list_of_orders.size() <= 1: # This is the last order
-		host.velocity = Vector2.ZERO
+		subject.velocity = Vector2.ZERO
+	if subject.list_of_orders.size() <= 1: # This is the last order
+		subject.velocity = Vector2.ZERO
 	else:
-		if "destination" not in host.list_of_orders[1]: # Next order is not a movement order
-			host.velocity = Vector2.ZERO
+		if "destination" not in subject.list_of_orders[1]: # Next order is not a movement order
+			subject.velocity = Vector2.ZERO
 	super(succeed)

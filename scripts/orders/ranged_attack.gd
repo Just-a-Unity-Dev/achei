@@ -1,38 +1,38 @@
-extends BaseOrder
+extends BaseAttackOrder
 
-var target: Character
-var time_since_last_hit: float = 0.0
 var progress: float = 1.0
 
 var weapon_data: GunData
 var end_when_target_is_not_state: int = -1
 
-func setup(new_host: Character, new_parameters: Dictionary) -> void:
-	super(new_host, new_parameters)
-	target = new_parameters["target"]
-	weapon_data = new_host.current_weapon
+var target_host: Character
+
+func setup(new_subject: Character, new_target: Noun = null, new_with: Noun = null, new_parameters: Dictionary = {}) -> void:
+	super(new_subject, new_target, new_with, new_parameters)
+	if target == null:
+		return end(false) # cant attack if we don't have a character
+	if subject.current_weapon == null:
+		return end(false) # ... how can we ranged attack if we don't have a ranged weapon?
+	if target.host is not Character:
+		return end(false)
+	
+	target_host = new_target.host
+	weapon_data = subject.current_weapon
 	time_since_last_hit = weapon_data.base_reload
-	end_when_target_is_not_state = target.health.current_state
+	end_when_target_is_not_state = target_host.health.current_state
 
 func start() -> void:
 	set_status("Attacking other pawn with ranged")
 	super()
 
-var bullets: Array[Sprite2D] = []
-
-func end(succeed: bool) -> void:
-	for bullet in bullets:
-		bullet.queue_free()
-	super(succeed)
-
 var cached_accuracy: float = -1
 func do(delta: float) -> void:
-	if target.health.current_state != end_when_target_is_not_state:
+	if target_host.health.current_state != end_when_target_is_not_state:
 		end(true) # End this order when the target is dead
 	time_since_last_hit += delta
 	 
 	if cached_accuracy == -1: # Refresh the cached accuracy
-		cached_accuracy = BulletManager.calculate_accuracy(target, host, weapon_data)
+		cached_accuracy = BulletManager.calculate_accuracy(target_host, subject, weapon_data)
 	
 	progress = time_since_last_hit / (weapon_data.base_reload + weapon_data.base_cooldown)
 	if cached_accuracy <= 0.0:
@@ -49,7 +49,7 @@ func do(delta: float) -> void:
 		set_status("Attack: Aiming weapon (%.2f%% chance to hit)"  % (cached_accuracy * 100))
 		return # Can't fire if we are on cooldown
 	
-	var accuracy = BulletManager.calculate_accuracy(target, host, weapon_data)
+	var accuracy = BulletManager.calculate_accuracy(target_host, subject, weapon_data)
 	if accuracy <= 0.0:
 		cached_accuracy = accuracy
 		return # Do not waste ammo
@@ -58,10 +58,10 @@ func do(delta: float) -> void:
 		if randf() < accuracy:
 			# Hit!
 			var damage = randi_range(weapon_data.damage_min, weapon_data.damage_max)
-			BulletManager.create_bullet(target, host, damage)
+			BulletManager.create_bullet(target_host, subject, damage)
 		else:
 			# Miss
-			BulletManager.create_bullet(target, host, 0)
-		await target.get_tree().create_timer(weapon_data.time_between_shots)
+			BulletManager.create_bullet(target_host, subject, 0)
+		await subject.get_tree().create_timer(weapon_data.time_between_shots)
 	cached_accuracy = -1
 	time_since_last_hit = 0.0

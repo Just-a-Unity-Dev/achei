@@ -68,16 +68,18 @@ func _draw() -> void:
 		if "destination" in order:
 			if not noun.is_selected: continue
 			draw_line(to_local(previous_position), to_local(order.destination), Color(1,1,1,.8), 2)
+			
 			var circle_size = 8
 			if i == list_of_orders.size() - 1: circle_size = 16
+			
 			draw_circle(to_local(order.destination), circle_size, Color.PALE_GREEN * TRANSPARENCY, false, 4)
 			previous_position = order.destination
-		if "target" in order:
+		elif "time_since_last_hit" in order:
 			if noun.is_selected:
-				draw_circle(to_local(order.target.global_position), 22, Color.RED * TRANSPARENCY, false, 2)
+				draw_circle(to_local(order.target_host.global_position), 22, Color.RED * TRANSPARENCY, false, 2)
 			
 			# Draw ranged combat
-			var angle = global_position.angle_to_point(order.target.global_position)
+			var angle = global_position.angle_to_point(order.target_host.global_position)
 			var progress = deg_to_rad(45 * (1.0 - order.progress))
 			draw_arc(Vector2.ZERO, 32, angle - progress, angle + progress, 3, Color.WHITE * TRANSPARENCY, 4)
 		i += 1
@@ -89,16 +91,19 @@ func _draw() -> void:
 		draw_circle(Vector2.ZERO, current_weapon.long_range * 32, Color.RED * TRANSPARENCY, false, 2.20)
 
 ## Queues an order, and places it at the back of the list
-func add_order(order: BaseOrder, parameters: Dictionary):
+func add_order(order: BaseOrder, parameters: Dictionary, front: bool = false):
 	if health.current_state != health.State.ALIVE: return
-	order.setup(self, parameters)
-	list_of_orders.push_back(order)
-
-## Overrides the current order and places this order at the front of the list
-func add_order_first(order: BaseOrder, parameters: Dictionary):
-	if health.current_state != health.State.ALIVE: return
-	order.setup(self, parameters)
-	list_of_orders.push_front(order)
+	
+	var target: Noun = null
+	if "target" in parameters:
+		target = parameters["target"].noun
+	
+	order.setup(self, target, null, parameters)
+	
+	if front:
+		list_of_orders.push_front(order)
+	else:
+		list_of_orders.push_back(order)
 
 ## Clears the list of orders
 func clear_orders():

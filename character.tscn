@@ -51,11 +51,12 @@ offset_right = 16.0
 offset_bottom = 16.0
 mouse_filter = 2
 
-[node name="Noun" type="Node" parent="." node_paths=PackedStringArray("get_position_from", "show_when_selected")]
+[node name="Noun" type="Node" parent="." node_paths=PackedStringArray("get_position_from", "show_when_selected", "host")]
 script = ExtResource("2_pjt0s")
 selectable_id = &"Pawn"
 get_position_from = NodePath("..")
 show_when_selected = NodePath("../SelectedSprite")
+host = NodePath("..")
 metadata/_custom_type_script = "uid://daipew5657usq"
 
 [node name="HealthStatsComponent" type="Node" parent="." node_paths=PackedStringArray("host")]

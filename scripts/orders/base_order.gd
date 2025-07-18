@@ -2,8 +2,13 @@ extends RefCounted
 ## An order that can be completed by characters.
 class_name BaseOrder
 
-## The character performing this order.
-var host: Character
+## The Character performing this order.
+var subject: Character
+## The target of this order.
+var target: Noun
+## What noun is being used to do the verb?
+var with: Noun
+
 ## Order related parameters.
 var parameters: Dictionary
 ## Has this order finished?
@@ -20,8 +25,11 @@ func set_status(new_status: String):
 	update_status.emit(new_status)
 	current_status = new_status
 
-func setup(new_host: Character, new_parameters: Dictionary) -> void:
-	host = new_host
+func setup(new_subject: Character, new_target: Noun = null, new_with: Noun = null, new_parameters: Dictionary = {}) -> void:
+	subject = new_subject
+	target = new_target
+	with = new_with
+	
 	parameters = new_parameters
 
 func start() -> void:

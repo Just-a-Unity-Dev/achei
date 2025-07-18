@@ -7,6 +7,8 @@ class_name Noun
 @export var selection_range: float = 16.0
 @export var show_when_selected: CanvasItem
 
+@export var host: Node2D
+
 var info: Dictionary
 var is_selected = false
 
