@@ -72,8 +72,8 @@ func adjust_base_stats():
 			self[key] = 0
 	for limb in limbs:
 		var data = limb.limb_data
+		var hp_percent = limb.hp / limb.max_hp
 		for key in data.factors.keys():
-			var hp_percent = limb.hp / limb.max_hp
 			self[key] += data.factors[key] * hp_percent
 
 func recalculate_stats():
@@ -99,10 +99,12 @@ func take_damage(amount: int):
 	for n in limb_rarities:
 		weighted_sum += limb_rarities[n]
 	
+	var targeted_limb: LimbComponent
 	var item = randi_range(0, weighted_sum)
 	for n in limb_rarities:
 		if item <= limb_rarities[n]:
 			n.take_damage(amount)
+			targeted_limb = n
 			break
 		item -= limb_rarities[n]
 	
@@ -114,4 +116,4 @@ func take_damage(amount: int):
 		severity = PopupManager.SEVERITY_HIGH
 		kill()
 	
-	PopupManager.popup(str(amount), host.global_position, severity)
+	PopupManager.popup("%s: %d" % [targeted_limb.limb_data.limb_name, amount], host.global_position, severity)
