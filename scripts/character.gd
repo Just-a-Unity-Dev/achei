@@ -16,7 +16,7 @@ class_name Character
 
 var list_of_orders: Array[BaseOrder]
 
-const BASE_SPEED = 4650
+const BASE_SPEED = 5000
 var cache_speed: int = 0
 
 func recalculate_speed():
