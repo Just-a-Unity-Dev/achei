@@ -48,6 +48,8 @@ func _on_state_change(new_state: int):
 		tween.tween_property(sprite, "rotation_degrees", 90, .15)
 	else:
 		tween.tween_property(sprite, "rotation_degrees", 0, .15)
+	if new_state >= health.State.DOWN_AND_OUT:
+		clear_orders()
 	trigger_info_update()
 
 func _on_death():
