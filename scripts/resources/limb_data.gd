@@ -18,5 +18,8 @@ class_name LimbData
 ## Can this limb be amputated?
 @export var removeable := false
 
+## What's the chance to hit this limb?
+@export var chance_to_hit: int
+
 ## How much does this stat increase another?
 @export var factors: Dictionary[StringName, float]

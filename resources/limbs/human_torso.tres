@@ -11,5 +11,6 @@ health = 320.0
 max_health = 320.0
 critical = true
 removeable = false
+chance_to_hit = 500
 factors = Dictionary[StringName, float]({})
 metadata/_custom_type_script = "uid://lxfq1jxx0biu"

@@ -53,8 +53,8 @@ func _ready() -> void:
 func health_delta():
 	adjust_base_stats()
 	recalculate_stats()
-	print("Stats updated")
 
+var limb_rarities = {}
 func initialize_limbs():
 	for limb_data in starting_limbs:
 		var limb = LimbComponent.new()
@@ -62,6 +62,8 @@ func initialize_limbs():
 		limb.max_hp = limb_data.max_health
 		limb.hp = limb_data.health
 		limb.health_changed.connect(health_delta.unbind(1))
+		limb.name = limb_data.limb_id
+		limb_rarities[limb] = limb_data.chance_to_hit
 		limbs.append(limb)
 
 func adjust_base_stats():
@@ -92,8 +94,17 @@ func recalculate_stats():
 	_actual_sight = base_finesse * _actual_awareness
 
 func take_damage(amount: int):
-	# TODO: Better damage distribution than this bs
-	limbs[randi() % 6].take_damage(amount)
+	# Choose a random limb to take damage
+	var weighted_sum = 0
+	for n in limb_rarities:
+		weighted_sum += limb_rarities[n]
+	
+	var item = randi_range(0, weighted_sum)
+	for n in limb_rarities:
+		if item <= limb_rarities[n]:
+			n.take_damage(amount)
+			break
+		item -= limb_rarities[n]
 	
 	adjust_base_stats()
 	recalculate_stats()

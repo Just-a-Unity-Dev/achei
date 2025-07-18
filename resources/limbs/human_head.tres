@@ -11,6 +11,7 @@ health = 240.0
 max_health = 240.0
 critical = true
 removeable = true
+chance_to_hit = 150
 factors = Dictionary[StringName, float]({
 &"base_awareness": 1.0,
 &"base_sight": 1.0

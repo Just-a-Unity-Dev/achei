@@ -11,6 +11,7 @@ health = 190.0
 max_health = 190.0
 critical = false
 removeable = true
+chance_to_hit = 250
 factors = Dictionary[StringName, float]({
 &"base_finesse": 0.5
 })
