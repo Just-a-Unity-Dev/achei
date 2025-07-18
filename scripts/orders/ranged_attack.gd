@@ -38,6 +38,9 @@ func do(delta: float) -> void:
 	if cached_accuracy <= 0.0:
 		progress = 0.0
 		set_status("Attack: Refusing to fire: 0% chance of hit")
+		if time_since_last_hit > .5:
+			time_since_last_hit = 0.0
+			cached_accuracy = -1
 		return # Do not waste ammo
 	if time_since_last_hit < (weapon_data.base_reload):
 		set_status("Attack: Reloading weapon (%.2f%% chance to hit)" % (cached_accuracy * 100))
@@ -46,8 +49,12 @@ func do(delta: float) -> void:
 		set_status("Attack: Aiming weapon (%.2f%% chance to hit)"  % (cached_accuracy * 100))
 		return # Can't fire if we are on cooldown
 	
+	var accuracy = BulletManager.calculate_accuracy(target, host, weapon_data)
+	if accuracy <= 0.0:
+		cached_accuracy = accuracy
+		return # Do not waste ammo
+	
 	for i in range(weapon_data.shots_fired):
-		var accuracy = BulletManager.calculate_accuracy(target, host, weapon_data)
 		if randf() < accuracy:
 			# Hit!
 			var damage = randi_range(weapon_data.damage_min, weapon_data.damage_max)
