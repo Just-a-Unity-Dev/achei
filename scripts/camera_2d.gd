@@ -60,8 +60,8 @@ func handle_order_sending(add_onto: bool):
 	
 	for character in get_tree().get_nodes_in_group("character"):
 		if character is Character:
-			if mouse_pos.distance_to(character.global_position) < character.selectable.selection_range:
-				if character.selectable not in SelectionManager.selected_list:
+			if mouse_pos.distance_to(character.global_position) < character.noun.selection_range:
+				if character.noun not in SelectionManager.selected_list:
 					target = character
 					break
 	

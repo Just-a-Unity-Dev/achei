@@ -1,6 +1,6 @@
 extends Node
-## Marks this object as a selectable object.
-class_name Selectable
+## Marks this object as a noun, which can be used as either a Subject, Target or With.
+class_name Noun
 
 @export var selectable_id: StringName
 @export var get_position_from: Node2D
@@ -27,7 +27,7 @@ func _on_deselect():
 	show_when_selected.hide()
 
 func _init() -> void:
-	add_to_group("selectable", false)
+	add_to_group("noun", false)
 
 ## Updates the info in the selectable info variable.
 func update_info(new_info: Dictionary):

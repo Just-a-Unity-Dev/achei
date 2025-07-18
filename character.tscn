@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dqhvce2p1wsm3" path="res://icon.svg" id="1_glpr6"]
 [ext_resource type="Script" uid="uid://d27y6e5oq1cdg" path="res://scripts/character.gd" id="1_wfnr8"]
-[ext_resource type="Script" uid="uid://daipew5657usq" path="res://scripts/selectable.gd" id="2_pjt0s"]
+[ext_resource type="Script" uid="uid://daipew5657usq" path="res://scripts/noun.gd" id="2_pjt0s"]
 [ext_resource type="Script" uid="uid://dcncxjibw6sg5" path="res://scripts/components/health_stats.gd" id="2_px5sl"]
 [ext_resource type="Resource" uid="uid://ia666tgat1hs" path="res://resources/bolt-action-rifle.tres" id="2_yxww1"]
 [ext_resource type="Shader" uid="uid://d1eh2k82dlrtu" path="res://outline.gdshader" id="3_wa5vi"]
@@ -50,7 +50,7 @@ offset_right = 16.0
 offset_bottom = 16.0
 mouse_filter = 2
 
-[node name="Selectable" type="Node" parent="." node_paths=PackedStringArray("get_position_from", "show_when_selected")]
+[node name="Noun" type="Node" parent="." node_paths=PackedStringArray("get_position_from", "show_when_selected")]
 script = ExtResource("2_pjt0s")
 selectable_id = &"Pawn"
 get_position_from = NodePath("..")

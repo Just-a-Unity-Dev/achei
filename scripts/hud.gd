@@ -21,7 +21,7 @@ extends CanvasLayer
 
 @export var limb_source_container: BoxContainer
 
-var current_focus: Selectable
+var current_focus: Noun
 
 func _ready() -> void:
 	SelectionManager.new_selected.connect(_on_new_selected)

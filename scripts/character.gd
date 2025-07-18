@@ -8,7 +8,7 @@ class_name Character
 
 @export var current_weapon: GunData
 
-@onready var selectable = $Selectable
+@onready var noun = $Noun
 
 var list_of_orders: Array[BaseOrder]
 
@@ -31,8 +31,8 @@ func _init() -> void:
 	add_to_group("character")
 
 func _ready() -> void:
-	selectable.received_order.connect(_received_order)
-	selectable.selected.connect(_selected)
+	noun.received_order.connect(_received_order)
+	noun.selected.connect(_selected)
 	health.died.connect(_on_death)
 	recalculate_speed()
 
@@ -54,14 +54,14 @@ func _draw() -> void:
 	var i = 0
 	for order in list_of_orders:
 		if "destination" in order:
-			if not selectable.is_selected: continue
+			if not noun.is_selected: continue
 			draw_line(to_local(previous_position), to_local(order.destination), Color(1,1,1,.8), 2)
 			var circle_size = 8
 			if i == list_of_orders.size() - 1: circle_size = 16
 			draw_circle(to_local(order.destination), circle_size, Color.PALE_GREEN * TRANSPARENCY, false, 4)
 			previous_position = order.destination
 		if "target" in order:
-			if selectable.is_selected:
+			if noun.is_selected:
 				draw_circle(to_local(order.target.global_position), 22, Color.RED * TRANSPARENCY, false, 2)
 			
 			# Draw ranged combat
@@ -70,7 +70,7 @@ func _draw() -> void:
 			draw_arc(Vector2.ZERO, 32, angle - progress, angle + progress, 3, Color.WHITE * TRANSPARENCY, 4)
 		i += 1
 	
-	if current_weapon != null and selectable.is_selected:
+	if current_weapon != null and noun.is_selected:
 		draw_circle(Vector2.ZERO, current_weapon.minimum_range * 32, Color.DARK_RED * TRANSPARENCY, false, 2.20)
 		draw_circle(Vector2.ZERO, current_weapon.short_range * 32, Color.GREEN * TRANSPARENCY, false, 2.20)
 		draw_circle(Vector2.ZERO, current_weapon.medium_range * 32, Color.YELLOW * TRANSPARENCY, false, 2.20)
@@ -139,7 +139,7 @@ func trigger_info_update() -> void:
 	
 	for i in range(values.size()):
 		new_info["key"+str(i+1)] = values[i]
-	selectable.update_info(new_info)
+	noun.update_info(new_info)
 
 ## Used for current_tile deltas on trigger_info_update
 var previous_tile: String = "None"
