@@ -196,5 +196,6 @@ func _physics_process(delta: float) -> void:
 		# TODO: This is a shitty method. Fix this.
 		recalculate_speed()
 		trigger_info_update()
+		previous_tile = tile_name
 	
 	move_and_slide()
