@@ -35,4 +35,24 @@ class_name SkillStatsComponent
 @export var intimidate:		Skill = Skill.make(&"intimidate") # Can you intimidate or make someone fear you?
 
 func _ready() -> void:
-	print(reason.level)
+	strength.xp = strength.xp_amounts[3]
+	endurance.xp = endurance.xp_amounts[3]
+	sneak.xp = sneak.xp_amounts[3]
+	doctor.xp = doctor.xp_amounts[3]
+	engineer.xp = engineer.xp_amounts[3]
+	repair.xp = repair.xp_amounts[3]
+	cook.xp = cook.xp_amounts[3]
+	fish.xp = fish.xp_amounts[3]
+	craft.xp = craft.xp_amounts[3]
+	farm.xp = farm.xp_amounts[3]
+	toughness.xp = toughness.xp_amounts[3]
+	firearms.xp = firearms.xp_amounts[3]
+	archery.xp = archery.xp_amounts[3]
+	throwing.xp = throwing.xp_amounts[3]
+	punch.xp = punch.xp_amounts[3]
+	stab.xp = stab.xp_amounts[3]
+	slash.xp = slash.xp_amounts[3]
+	scavenge.xp = scavenge.xp_amounts[3]
+	navigate.xp = navigate.xp_amounts[3]
+	reason.xp = reason.xp_amounts[3]
+	intimidate.xp = intimidate.xp_amounts[3]
