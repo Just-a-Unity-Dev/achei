@@ -54,6 +54,10 @@ time_scale_4={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://translations.en.translation")
+
 [physics]
 
 common/physics_interpolation=true

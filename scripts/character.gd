@@ -45,6 +45,7 @@ func _on_state_change(new_state: int):
 		tween.tween_property(sprite, "rotation_degrees", 90, .15)
 	else:
 		tween.tween_property(sprite, "rotation_degrees", 0, .15)
+	trigger_info_update()
 
 func _on_death():
 	velocity = Vector2.ZERO
@@ -131,10 +132,8 @@ func trigger_info_update() -> void:
 		values.append("Dead.")
 	elif health.current_state == health.State.DOWN_AND_OUT: 
 		new_info.title = "%s (downed)" % character_name
-		values.append("Downed for reason: %d" % health.down_reason)
+		values.append("Downed (%s)." % tr("down-reason-%d" % health.down_reason))
 	else:
-		values.append("HP: %.2f%%" % [health._actual_awareness * 100])
-	
 		if list_of_orders.size() > 0:
 			var order_string = "Current order: %s" % list_of_orders[0].current_status
 			if list_of_orders.size() != 1:
@@ -148,7 +147,6 @@ func trigger_info_update() -> void:
 	var coords = tilemap.local_to_map(position)
 	var tile = tilemap.get_cell_tile_data(coords)
 	values.append("Currently on: %s (%d%% speed)" % [tile.get_custom_data("tile_name"), tile.get_custom_data("movement_penalty") * 100])
-	values.append("Speed: %.2f m/s" % [(cache_speed / 32) * get_physics_process_delta_time()])
 	
 	for i in range(values.size()):
 		new_info["key"+str(i+1)] = values[i]
