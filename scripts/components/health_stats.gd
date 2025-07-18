@@ -90,8 +90,8 @@ func recalculate_stats():
 	_actual_awareness = base_awareness + pain_modifier + blood_modifier
 	
 	_actual_finesse = base_finesse * _actual_awareness
-	_actual_movement = base_finesse * _actual_awareness
-	_actual_sight = base_finesse * _actual_awareness
+	_actual_movement = base_movement * _actual_awareness
+	_actual_sight = base_sight * _actual_awareness
 
 func take_damage(amount: int):
 	# Choose a random limb to take damage
