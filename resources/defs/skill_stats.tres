@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Definition" load_steps=3 format=3 uid="uid://bg2dnuduhtnpo"]
 
 [ext_resource type="Script" uid="uid://bg10dp8klqjy3" path="res://scripts/components/skill_stats.gd" id="1_0dy10"]
-[ext_resource type="Script" uid="uid://dgnyexk0rt5db" path="res://scripts/resources/definition.gd" id="2_ywv5f"]
+[ext_resource type="Script" uid="uid://dgnyexk0rt5db" path="res://scripts/resources/serializable_data.gd" id="2_ywv5f"]
 
 [resource]
 script = ExtResource("2_ywv5f")
