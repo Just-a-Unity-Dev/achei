@@ -59,7 +59,7 @@ func do(delta: float) -> void:
 	var reload_time = cache_reload_time
 	var aim_time = cache_aiming_time
 	
-	progress = time_since_last_hit / (reload_time + aim_time)
+	progress = 0 # time_since_last_hit / (reload_time + aim_time)
 	attack_progress = (reload_time + aim_time) - time_since_last_hit
 	if cache_accuracy <= 0.0:
 		progress = -1

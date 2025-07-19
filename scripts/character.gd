@@ -84,10 +84,11 @@ func _draw() -> void:
 				draw_circle(to_local(order.target_host.global_position), 22, Color.RED * TRANSPARENCY, false, 2)
 			
 			# Draw ranged combat
-			if order.progress > 0:
+			if order.progress >= 0: # Hides progress bar but shows this thing
 				var angle = global_position.angle_to_point(order.target_host.global_position)
+				var direction = global_position.direction_to(order.target_host.global_position)
 				var progress: float = deg_to_rad((order.attack_progress / 30.0) * 360.0)
-				draw_arc(Vector2.ZERO, 32, angle - progress, angle + progress, 50, Color.WHITE * TRANSPARENCY, 50)
+				draw_arc(direction * 30, 10, angle - progress, angle + progress, 50, Color.WHITE * Color(1,1,1,.5), 20)
 		i += 1
 	
 	if current_weapon != null and noun.is_selected:
