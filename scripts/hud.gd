@@ -111,7 +111,7 @@ func clear_verbs():
 
 signal selected_verb(verb: Verb)
 func _verb_button_pressed(verb: Verb):
-	await selected_verb.emit(verb)
+	selected_verb.emit(verb)
 
 func generate_verbs():
 	clear_verbs()

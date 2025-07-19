@@ -96,13 +96,8 @@ func _draw() -> void:
 		draw_circle(Vector2.ZERO, current_weapon.long_range * 32, Color.RED * TRANSPARENCY, false, 2.20)
 
 ## Queues an order, and places it at the back of the list
-func add_order(order: BaseOrder, parameters: Dictionary, front: bool = false):
+func add_order(order: BaseOrder, target: Noun, parameters: Dictionary, front: bool = false):
 	if health.current_state != health.State.ALIVE: return
-	
-	var target: Noun = null
-	if "target" in parameters:
-		target = parameters["target"].noun
-	
 	order.setup(self, target, null, parameters)
 	
 	if front:
@@ -117,20 +112,14 @@ func clear_orders():
 		current_order.end(false)
 	list_of_orders.clear()
 
-func _received_order(parameters: Dictionary, add_onto: bool):
-	# Camera emits this signal, which then determines what order to do
-	# This will likely be replaced with a verb system some time in the future (please)
+func _received_order(order: BaseOrder, target: Noun, parameters: Dictionary, add_onto: bool):
+	# Noun emits this signal, which then determines what order to add to the queue
 	var mouse_pos = parameters["mouse_pos"]
-	
-	# TODO: Parameters have a "order_type"
-	var order: BaseOrder
-	if "target" in parameters.keys():
-		order = preload("res://scripts/orders/ranged_attack.gd").new()
-	else:
-		order = preload("res://scripts/orders/move_to_point.gd").new()
+	if not add_onto:
+		clear_orders()
 	
 	if not add_onto: clear_orders()
-	add_order(order, parameters)
+	add_order(order, target, parameters)
 	
 	trigger_info_update()
 

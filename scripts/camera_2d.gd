@@ -1,5 +1,8 @@
 extends Camera2D
 
+# The behemoth. Handles zoom in/out, mouse interactions, and verb handling.
+# TODO: Mouse interactions / verb handling should be delegated to their own nodes
+
 var _target_zoom: float = 1.0
 const MIN_ZOOM: float = 0.2
 const MAX_ZOOM: float = 2
@@ -53,33 +56,64 @@ func _draw():
 		ruler_label.text = "%.2fm" % [start_pos_world.distance_to(end_pos_world) / 32]
 		ruler_label.global_position = get_viewport_rect().size / 2
 
-func _on_hud_selected_verb(verb: Verb) -> void:
-	pass # Replace with function body.
+var selection_mode: int = 0
+signal selected_new(mouse_pos: Vector2, noun: Noun, end: bool)
 
-## Handles the sending of orders to selectables.
-func handle_order_sending(add_onto: bool):
-	var target: Character
-	var mouse_pos = get_global_mouse_position()
+func get_noun_under_cursor() -> Array:
+	return [get_global_mouse_position(), SelectionManager.try_get_first_noun_at_position(get_global_mouse_position())]
+
+func _on_hud_selected_verb(verb: Verb) -> void:
+	var target: Noun
+	var mouse_pos: Vector2
+	if verb.verb_selection_type != Verb.SelectionType.NONE:
+		selection_mode = verb.verb_selection_type
+		var data = await selected_new
+		var end = data[2]
+		if end:
+			selection_mode = 0
+			return
+		mouse_pos = data[0]
+		target = data[1]
 	
-	for character in get_tree().get_nodes_in_group("character"):
-		if character is Character:
-			if mouse_pos.distance_to(character.global_position) < character.noun.selection_range:
-				if character.noun not in SelectionManager.selected_list:
-					target = character
-					break
-	
+	var add_onto = Input.is_key_label_pressed(KEY_SHIFT)
 	var parameters = {"mouse_pos": mouse_pos}
-	if target != null:
-		parameters["target"] = target
-	SelectionManager.send_orders(SelectionManager.selected_list, parameters, add_onto)
+	for selected in SelectionManager.selected_list:
+		SelectionManager.send_verb(verb, selected, target, parameters, add_onto)
+
+func shortcut_order_sending(event: InputEventMouseButton, add_onto: bool):
+	if not SelectionManager.has_selection:
+		return # Can't issue orders to a non-existent selection
+	var selected = SelectionManager.selected_list[0]
+	var mouse_pos = get_global_mouse_position()
+	var target = SelectionManager.try_get_first_noun_at_position(mouse_pos)
+	var parameters = {"mouse_pos": mouse_pos}
+	
+	if target is Noun:
+		SelectionManager.send_verb(preload("res://resources/verbs/ranged_attack.tres"), selected, target, parameters, add_onto)
+	else:
+		SelectionManager.send_verb(preload("res://resources/verbs/move_to_point.tres"), selected, null, parameters, add_onto)
+
+func request_target():
+	var mouse_pos = get_global_mouse_position()
+	var target: Noun
+	if selection_mode == Verb.SelectionType.NOUN:
+		target = SelectionManager.try_get_first_noun_at_position(mouse_pos)
+	selected_new.emit(mouse_pos, target, false)
 
 ## Handles several LMB interactions such as selecting and ruler mode.
 func handle_lmb_interactions(event: InputEventMouseButton):
-	if drag_mode == DragMode.NONE:
-		if event.shift_pressed:
-			drag_mode = DragMode.RULER
-		else:
-			drag_mode = DragMode.SELECT
+	if selection_mode != Verb.SelectionType.NONE:
+		if not event.pressed:
+			request_target()
+			selection_mode = 0
+			drag_mode = DragMode.NONE
+		return
+	else:
+		if drag_mode == DragMode.NONE:
+			if event.shift_pressed:
+				drag_mode = DragMode.RULER
+			else:
+				drag_mode = DragMode.SELECT
 	
 	if event.pressed:
 		# Input began, assign start_pos
@@ -117,7 +151,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			end_pos_world = get_global_mouse_position()
 			queue_redraw()
 	if event.is_action_pressed("ui_cancel"): # Deselects all objects if ESC is not handled
-		SelectionManager.try_deselect_all()
+		if selection_mode != Verb.SelectionType.NONE:
+			selected_new.emit(Vector2.ZERO, null, true)
+		else:
+			SelectionManager.try_deselect_all()
 	if event is InputEventMouseButton:
 		if event.is_pressed(): # Handles zoom in/zoom out
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -126,6 +163,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				zoom_in()
 		
 		if event.button_index == MOUSE_BUTTON_RIGHT and not event.is_pressed():
-			handle_order_sending(event.shift_pressed)
+			shortcut_order_sending(event, event.shift_pressed)
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			handle_lmb_interactions(event)

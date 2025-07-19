@@ -10,13 +10,19 @@ class_name Noun
 @export var host: Node2D
 @export var verbs: Array[Verb]
 
+var position:
+	get:
+		if get_position_from != null:
+			return get_position_from.global_position
+		return Vector2.INF
+
 var info: Dictionary
 var is_selected = false
 
 signal selected
 signal deselected
 signal info_updated(info: Dictionary)
-signal received_order(parameters: Dictionary, add_onto: bool)
+signal received_order(order: BaseOrder, target: Noun, parameters: Dictionary, add_onto: bool)
 
 func _ready() -> void:
 	selected.connect(_on_select)
