@@ -103,17 +103,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func enable_menu(to_enable: Panel):
 	for menu in menu_lists:
-		if menu != to_enable:
-			menu.hide()
+		if menu == to_enable: continue
+		menu.hide()
 	
 	if to_enable != null:
-		if to_enable.visible:
-			to_enable.hide()
-		else:
-			to_enable.show()
-
-func _on_health_pressed() -> void:
-	enable_menu($MarginContainer/Control/SelectContainer/Health)
+		to_enable.visible = false if to_enable.visible else true
 
 func update_hud(info: Dictionary):
 	for label in base_frame.get_children():
@@ -176,3 +170,11 @@ func _on_new_selected():
 		update_hud(current_focus.info)
 		generate_verbs()
 		verb_container.show()
+
+#region Button signal connects
+func _on_health_pressed() -> void:
+	enable_menu($MarginContainer/Control/SelectContainer/Health)
+
+func _on_skills_pressed() -> void:
+	enable_menu($MarginContainer/Control/SelectContainer/Skills)
+#endregion

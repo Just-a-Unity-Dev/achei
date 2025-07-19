@@ -7,8 +7,7 @@
 process_mode = 3
 script = ExtResource("1_jtxfu")
 
-[node name="HUD" parent="." node_paths=PackedStringArray("menu_lists") instance=ExtResource("2_wb1d8")]
-menu_lists = []
+[node name="HUD" parent="." instance=ExtResource("2_wb1d8")]
 
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0

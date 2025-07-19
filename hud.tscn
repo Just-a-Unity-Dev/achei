@@ -420,6 +420,7 @@ step = 0.0
 value = 1.0
 
 [node name="Skills" type="Panel" parent="MarginContainer/Control/SelectContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 375)
 layout_mode = 2
 
@@ -679,4 +680,4 @@ grow_vertical = 0
 columns = 5
 
 [connection signal="pressed" from="MarginContainer/Control/SelectContainer/PawnDropdown/HBoxContainer/Health" to="." method="_on_health_pressed"]
-[connection signal="pressed" from="MarginContainer/Control/SelectContainer/PawnDropdown/HBoxContainer/Skills" to="." method="_on_health_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/SelectContainer/PawnDropdown/HBoxContainer/Skills" to="." method="_on_skills_pressed"]
