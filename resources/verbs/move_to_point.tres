@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://btlcdm3npdtp1" path="res://scripts/orders/move_to_point.gd" id="1_d1pc0"]
 [ext_resource type="Script" uid="uid://duvi2xmh3uysj" path="res://scripts/resources/verb.gd" id="2_162jw"]
-[ext_resource type="Texture2D" uid="uid://dp74ksxflltcy" path="res://textures/bullet.png" id="3_lu8h2"]
+[ext_resource type="Texture2D" uid="uid://dd2jh7ursxhtj" path="res://textures/arrow.png" id="3_d1pc0"]
 
 [resource]
 script = ExtResource("2_162jw")
 verb_name = "Move to position"
 verb_description = "Moves this person to a point on screen."
 verb_type = 0
-verb_image = ExtResource("3_lu8h2")
+verb_image = ExtResource("3_d1pc0")
 verb_selection_type = 1
 order = ExtResource("1_d1pc0")
 metadata/_custom_type_script = "uid://duvi2xmh3uysj"
