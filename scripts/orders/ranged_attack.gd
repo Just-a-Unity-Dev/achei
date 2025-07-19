@@ -27,8 +27,8 @@ func setup(new_subject: Character, new_target: Noun = null, new_with: Noun = nul
 	end_when_target_is_not_state = target_host.health.current_state
 
 func recalculate_cache():
-	cache_reload_time = (weapon_data.base_reload - subject.skills.get_modifier(subject.skills[weapon_data.accuracy_skill])) * subject.health._actual_finesse
-	cache_aiming_time = (weapon_data.base_cooldown - subject.skills.get_modifier(subject.skills[weapon_data.accuracy_skill])) * subject.health._actual_sight
+	cache_reload_time = (weapon_data.base_reload - subject.skills.get_modifier(subject.skills[weapon_data.accuracy_skill])) / subject.health._actual_finesse
+	cache_aiming_time = (weapon_data.base_cooldown - subject.skills.get_modifier(subject.skills[weapon_data.accuracy_skill])) / subject.health._actual_sight
 	cache_accuracy = BulletManager.calculate_accuracy(target_host, subject, weapon_data)
 
 func start() -> void:
