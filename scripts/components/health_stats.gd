@@ -7,7 +7,6 @@ class_name HealthStatsComponent
 #@export var wounds: Array[Wound]
 @export var starting_limbs: Array[LimbData]
 var limbs: Array[LimbComponent]
-@export var torso: HealthComponent = HealthComponent.make(320, 320)
 
 @export_category("Immediate health")
 @export var blood: HealthComponent = HealthComponent.make(320, 320)
