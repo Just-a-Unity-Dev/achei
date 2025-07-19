@@ -5,6 +5,9 @@ extends CanvasLayer
 
 @export var menu_lists: Array[Panel]
 
+@export var verb_container: GridContainer
+@export var verb_button: PackedScene
+
 @export_category("Health menu")
 @export var blood_container: HBoxContainer
 @export var pain_container: HBoxContainer
@@ -102,6 +105,22 @@ func _info_updated(new_info: Dictionary):
 func _process(delta: float) -> void:
 	update_health_hud()
 
+func clear_verbs():
+	for child in verb_container.get_children():
+		child.queue_free()
+
+func _verb_button_pressed(verb: Verb):
+	print(verb.verb_name)
+
+func generate_verbs():
+	clear_verbs()
+	for verb in current_focus.verbs:
+		var new_button: Button = verb_button.instantiate()
+		new_button.get_node("Label").text = verb.verb_name
+		new_button.get_node("Image").texture = verb.verb_image
+		new_button.pressed.connect(_verb_button_pressed.bind(verb))
+		verb_container.add_child(new_button)
+
 func _on_new_selected():
 	select_container.hide()
 	
@@ -113,6 +132,7 @@ func _on_new_selected():
 	var selected_list = SelectionManager.selected_list
 	select_container.show()
 	pawn_dropdown.hide()
+	verb_container.hide()
 	enable_menu(null)
 	if selected_list.size() < 1:
 		# Selected no objects, so just hide the HUD
@@ -127,3 +147,5 @@ func _on_new_selected():
 		current_focus.info_updated.connect(_info_updated)
 		pawn_dropdown.visible = current_focus.selectable_id == StringName("Pawn")
 		update_hud(current_focus.info)
+		generate_verbs()
+		verb_container.show()

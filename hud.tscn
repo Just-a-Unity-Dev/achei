@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnllv6lcql7oh"]
+[gd_scene load_steps=8 format=3 uid="uid://dnllv6lcql7oh"]
 
 [ext_resource type="Script" uid="uid://dppju8023hmcu" path="res://scripts/hud.gd" id="1_37p78"]
+[ext_resource type="PackedScene" uid="uid://bk0dvuyoesowj" path="res://verb_button.tscn" id="2_64ctp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_640wx"]
 bg_color = Color(0.41, 0.1189, 0.1189, 1)
@@ -37,13 +38,15 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("select_container", "base_frame", "pawn_dropdown", "menu_lists", "blood_container", "pain_container", "conscious_container", "handling_container", "movement_container", "sight_container", "hunger_container", "thirst_container", "temperature_container", "sleep_container", "comfort_container", "stress_container", "limb_source_container", "bleed_severity_label")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("select_container", "base_frame", "pawn_dropdown", "menu_lists", "verb_container", "blood_container", "pain_container", "conscious_container", "handling_container", "movement_container", "sight_container", "hunger_container", "thirst_container", "temperature_container", "sleep_container", "comfort_container", "stress_container", "limb_source_container", "bleed_severity_label")]
 process_mode = 3
 script = ExtResource("1_37p78")
 select_container = NodePath("MarginContainer/Control/SelectContainer")
 base_frame = NodePath("MarginContainer/Control/SelectContainer/SelectMenu/MarginContainer/BaseFrame")
 pawn_dropdown = NodePath("MarginContainer/Control/SelectContainer/PawnDropdown")
 menu_lists = [NodePath("MarginContainer/Control/SelectContainer/Health")]
+verb_container = NodePath("MarginContainer/Control/VerbContainer")
+verb_button = ExtResource("2_64ctp")
 blood_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Blood")
 pain_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Pain")
 conscious_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Awareness")
@@ -526,5 +529,16 @@ text = "2x"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "3x"
+
+[node name="VerbContainer" type="GridContainer" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 426.0
+offset_top = -272.0
+offset_right = 997.0
+grow_vertical = 0
+columns = 5
 
 [connection signal="pressed" from="MarginContainer/Control/SelectContainer/PawnDropdown/HBoxContainer/Health" to="." method="_on_health_pressed"]

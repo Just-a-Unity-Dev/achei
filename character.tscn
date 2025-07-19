@@ -1,12 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://dmw7wf3p3biai"]
+[gd_scene load_steps=20 format=3 uid="uid://dmw7wf3p3biai"]
 
 [ext_resource type="Texture2D" uid="uid://dqhvce2p1wsm3" path="res://icon.svg" id="1_glpr6"]
 [ext_resource type="Script" uid="uid://d27y6e5oq1cdg" path="res://scripts/character.gd" id="1_wfnr8"]
 [ext_resource type="Script" uid="uid://daipew5657usq" path="res://scripts/noun.gd" id="2_pjt0s"]
 [ext_resource type="Script" uid="uid://dcncxjibw6sg5" path="res://scripts/components/health_stats.gd" id="2_px5sl"]
-[ext_resource type="Resource" uid="uid://ia666tgat1hs" path="res://resources/bolt-action-rifle.tres" id="2_yxww1"]
+[ext_resource type="Resource" uid="uid://ia666tgat1hs" path="res://resources/weapons/bolt-action-rifle.tres" id="2_yxww1"]
 [ext_resource type="Shader" uid="uid://d1eh2k82dlrtu" path="res://outline.gdshader" id="3_wa5vi"]
 [ext_resource type="Script" uid="uid://bg10dp8klqjy3" path="res://scripts/components/skill_stats.gd" id="6_0qfo5"]
+[ext_resource type="Script" uid="uid://duvi2xmh3uysj" path="res://scripts/resources/verb.gd" id="6_lpiy1"]
+[ext_resource type="Resource" uid="uid://sebq8j2iu07c" path="res://resources/verbs/move_to_point.tres" id="7_88tkl"]
 [ext_resource type="Script" uid="uid://lxfq1jxx0biu" path="res://scripts/resources/limb_data.gd" id="7_x1sy7"]
 [ext_resource type="Resource" uid="uid://5sg64cvrm6dr" path="res://resources/limbs/human_head.tres" id="8_sm1rv"]
 [ext_resource type="Resource" uid="uid://cpygdhw1xr6fo" path="res://resources/limbs/human_torso.tres" id="9_jx0ln"]
@@ -60,6 +62,7 @@ selectable_id = &"Pawn"
 get_position_from = NodePath("..")
 show_when_selected = NodePath("../SelectedSprite")
 host = NodePath("..")
+verbs = Array[ExtResource("6_lpiy1")]([ExtResource("7_88tkl")])
 metadata/_custom_type_script = "uid://daipew5657usq"
 
 [node name="HealthStatsComponent" type="Node" parent="." node_paths=PackedStringArray("host")]

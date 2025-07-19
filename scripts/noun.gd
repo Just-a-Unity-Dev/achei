@@ -8,6 +8,7 @@ class_name Noun
 @export var show_when_selected: CanvasItem
 
 @export var host: Node2D
+@export var verbs: Array[Verb]
 
 var info: Dictionary
 var is_selected = false
