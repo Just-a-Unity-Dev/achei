@@ -86,7 +86,7 @@ func _draw() -> void:
 			# Draw ranged combat
 			if order.progress > 0:
 				var angle = global_position.angle_to_point(order.target_host.global_position)
-				var progress = deg_to_rad(45 * (1.0 - order.progress))
+				var progress: float = deg_to_rad((order.attack_progress / 30.0) * 360.0)
 				draw_arc(Vector2.ZERO, 32, angle - progress, angle + progress, 50, Color.WHITE * TRANSPARENCY, 50)
 		i += 1
 	

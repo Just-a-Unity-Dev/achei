@@ -8,6 +8,8 @@ var cache_aiming_time := 0.0
 var cache_accuracy := -1.0
 var cache_recalculate := true
 
+var attack_progress = 0.0
+
 var target_host: Character
 
 func setup(new_subject: Character, new_target: Noun = null, new_with: Noun = null, new_parameters: Dictionary = {}) -> void:
@@ -21,7 +23,7 @@ func setup(new_subject: Character, new_target: Noun = null, new_with: Noun = nul
 	
 	target_host = new_target.host
 	weapon_data = subject.current_weapon
-	time_since_last_hit = weapon_data.base_reload
+	time_since_last_hit = 0.0 # Can be abused to kite weapons - should add a "loaded" state to weapons if we want this
 	end_when_target_is_not_state = target_host.health.current_state
 
 func recalculate_cache():
@@ -56,6 +58,7 @@ func do(delta: float) -> void:
 	var aim_time = cache_aiming_time
 	
 	progress = time_since_last_hit / (reload_time + aim_time)
+	attack_progress = (reload_time + aim_time) - time_since_last_hit
 	if cache_accuracy <= 0.0:
 		progress = -1
 		set_status("Attack: Refusing to fire: 0% chance of hit")
