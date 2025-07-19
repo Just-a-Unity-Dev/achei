@@ -8,6 +8,8 @@ extends CanvasLayer
 @export var verb_container: GridContainer
 @export var verb_button: PackedScene
 
+@export var skill_containers: Array[BoxContainer]
+
 @export_category("Health menu")
 @export var blood_container: HBoxContainer
 @export var pain_container: HBoxContainer
@@ -37,6 +39,28 @@ func generic_update_container(container: HBoxContainer, value: float, max_value:
 	bar.value = value
 	if max_value != -1.0:
 		bar.max_value = max_value
+
+func update_skill_hud():
+	if current_focus == null: return
+	var character = current_focus.get_parent()
+	
+	if character is Character:
+		var skills = character.skills
+		var main_container: Array[Control] = []
+		for container in skill_containers:
+			main_container.append_array(container.get_children())
+		
+		for control in main_container:
+			if control is HBoxContainer:
+				var name_label: Label = control.get_node("Name")
+				var level_bar: ProgressBar = control.get_node("Label")
+				var value_label: Label = control.get_node("Label/Value")
+				
+				var xp = skills[control.name]
+				
+				name_label.text = control.name
+				level_bar.value = xp
+				value_label.text = "LVL: %d" % skills.get_level(xp)
 
 func update_health_hud():
 	if current_focus == null: return
@@ -103,7 +127,8 @@ func _info_updated(new_info: Dictionary):
 	update_hud(new_info)
 
 func _process(delta: float) -> void:
-	update_health_hud()
+	update_health_hud() # TODO: On health delta, update health HUD
+	update_skill_hud() # TODO: On skill delta, update skill HUD
 
 func clear_verbs():
 	for child in verb_container.get_children():

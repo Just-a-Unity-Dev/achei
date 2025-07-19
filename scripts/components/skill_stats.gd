@@ -21,7 +21,6 @@ class_name SkillStatsComponent
 @export var toughness:		float = 600.0 # How resilient are you to melee attacks?
 @export var firearms:		float = 600.0 # Are you good at aiming, reloading, and operating a firearm?
 @export var archery:		float = 600.0 # Are you good at aiming, reloading, and using a bow?
-@export var throwing:		float = 600.0 # Are you good at aiming and throwing things?
 @export var punch:			float = 600.0 # You can be strong, and still not know how to punch.
 @export var stab:			float = 600.0 # How good are you at stabbing people? Spears, halberds, etc.
 @export var slash:			float = 600.0 # How good are you at slashing people? Axes, knives, etc.
@@ -36,14 +35,16 @@ class_name SkillStatsComponent
 
 var xp_amounts = {1: 200, 2: 400, 3: 600, 4: 800, 5: 1000, 6: 1500, 7: 2000, 8: 2500, 9: 3000, 10: 4000}
 var modifier_amount = {0: -0.20, 1: -.15,2: -.1, 3: +0, 4: .05, 5: .1, 6: .15, 7: .2, 8: .25, 9: .30, 10: .35}
-func get_modifier(xp: float) -> float:
-	var level = 0
+
+func get_level(xp: float) -> int:
 	for i in range(xp_amounts.size(), 1, -1):
 		var val = xp_amounts[i]
 		if xp >= val:
-			level = i
-			break
-	return modifier_amount[level]
+			return i
+	return 0
+
+func get_modifier(xp: float) -> float:
+	return modifier_amount[get_level(xp)]
 
 func save() -> Dictionary:
 	return {
@@ -60,7 +61,6 @@ func save() -> Dictionary:
 		"toughness": toughness,
 		"firearms": firearms,
 		"archery": archery,
-		"throwing": throwing,
 		"punch": punch,
 		"stab": stab,
 		"slash": slash,

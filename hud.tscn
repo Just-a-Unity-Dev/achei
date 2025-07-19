@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dnllv6lcql7oh"]
+[gd_scene load_steps=10 format=3 uid="uid://dnllv6lcql7oh"]
 
 [ext_resource type="Script" uid="uid://dppju8023hmcu" path="res://scripts/hud.gd" id="1_37p78"]
 [ext_resource type="PackedScene" uid="uid://bk0dvuyoesowj" path="res://verb_button.tscn" id="2_64ctp"]
+[ext_resource type="PackedScene" uid="uid://dg1q01mik63mj" path="res://ui/skill-label.tscn" id="3_8sq4i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_640wx"]
 bg_color = Color(0.41, 0.1189, 0.1189, 1)
@@ -38,7 +39,9 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("select_container", "base_frame", "pawn_dropdown", "menu_lists", "verb_container", "blood_container", "pain_container", "conscious_container", "handling_container", "movement_container", "sight_container", "hunger_container", "thirst_container", "temperature_container", "sleep_container", "comfort_container", "stress_container", "limb_source_container", "bleed_severity_label")]
+[sub_resource type="LabelSettings" id="LabelSettings_8sq4i"]
+
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("select_container", "base_frame", "pawn_dropdown", "menu_lists", "verb_container", "skill_containers", "blood_container", "pain_container", "conscious_container", "handling_container", "movement_container", "sight_container", "hunger_container", "thirst_container", "temperature_container", "sleep_container", "comfort_container", "stress_container", "limb_source_container", "bleed_severity_label")]
 process_mode = 3
 script = ExtResource("1_37p78")
 select_container = NodePath("MarginContainer/Control/SelectContainer")
@@ -47,6 +50,7 @@ pawn_dropdown = NodePath("MarginContainer/Control/SelectContainer/PawnDropdown")
 menu_lists = [NodePath("MarginContainer/Control/SelectContainer/Health")]
 verb_container = NodePath("MarginContainer/Control/VerbContainer")
 verb_button = ExtResource("2_64ctp")
+skill_containers = [NodePath("MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left"), NodePath("MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right")]
 blood_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Blood")
 pain_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Pain")
 conscious_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Awareness")
@@ -82,11 +86,12 @@ mouse_filter = 2
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 420.0
+offset_right = 427.0
 grow_vertical = 2
 alignment = 2
 
 [node name="Health" type="Panel" parent="MarginContainer/Control/SelectContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 375)
 layout_mode = 2
 
@@ -414,6 +419,133 @@ max_value = 1.0
 step = 0.0
 value = 1.0
 
+[node name="Skills" type="Panel" parent="MarginContainer/Control/SelectContainer"]
+custom_minimum_size = Vector2(0, 375)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/SelectContainer/Skills"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Skills"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Left" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Header" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+text = "Body"
+label_settings = SubResource("LabelSettings_8sq4i")
+
+[node name="strength" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="endurance" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="sneak" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+text = "Ingenuinity"
+
+[node name="doctor" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="engineer" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="Header2" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+layout_mode = 2
+text = "Finesse"
+label_settings = SubResource("LabelSettings_8sq4i")
+
+[node name="repair" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="cook" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="fish" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="craft" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="farm" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="HSeparator" type="VSeparator" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Right" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Header" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right"]
+layout_mode = 2
+text = "Combat"
+label_settings = SubResource("LabelSettings_8sq4i")
+
+[node name="toughness" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="firearms" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="archery" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="punch" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="stab" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="slash" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="Header2" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right"]
+layout_mode = 2
+text = "Perception"
+label_settings = SubResource("LabelSettings_8sq4i")
+
+[node name="scavenge" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="navigate" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="Header3" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right"]
+layout_mode = 2
+text = "Composure"
+label_settings = SubResource("LabelSettings_8sq4i")
+
+[node name="reason" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="intimidate" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
 [node name="PawnDropdown" type="Panel" parent="MarginContainer/Control/SelectContainer"]
 custom_minimum_size = Vector2(0, 39)
 layout_mode = 2
@@ -430,6 +562,11 @@ grow_vertical = 2
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 text = "Health"
+
+[node name="Skills" type="Button" parent="MarginContainer/Control/SelectContainer/PawnDropdown/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "Skills"
 
 [node name="SelectMenu" type="Panel" parent="MarginContainer/Control/SelectContainer"]
 custom_minimum_size = Vector2(420, 208)
@@ -535,10 +672,11 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 426.0
+offset_left = 431.0
 offset_top = -272.0
-offset_right = 997.0
+offset_right = 1002.0
 grow_vertical = 0
 columns = 5
 
 [connection signal="pressed" from="MarginContainer/Control/SelectContainer/PawnDropdown/HBoxContainer/Health" to="." method="_on_health_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/SelectContainer/PawnDropdown/HBoxContainer/Skills" to="." method="_on_health_pressed"]

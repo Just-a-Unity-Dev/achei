@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://buel7ed306f6m"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://buel7ed306f6m"]
 
 [ext_resource type="FontFile" uid="uid://b0cnm1ispwxqq" path="res://ui/fonts/WinkyRough-Regular.ttf" id="1_rqugq"]
 
@@ -45,6 +45,13 @@ bg_color = Color(0.152114, 0.116914, 0.177266, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jf26r"]
 bg_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtqkv"]
+bg_color = Color(0.133197, 0.133196, 0.133196, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5ki2"]
 bg_color = Color(0.192157, 0.137255, 0.2, 1)
 corner_radius_top_left = 4
@@ -61,4 +68,5 @@ Button/styles/hover = SubResource("StyleBoxFlat_7any1")
 Button/styles/normal = SubResource("StyleBoxFlat_rqugq")
 Button/styles/pressed = SubResource("StyleBoxFlat_3fgq6")
 Panel/styles/panel = SubResource("StyleBoxFlat_jf26r")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_rtqkv")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_y5ki2")
