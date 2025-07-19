@@ -109,6 +109,8 @@ func _process(delta: float) -> void:
 func add_order(order: BaseOrder, target: Noun, parameters: Dictionary, front: bool = false):
 	if health.current_state != health.State.ALIVE: return
 	order.setup(self, target, null, parameters)
+	if order.finished:
+		return # Setup caused order to end prematurely
 	
 	if front:
 		list_of_orders.push_front(order)
