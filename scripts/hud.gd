@@ -115,11 +115,12 @@ func _verb_button_pressed(verb: Verb):
 func generate_verbs():
 	clear_verbs()
 	for verb in current_focus.verbs:
-		var new_button: Button = verb_button.instantiate()
-		new_button.get_node("Label").text = verb.verb_name
-		new_button.get_node("Image").texture = verb.verb_image
-		new_button.pressed.connect(_verb_button_pressed.bind(verb))
-		verb_container.add_child(new_button)
+		if verb.verb_type != Verb.VerbType.TARGET_ONLY:
+			var new_button: Button = verb_button.instantiate()
+			new_button.get_node("Label").text = verb.verb_name
+			new_button.get_node("Image").texture = verb.verb_image
+			new_button.pressed.connect(_verb_button_pressed.bind(verb))
+			verb_container.add_child(new_button)
 
 func _on_new_selected():
 	select_container.hide()
