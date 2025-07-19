@@ -109,8 +109,9 @@ func clear_verbs():
 	for child in verb_container.get_children():
 		child.queue_free()
 
+signal selected_verb(verb: Verb)
 func _verb_button_pressed(verb: Verb):
-	print(verb.verb_name)
+	await selected_verb.emit(verb)
 
 func generate_verbs():
 	clear_verbs()

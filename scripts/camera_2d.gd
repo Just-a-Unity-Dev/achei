@@ -53,6 +53,9 @@ func _draw():
 		ruler_label.text = "%.2fm" % [start_pos_world.distance_to(end_pos_world) / 32]
 		ruler_label.global_position = get_viewport_rect().size / 2
 
+func _on_hud_selected_verb(verb: Verb) -> void:
+	pass # Replace with function body.
+
 ## Handles the sending of orders to selectables.
 func handle_order_sending(add_onto: bool):
 	var target: Character

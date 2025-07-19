@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://br1tfhyrjq8ub"]
+
+[ext_resource type="Script" uid="uid://brsnh5kbbgsol" path="res://scripts/camera_2d.gd" id="1_jtxfu"]
+[ext_resource type="PackedScene" uid="uid://dnllv6lcql7oh" path="res://hud.tscn" id="2_wb1d8"]
+
+[node name="PlayerCamera" type="Camera2D"]
+process_mode = 3
+script = ExtResource("1_jtxfu")
+
+[node name="HUD" parent="." node_paths=PackedStringArray("menu_lists") instance=ExtResource("2_wb1d8")]
+menu_lists = []
+
+[connection signal="selected_verb" from="HUD" to="." method="_on_hud_selected_verb"]
