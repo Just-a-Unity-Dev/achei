@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dmw7wf3p3biai"]
+[gd_scene load_steps=22 format=3 uid="uid://dmw7wf3p3biai"]
 
 [ext_resource type="Texture2D" uid="uid://dqhvce2p1wsm3" path="res://icon.svg" id="1_glpr6"]
 [ext_resource type="Script" uid="uid://d27y6e5oq1cdg" path="res://scripts/character.gd" id="1_wfnr8"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://cdcepin3eva68" path="res://resources/verbs/treat_wounds.tres" id="8_88tkl"]
 [ext_resource type="Resource" uid="uid://5sg64cvrm6dr" path="res://resources/limbs/human_head.tres" id="8_sm1rv"]
 [ext_resource type="Resource" uid="uid://cpygdhw1xr6fo" path="res://resources/limbs/human_torso.tres" id="9_jx0ln"]
+[ext_resource type="Resource" uid="uid://cge7tlrq1tvt" path="res://resources/verbs/ranged_attack.tres" id="9_y0ipg"]
 [ext_resource type="Resource" uid="uid://2lao5ugkjaue" path="res://resources/limbs/human_left_arm.tres" id="10_lpiy1"]
 [ext_resource type="Resource" uid="uid://b261xsgjo0pm2" path="res://resources/limbs/human_right_arm.tres" id="11_88tkl"]
 [ext_resource type="Resource" uid="uid://dqt56j5q4wdd1" path="res://resources/limbs/human_left_leg.tres" id="12_y0ipg"]
@@ -63,7 +64,7 @@ selectable_id = &"Pawn"
 get_position_from = NodePath("..")
 show_when_selected = NodePath("../SelectedSprite")
 host = NodePath("..")
-verbs = Array[ExtResource("6_lpiy1")]([ExtResource("7_88tkl"), ExtResource("8_88tkl")])
+verbs = Array[ExtResource("6_lpiy1")]([ExtResource("7_88tkl"), ExtResource("9_y0ipg"), ExtResource("8_88tkl")])
 metadata/_custom_type_script = "uid://daipew5657usq"
 
 [node name="HealthStatsComponent" type="Node" parent="." node_paths=PackedStringArray("host")]

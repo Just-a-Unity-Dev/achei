@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Verb" load_steps=4 format=3 uid="uid://cge7tlrq1tvt"]
+
+[ext_resource type="Script" uid="uid://be3wcgowg6pvo" path="res://scripts/orders/ranged_attack.gd" id="1_4seb6"]
+[ext_resource type="Script" uid="uid://duvi2xmh3uysj" path="res://scripts/resources/verb.gd" id="2_sbfkw"]
+[ext_resource type="Texture2D" uid="uid://c2l1wgqsst4va" path="res://textures/bolt-action-rifle.png" id="3_sbfkw"]
+
+[resource]
+script = ExtResource("2_sbfkw")
+verb_name = "Attack (ranged)"
+verb_description = "Attacks a target with a ranged weapon."
+verb_type = 0
+verb_image = ExtResource("3_sbfkw")
+verb_selection_type = 2
+order = ExtResource("1_4seb6")
+metadata/_custom_type_script = "uid://duvi2xmh3uysj"
