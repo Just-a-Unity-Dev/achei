@@ -16,6 +16,8 @@ func setup(new_subject: Character, new_target: Noun = null, new_with: Noun = nul
 	super(new_subject, new_target, new_with, new_parameters)
 	if target == null:
 		return end(false) # cant attack if we don't have a character
+	if target.host == new_subject:
+		return end(false) # ... please don't do that
 	if subject.current_weapon == null:
 		return end(false) # ... how can we ranged attack if we don't have a ranged weapon?
 	if target.host is not Character:
