@@ -21,9 +21,9 @@ class_name SkillStatsComponent
 @export var toughness:		float = 600.0 # How resilient are you to melee attacks?
 @export var firearms:		float = 600.0 # Are you good at aiming, reloading, and operating a firearm?
 @export var archery:		float = 600.0 # Are you good at aiming, reloading, and using a bow?
-@export var punch:			float = 600.0 # You can be strong, and still not know how to punch.
-@export var stab:			float = 600.0 # How good are you at stabbing people? Spears, halberds, etc.
-@export var slash:			float = 600.0 # How good are you at slashing people? Axes, knives, etc.
+@export var throwing:		float = 600.0 # How good are you at throwing weapons?
+@export var unarmed:		float = 600.0 # You can be strong, and still not know how to punch.
+@export var melee:			float = 600.0 # How good are you at using melee weapons?
 
 @export_category("Perception")
 @export var scavenge:		float = 600.0 # How good are you at scavenging items?
@@ -61,9 +61,9 @@ func save() -> Dictionary:
 		"toughness": toughness,
 		"firearms": firearms,
 		"archery": archery,
-		"punch": punch,
-		"stab": stab,
-		"slash": slash,
+		"throwing": throwing,
+		"unarmed": unarmed,
+		"melee": melee,
 		"scavenge": scavenge,
 		"navigate": navigate,
 		"reason": reason,

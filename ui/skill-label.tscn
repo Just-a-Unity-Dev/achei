@@ -7,9 +7,10 @@ custom_minimum_size = Vector2(0, 20)
 custom_minimum_size = Vector2(63, 0)
 layout_mode = 2
 text = "Name"
+horizontal_alignment = 2
 
 [node name="Label" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(130, 20)
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 4000.0

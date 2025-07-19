@@ -512,16 +512,16 @@ layout_mode = 2
 [node name="firearms" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
+[node name="throwing" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
 [node name="archery" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
-[node name="punch" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+[node name="unarmed" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
-[node name="stab" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
-layout_mode = 2
-
-[node name="slash" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+[node name="melee" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
 [node name="Header2" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right"]
