@@ -3,6 +3,7 @@ extends Camera2D
 # The behemoth. Handles zoom in/out, mouse interactions, and verb handling.
 # TODO: Mouse interactions / verb handling should be delegated to their own nodes
 
+#region Zoom
 var _target_zoom: float = 1.0
 const MIN_ZOOM: float = 0.2
 const MAX_ZOOM: float = 2
@@ -20,66 +21,76 @@ func zoom_out():
 func _physics_process(delta: float) -> void:
 	zoom = lerp(zoom, _target_zoom * Vector2.ONE, ZOOM_RATE * delta)
 	set_physics_process(not is_equal_approx(zoom.x, _target_zoom))
-
+#endregion
+#region Drag
 var start_pos_world: Vector2 # World: used to detect units within range
 var end_pos_world: Vector2
 
-var start_pos_screen: Vector2 # Screen: used to draw stuff
+var start_pos_screen: Vector2 # Screen: used to draw the selection rectangle
 var end_pos_screen: Vector2
 
+## When dragging the LMB, what mode should we use primarily?
 enum DragMode {
+	## The LMB is not being held down / do nothing.
 	NONE = 0,
+	## Create a selection box and select units beneath said box
 	SELECT = 1,
+	## Visualize a ruler
 	RULER = 2
 }
+## The current selected drag mode
 var drag_mode: DragMode = DragMode.NONE
 var ruler_label := Label.new()
+#endregion
+
+## See Verb.SelectionType for the type of mode
+var selection_mode: int = 0
+signal selected_new(mouse_pos: Vector2, noun: Noun, end: bool)
 
 func _init() -> void:
 	z_index = 1000 # Make sure our UI is above the others
 
-var hud: CanvasLayer
-
 func _ready():
-	var canvas_layer = CanvasLayer.new()
-	canvas_layer.add_child(ruler_label)
-	add_child(canvas_layer)
+	# Set up the ruler label
+	ruler_label.add_theme_constant_override("outline_size", 12)
+	ruler_label.add_theme_constant_override("font_size", 64)
+	$HUD.add_child(ruler_label)
+	ruler_label.global_position = get_viewport_rect().size / 2
 	ruler_label.hide()
 
 func _draw():
 	if drag_mode == DragMode.SELECT:
+		# Draw select box
 		draw_rect(Rect2(start_pos_screen, end_pos_screen - start_pos_screen), Color(1,1,1), false, -1.0, false)
 	elif drag_mode == DragMode.RULER:
+		# Draw ruler line and update text
 		draw_line(start_pos_screen, end_pos_screen, Color(1,1,1))
 		draw_circle(start_pos_screen, 2, Color(1,1,1))
 		draw_circle(end_pos_screen, 2, Color(1,1,1))
 		ruler_label.text = "%.2fm" % [start_pos_world.distance_to(end_pos_world) / 32]
-		ruler_label.global_position = get_viewport_rect().size / 2
 
-var selection_mode: int = 0
-signal selected_new(mouse_pos: Vector2, noun: Noun, end: bool)
-
-func get_noun_under_cursor() -> Array:
-	return [get_global_mouse_position(), SelectionManager.try_get_first_noun_at_position(get_global_mouse_position())]
-
+## Handles actually sending verbs to selected nouns
 func _on_hud_selected_verb(verb: Verb) -> void:
 	var target: Noun
 	var mouse_pos: Vector2
+	
 	if verb.verb_selection_type != Verb.SelectionType.NONE:
 		selection_mode = verb.verb_selection_type
-		var data = await selected_new
-		var end = data[2]
-		if end:
-			selection_mode = 0
-			return
+		var data = await selected_new # Wait for the user to select the specified verb selection
+		selection_mode = 0
+		
+		if data[2]: return # Player requested to end selection
+		
 		mouse_pos = data[0]
 		target = data[1]
 	
+	# Build the prerequisites and then send the verb
 	var add_onto = Input.is_key_label_pressed(KEY_SHIFT)
 	var parameters = {"mouse_pos": mouse_pos}
 	for selected in SelectionManager.selected_list:
 		SelectionManager.send_verb(verb, selected, target, parameters, add_onto)
 
+## Quickly dispatches a verb based on the mouse cursor context (movement, attack, etc)
 func shortcut_order_sending(event: InputEventMouseButton, add_onto: bool):
 	if not SelectionManager.has_selection:
 		return # Can't issue orders to a non-existent selection
@@ -89,31 +100,34 @@ func shortcut_order_sending(event: InputEventMouseButton, add_onto: bool):
 	var parameters = {"mouse_pos": mouse_pos}
 	
 	if target is Noun:
+		# TODO: Should probably open up a popupmenu instead of immediately starting to kill
 		SelectionManager.send_verb(preload("res://resources/verbs/ranged_attack.tres"), selected, target, parameters, add_onto)
 	else:
 		SelectionManager.send_verb(preload("res://resources/verbs/move_to_point.tres"), selected, null, parameters, add_onto)
 
-func request_target():
+## Tries to emit the required verb data to signal selected_new. Returns false if it failed
+func try_request_target() -> bool:
 	var mouse_pos = get_global_mouse_position()
 	var target: Noun
 	if selection_mode == Verb.SelectionType.NOUN:
 		target = SelectionManager.try_get_first_noun_at_position(mouse_pos)
+		if target == null: return false # Doesn't make sense to emit null when this verb *requires* a noun
 	selected_new.emit(mouse_pos, target, false)
+	return true
 
 ## Handles several LMB interactions such as selecting and ruler mode.
 func handle_lmb_interactions(event: InputEventMouseButton):
 	if selection_mode != Verb.SelectionType.NONE:
+		# We're currently selecting something, so try to request_target here
 		if not event.pressed:
-			request_target()
-			selection_mode = 0
-			drag_mode = DragMode.NONE
+			if try_request_target():
+				selection_mode = 0
+				drag_mode = DragMode.NONE
 		return
 	else:
+		# Assign drag mode based on shift
 		if drag_mode == DragMode.NONE:
-			if event.shift_pressed:
-				drag_mode = DragMode.RULER
-			else:
-				drag_mode = DragMode.SELECT
+			drag_mode = DragMode.RULER if event.shift_pressed else DragMode.SELECT
 	
 	if event.pressed:
 		# Input began, assign start_pos
