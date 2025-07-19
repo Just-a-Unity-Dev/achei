@@ -1,7 +1,5 @@
 extends BaseAttackOrder
 
-var progress: float = 1.0
-
 var weapon_data: GunData
 var end_when_target_is_not_state: int = -1
 
@@ -59,7 +57,7 @@ func do(delta: float) -> void:
 	
 	progress = time_since_last_hit / (reload_time + aim_time)
 	if cache_accuracy <= 0.0:
-		progress = 0.0
+		progress = -1
 		set_status("Attack: Refusing to fire: 0% chance of hit")
 		if time_since_last_hit > .5:
 			time_since_last_hit = 0.0

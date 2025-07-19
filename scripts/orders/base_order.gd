@@ -21,6 +21,8 @@ var current_status: String
 signal order_finished(success: bool)
 signal update_status(new_status: String)
 
+var progress: float = -1.0
+
 func set_status(new_status: String):
 	update_status.emit(new_status)
 	current_status = new_status

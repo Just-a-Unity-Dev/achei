@@ -58,6 +58,7 @@ func do(delta: float) -> void:
 		subject.velocity = Vector2.ZERO
 		time_since_last_heal += delta
 		set_status("Healing target (%.2fs)" % [HEALING_TIME - time_since_last_heal])
+		progress = time_since_last_heal / HEALING_TIME
 		if time_since_last_heal < HEALING_TIME:
 			return # Not yet time
 		try_heal_target()

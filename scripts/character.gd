@@ -84,9 +84,10 @@ func _draw() -> void:
 				draw_circle(to_local(order.target_host.global_position), 22, Color.RED * TRANSPARENCY, false, 2)
 			
 			# Draw ranged combat
-			var angle = global_position.angle_to_point(order.target_host.global_position)
-			var progress = deg_to_rad(45 * (1.0 - order.progress))
-			draw_arc(Vector2.ZERO, 32, angle - progress, angle + progress, 3, Color.WHITE * TRANSPARENCY, 4)
+			if order.progress > 0:
+				var angle = global_position.angle_to_point(order.target_host.global_position)
+				var progress = deg_to_rad(45 * (1.0 - order.progress))
+				draw_arc(Vector2.ZERO, 32, angle - progress, angle + progress, 50, Color.WHITE * TRANSPARENCY, 50)
 		i += 1
 	
 	if current_weapon != null and noun.is_selected:
@@ -94,6 +95,15 @@ func _draw() -> void:
 		draw_circle(Vector2.ZERO, current_weapon.short_range * 32, Color.GREEN * TRANSPARENCY, false, 2.20)
 		draw_circle(Vector2.ZERO, current_weapon.medium_range * 32, Color.YELLOW * TRANSPARENCY, false, 2.20)
 		draw_circle(Vector2.ZERO, current_weapon.long_range * 32, Color.RED * TRANSPARENCY, false, 2.20)
+
+@onready var progress_bar = $ProgressBar
+func _process(delta: float) -> void:
+	if list_of_orders.size() > 0:
+		var current_order = list_of_orders[0]
+		progress_bar.visible = current_order.progress > 0.0
+		progress_bar.value = list_of_orders[0].progress
+	else:
+		progress_bar.hide()
 
 ## Queues an order, and places it at the back of the list
 func add_order(order: BaseOrder, target: Noun, parameters: Dictionary, front: bool = false):
