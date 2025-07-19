@@ -22,6 +22,11 @@ PopupManager="*res://scripts/autoload/popup_manager.gd"
 BulletManager="*res://scripts/autoload/bullet_manager.gd"
 DefinitionManager="*res://scripts/autoload/definition_manager.gd"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
 [gui]
 
 theme/custom="uid://buel7ed306f6m"
