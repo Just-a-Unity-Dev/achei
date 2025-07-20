@@ -79,6 +79,8 @@ const PAIN_PER_DAMAGE = 0.00125
 
 var time_since_last_delta = 0.0
 func _physics_process(delta: float) -> void:
+	if current_state == State.DEAD: 
+		return # Don't tick health stats if we're dead, idiot
 	_actual_pain = move_toward(_actual_pain, base_pain, PAIN_HEAL_RATE * delta)
 	if bleeding_severity > 0:
 		blood.take_damage(BLEED_RATE * delta * bleeding_severity)
