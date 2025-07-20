@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Verb" load_steps=4 format=3 uid="uid://8wl81mnirxa5"]
+
+[ext_resource type="Script" uid="uid://b50j6qmbwb8t8" path="res://scripts/orders/clear_orders.gd" id="1_nfdvf"]
+[ext_resource type="Script" uid="uid://duvi2xmh3uysj" path="res://scripts/resources/verb.gd" id="2_8m1np"]
+[ext_resource type="Texture2D" uid="uid://bfrufventc5up" path="res://textures/block.png" id="3_03q0b"]
+
+[resource]
+script = ExtResource("2_8m1np")
+verb_name = "Halt"
+verb_description = "Halts the subject and clears all orders."
+verb_type = 0
+verb_image = ExtResource("3_03q0b")
+verb_selection_type = 0
+order = ExtResource("1_nfdvf")
+metadata/_custom_type_script = "uid://duvi2xmh3uysj"
