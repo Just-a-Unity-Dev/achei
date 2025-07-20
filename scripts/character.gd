@@ -26,7 +26,7 @@ enum MovementState {
 var list_of_orders: Array[BaseOrder]
 
 const PIXEL_SECOND = 60*32
-const BASE_SPEED = 2*PIXEL_SECOND
+const BASE_SPEED = 2.5*PIXEL_SECOND
 var cache_speed: int = 0
 
 func try_switch_movement_state(target_state: MovementState):
