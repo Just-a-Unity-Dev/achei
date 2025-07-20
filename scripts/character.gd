@@ -194,7 +194,6 @@ func trigger_info_update() -> void:
 var previous_tile: String = "None"
 
 func _physics_process(delta: float) -> void:
-	queue_redraw()
 	if health.current_state != health.State.ALIVE: return
 	# Do the list of orders
 	if list_of_orders.size() > 0:
@@ -222,4 +221,5 @@ func _physics_process(delta: float) -> void:
 		trigger_info_update()
 		previous_tile = tile_name
 	
+	queue_redraw()
 	move_and_slide()
