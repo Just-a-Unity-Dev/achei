@@ -1,0 +1,96 @@
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://c0ymap8tafcw1"]
+
+[ext_resource type="Texture2D" uid="uid://brcae181nretk" path="res://textures/terrain-atlas.png" id="1_5o4oq"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_fc0e3"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_7jktm"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ryrav"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7jktm"]
+resource_name = "Main terrain"
+texture = ExtResource("1_5o4oq")
+texture_region_size = Vector2i(32, 32)
+1:0/next_alternative_id = 2
+1:0/0 = 0
+1:0/0/z_index = -100
+1:0/0/terrain_set = 0
+1:0/0/terrains_peering_bit/right_side = 1
+1:0/0/terrains_peering_bit/bottom_side = 1
+1:0/0/terrains_peering_bit/left_side = 1
+1:0/0/terrains_peering_bit/top_side = 1
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7jktm")
+1:0/0/custom_data_0 = 0.3
+1:0/0/custom_data_1 = "Water"
+2:0/0 = 0
+2:0/0/z_index = -100
+2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ryrav")
+2:0/0/custom_data_0 = 1.0
+2:0/0/custom_data_1 = "Metal"
+0:0/next_alternative_id = 6
+0:0/0 = 0
+0:0/0/z_index = -100
+0:0/0/terrain_set = 0
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/left_side = 0
+0:0/0/terrains_peering_bit/top_side = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_fc0e3")
+0:0/0/custom_data_0 = 0.7
+0:0/0/custom_data_1 = "Sand"
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrains_peering_bit/right_side = 0
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/left_side = 0
+0:1/0/terrains_peering_bit/top_side = 0
+0:1/0/custom_data_0 = 0.7
+0:1/0/custom_data_1 = "Sand"
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrains_peering_bit/right_side = 0
+0:2/0/terrains_peering_bit/bottom_side = 0
+0:2/0/terrains_peering_bit/left_side = 0
+0:2/0/terrains_peering_bit/top_side = 0
+0:2/0/custom_data_0 = 0.7
+0:2/0/custom_data_1 = "Sand"
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrains_peering_bit/right_side = 1
+1:1/0/terrains_peering_bit/bottom_side = 1
+1:1/0/terrains_peering_bit/left_side = 1
+1:1/0/terrains_peering_bit/top_side = 1
+1:1/0/custom_data_0 = 0.3
+1:1/0/custom_data_1 = "Water"
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrains_peering_bit/right_side = 1
+1:2/0/terrains_peering_bit/bottom_side = 1
+1:2/0/terrains_peering_bit/left_side = 1
+1:2/0/terrains_peering_bit/top_side = 1
+1:2/0/custom_data_0 = 0.3
+1:2/0/custom_data_1 = "Water"
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 2
+terrain_set_0/terrain_0/name = "Sand"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+terrain_set_0/terrain_1/name = "Water"
+terrain_set_0/terrain_1/color = Color(0.19229, 0.48441, 0.567069, 1)
+navigation_layer_0/layers = 1
+custom_data_layer_0/name = "movement_penalty"
+custom_data_layer_0/type = 3
+custom_data_layer_1/name = "tile_name"
+custom_data_layer_1/type = 4
+sources/2 = SubResource("TileSetAtlasSource_7jktm")
