@@ -13,12 +13,15 @@ func start() -> void:
 
 func do(delta: float) -> void:
 	if destination != Vector2.ZERO:
-		if subject.global_position.distance_to(destination) < (4 * Engine.time_scale):
-			destination = Vector2.ZERO
+		var speed = delta * subject.cache_speed
+		var distance = subject.global_position.distance_to(destination)
+		if distance < 8:
 			end(true)
 		else:
 			var direction = subject.global_position.direction_to(destination)
-			subject.velocity = direction * delta * subject.cache_speed
+			subject.velocity = (direction * speed).limit_length(distance / delta)
+			print((direction * speed).length())
+			print(subject.velocity.length())
 
 func end(succeed: bool):
 	if not succeed: # Move order failed, stop moving
