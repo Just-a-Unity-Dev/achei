@@ -25,7 +25,8 @@ enum MovementState {
 
 var list_of_orders: Array[BaseOrder]
 
-const BASE_SPEED = 2*60*32
+const PIXEL_SECOND = 60*32
+const BASE_SPEED = 2*PIXEL_SECOND
 var cache_speed: int = 0
 
 func try_switch_movement_state(target_state: MovementState):
@@ -36,7 +37,7 @@ func try_switch_movement_state(target_state: MovementState):
 
 func recalculate_speed():
 	var speed = BASE_SPEED
-	speed += skills.get_modifier(skills.endurance) * 25
+	speed += skills.get_modifier(skills.endurance) * (10 * PIXEL_SECOND)
 	speed *= health._actual_movement
 	
 	if current_movement_state == MovementState.SPRINT:
