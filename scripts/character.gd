@@ -10,6 +10,15 @@ class_name Character
 @export var current_gun_node: Node2D
 @export var current_gun_sprite: Sprite2D
 
+
+enum MovementState {
+	WALK = 0,
+	SPRINT = 1,
+	SNEAK = 2
+}
+
+@export var current_movement_state: MovementState
+
 @export var current_weapon: GunData
 
 @onready var noun = $Noun
@@ -19,10 +28,21 @@ var list_of_orders: Array[BaseOrder]
 const BASE_SPEED = 5000
 var cache_speed: int = 0
 
+func try_switch_movement_state(target_state: MovementState):
+	if health._actual_movement < .5:
+		target_state = MovementState.WALK
+	else:
+		target_state = target_state
+
 func recalculate_speed():
 	var speed = BASE_SPEED
 	speed += skills.get_modifier(skills.endurance) * 25
 	speed *= health._actual_movement
+	
+	if current_movement_state == MovementState.SPRINT:
+		speed *= 1.5
+	elif current_movement_state == MovementState.SNEAK:
+		speed *= 0.65
 	
 	var coords = tilemap.local_to_map(position)
 	var tile = tilemap.get_cell_tile_data(coords)
@@ -160,6 +180,9 @@ func trigger_info_update() -> void:
 	var coords = tilemap.local_to_map(position)
 	var tile = tilemap.get_cell_tile_data(coords)
 	values.append("Currently on: %s (%d%% speed)" % [tile.get_custom_data("tile_name"), tile.get_custom_data("movement_penalty") * 100])
+	
+	var speed = ((cache_speed / 32.0) / float(Engine.physics_ticks_per_second))
+	values.append("Moving at %.2f u/s" % [speed])
 	
 	for i in range(values.size()):
 		new_info["key"+str(i+1)] = values[i]
