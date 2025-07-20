@@ -37,13 +37,14 @@ func try_switch_movement_state(target_state: MovementState):
 
 func recalculate_speed():
 	var speed = BASE_SPEED
-	speed += skills.get_modifier(skills.endurance) * (10 * PIXEL_SECOND)
+	var endurance_mod := skills.get_modifier(skills.endurance)
+	speed += endurance_mod * (10 * PIXEL_SECOND)
 	speed *= health._actual_movement
 	
 	if current_movement_state == MovementState.SPRINT:
-		speed *= 3
+		speed *= 2 * (endurance_mod + 1.0)
 	elif current_movement_state == MovementState.SNEAK:
-		speed *= 0.65
+		speed *= 0.65 * (skills.get_modifier(skills.sneak) + 1.0)
 	
 	var coords = tilemap.local_to_map(position)
 	var tile = tilemap.get_cell_tile_data(coords)
