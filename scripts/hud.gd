@@ -100,6 +100,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		Engine.time_scale = 2.0
 	if event.is_action_pressed("time_scale_3"):
 		Engine.time_scale = 3.0
+	if event.is_action_pressed("time_scale_4"):
+		Engine.time_scale = 4.0
 	
 	if event is InputEventKey:
 		if current_focus != null:

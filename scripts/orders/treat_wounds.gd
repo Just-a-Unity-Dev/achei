@@ -54,7 +54,7 @@ func do(delta: float) -> void:
 		return end(false)
 	
 	var distance = subject.global_position.distance_to(target_host.global_position)
-	if distance < 34:
+	if distance < 48:
 		subject.velocity = Vector2.ZERO
 		time_since_last_heal += delta
 		set_status("Healing target (%.2fs)" % [HEALING_TIME - time_since_last_heal])

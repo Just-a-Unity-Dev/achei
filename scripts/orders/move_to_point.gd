@@ -13,7 +13,7 @@ func start() -> void:
 
 func do(delta: float) -> void:
 	if destination != Vector2.ZERO:
-		if subject.global_position.distance_to(destination) < 8:
+		if subject.global_position.distance_to(destination) < (4 * Engine.time_scale):
 			destination = Vector2.ZERO
 			end(true)
 		else:
