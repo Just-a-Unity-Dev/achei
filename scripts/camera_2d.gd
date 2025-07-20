@@ -43,6 +43,8 @@ var drag_mode: DragMode = DragMode.NONE
 var ruler_label := Label.new()
 #endregion
 
+## The current verb selection
+@onready var selection_label = $HUD/SelectionLabel
 ## See Verb.SelectionType for the type of mode
 var selection_mode: int = 0
 signal selected_new(mouse_pos: Vector2, noun: Noun, end: bool)
@@ -57,6 +59,8 @@ func _ready():
 	$HUD.add_child(ruler_label)
 	ruler_label.global_position = get_viewport_rect().size / 2
 	ruler_label.hide()
+	# Hide selection by default
+	selection_label.hide()
 
 func _draw():
 	if drag_mode == DragMode.SELECT:
@@ -76,13 +80,20 @@ func _on_hud_selected_verb(verb: Verb) -> void:
 	
 	if verb.verb_selection_type != Verb.SelectionType.NONE:
 		selection_mode = verb.verb_selection_type
+		# set up selection label
+		selection_label.show()
+		selection_label.text = "Select noun" if selection_mode == Verb.SelectionType.NOUN else "Select point"
+		
 		var data = await selected_new # Wait for the user to select the specified verb selection
 		selection_mode = 0
 		
-		if data[2]: return # Player requested to end selection
+		if data[2]: 
+			selection_label.hide()
+			return # Player requested to end selection
 		
 		mouse_pos = data[0]
 		target = data[1]
+	selection_label.hide()
 	
 	# Build the prerequisites and then send the verb
 	var add_onto = Input.is_key_label_pressed(KEY_SHIFT)
@@ -164,6 +175,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			end_pos_screen = get_local_mouse_position()
 			end_pos_world = get_global_mouse_position()
 			queue_redraw()
+		if event is InputEventMouseMotion:
+			selection_label.position = event.global_position + Vector2(16,0)
 	if event.is_action_pressed("ui_cancel"): # Deselects all objects if ESC is not handled
 		if selection_mode != Verb.SelectionType.NONE:
 			selected_new.emit(Vector2.ZERO, null, true)

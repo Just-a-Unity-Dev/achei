@@ -101,11 +101,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("time_scale_3"):
 		Engine.time_scale = 3.0
 	
-	if current_focus != null:
-		for verb in current_focus.verbs:
-			if event.is_action_pressed(verb.input_event_name):
-				# Verb keybinds
-				selected_verb.emit(verb)
+	if event is InputEventKey:
+		if current_focus != null:
+			for verb in current_focus.verbs:
+				if verb.input_event_name == "": continue
+				if event.is_action_pressed(verb.input_event_name):
+					# Verb keybinds
+					selected_verb.emit(verb)
 
 func enable_menu(to_enable: Panel):
 	for menu in menu_lists:

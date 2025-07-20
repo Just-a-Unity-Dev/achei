@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://dqhvce2p1wsm3" path="res://icon.svg" id="1_txr5j"]
 
 [node name="VerbButton" type="Button"]
-custom_minimum_size = Vector2(111, 134)
-offset_right = 111.0
-offset_bottom = 134.0
+custom_minimum_size = Vector2(74, 88.667)
+offset_right = 74.0
+offset_bottom = 88.667
 size_flags_vertical = 10
 
 [node name="Label" type="Label" parent="."]
@@ -15,10 +15,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -51.5
-offset_top = -24.0
-offset_right = 51.5
-offset_bottom = -4.0
+offset_left = -35.0
+offset_top = -17.667
+offset_right = 35.0
+offset_bottom = -1.667
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 11
@@ -34,10 +34,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -52.5
-offset_top = -131.0
-offset_right = -39.5
-offset_bottom = -111.0
+offset_left = -37.0
+offset_top = -88.667
+offset_right = -24.0
+offset_bottom = -68.667
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 11
@@ -50,9 +50,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -51.5
-offset_top = 4.0
-offset_right = 51.5
-offset_bottom = 107.0
+offset_left = -33.0
+offset_top = 3.0
+offset_right = 33.0
+offset_bottom = 69.0
 grow_horizontal = 2
 texture = ExtResource("1_txr5j")

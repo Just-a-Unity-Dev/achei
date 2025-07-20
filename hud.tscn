@@ -679,5 +679,9 @@ offset_right = 1002.0
 grow_vertical = 0
 columns = 5
 
+[node name="SelectionLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 20.0
+
 [connection signal="pressed" from="MarginContainer/Control/SelectContainer/PawnDropdown/HBoxContainer/Health" to="." method="_on_health_pressed"]
 [connection signal="pressed" from="MarginContainer/Control/SelectContainer/PawnDropdown/HBoxContainer/Skills" to="." method="_on_skills_pressed"]

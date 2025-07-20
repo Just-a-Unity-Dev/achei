@@ -9,8 +9,4 @@ script = ExtResource("1_jtxfu")
 
 [node name="HUD" parent="." instance=ExtResource("2_wb1d8")]
 
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 20.0
-
 [connection signal="selected_verb" from="HUD" to="." method="_on_hud_selected_verb"]
