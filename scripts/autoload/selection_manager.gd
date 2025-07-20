@@ -48,12 +48,13 @@ func get_selectable_in_box(top_left: Vector2, bottom_right: Vector2) -> Array[No
 			selected.append(unit)
 	return selected
 
-func send_order(order: BaseOrder, doer: Noun, target: Noun, parameters: Dictionary, add_onto: bool):
-	doer.received_order.emit(order, target, parameters, add_onto)
-
 func send_verb(verb: Verb, doer: Noun, target: Noun, parameters: Dictionary, add_onto: bool):
 	var new_order = verb.order.new()
 	doer.received_order.emit(new_order, target, parameters, add_onto)
+
+func send_verbs(verb: Verb, doers: Array[Noun], target: Noun, parameters: Dictionary, add_onto: bool):
+	for doer in doers:
+		send_verb(verb, doer, target, parameters, add_onto)
 
 func try_get_nouns_at_position(pos: Vector2) -> Array[Noun]:
 	var new_selected_units: Array[Noun] = []

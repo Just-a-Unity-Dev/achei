@@ -105,16 +105,16 @@ func _on_hud_selected_verb(verb: Verb) -> void:
 func shortcut_order_sending(add_onto: bool):
 	if not SelectionManager.has_selection:
 		return # Can't issue orders to a non-existent selection
-	var selected = SelectionManager.selected_list[0]
+	var selected = SelectionManager.selected_list
 	var mouse_pos = get_global_mouse_position()
 	var target = SelectionManager.try_get_first_noun_at_position(mouse_pos)
 	var parameters = {"mouse_pos": mouse_pos}
 	
 	if target is Noun:
 		# TODO: Should probably open up a popupmenu instead of immediately starting to kill
-		SelectionManager.send_verb(preload("res://resources/verbs/ranged_attack.tres"), selected, target, parameters, add_onto)
+		SelectionManager.send_verbs(preload("res://resources/verbs/ranged_attack.tres"), selected, target, parameters, add_onto)
 	else:
-		SelectionManager.send_verb(preload("res://resources/verbs/move_to_point.tres"), selected, null, parameters, add_onto)
+		SelectionManager.send_verbs(preload("res://resources/verbs/move_to_point.tres"), selected, null, parameters, add_onto)
 
 ## Tries to emit the required verb data to signal selected_new. Returns false if it failed
 func try_request_target() -> bool:
