@@ -64,7 +64,7 @@ func update_skill_hud():
 
 func update_health_hud():
 	if current_focus == null: return
-	var character = current_focus.get_parent()
+	var character = current_focus.host
 	
 	if character is Character:
 		generic_update_container(blood_container, character.health.blood.hp, character.health.blood.max_hp)
@@ -129,7 +129,6 @@ func _info_updated(new_info: Dictionary):
 	update_hud(new_info)
 
 func _process(delta: float) -> void:
-	update_health_hud() # TODO: On health delta, update health HUD
 	update_skill_hud() # TODO: On skill delta, update skill HUD
 
 func clear_verbs():
@@ -159,12 +158,26 @@ func generate_verbs():
 			new_button.pressed.connect(_verb_button_pressed.bind(verb))
 			verb_container.add_child(new_button)
 
+func try_connect_signal(to_bind: Signal, function: Callable) -> bool:
+	if not to_bind.is_connected(_info_updated):
+		to_bind.connect(function)
+		return true
+	return false
+
+func try_disconnect_signal(to_unbind: Signal, function: Callable) -> bool:
+	if to_unbind.is_connected(_info_updated):
+		to_unbind.disconnect(function)
+		return true
+	return false
+
 func _on_new_selected():
 	select_container.hide()
 	
 	# Disconnect previous info autoreload call
-	if current_focus != null and current_focus.info_updated.is_connected(_info_updated):
-		current_focus.info_updated.disconnect(_info_updated)
+	if current_focus != null:
+		try_disconnect_signal(current_focus.info_updated, _info_updated)
+		if current_focus.host is Character:
+			try_disconnect_signal(current_focus.host.health.on_health_change, update_health_hud)
 	current_focus = null
 	
 	var selected_list = SelectionManager.selected_list
@@ -184,6 +197,11 @@ func _on_new_selected():
 		current_focus = SelectionManager.selected_list[0]
 		current_focus.info_updated.connect(_info_updated)
 		pawn_dropdown.visible = current_focus.selectable_id == StringName("Pawn")
+		
+		if current_focus.host is Character:
+			try_connect_signal(current_focus.host.health.on_health_change, update_health_hud)
+		update_health_hud()
+		
 		update_hud(current_focus.info)
 		generate_verbs()
 		verb_container.show()

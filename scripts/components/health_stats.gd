@@ -37,6 +37,8 @@ var _actual_sight: float = 1.0
 
 signal died
 signal state_change(new_state: State)
+## Fired on /any/ modification to health EXCEPT state changes
+signal on_health_change
 var current_state: int = State.ALIVE
 var down_reason: int = DownReason.NOT
 
@@ -67,10 +69,12 @@ func _ready() -> void:
 	recalculate_stats()
 	blood.died.connect(update_state_on_stats)
 
+## Automatically adjusts base stats, actual stats, and updates the state.
 func health_delta():
 	adjust_base_stats()
 	recalculate_stats()
 	update_state_on_stats()
+	on_health_change.emit()
 
 const BLEED_RATE = 1.15
 const BLOOD_HEAL_RATE = 1.15
@@ -184,9 +188,7 @@ func take_damage(amount: int):
 	
 	_actual_pain += PAIN_PER_DAMAGE * amount
 	
-	adjust_base_stats()
-	recalculate_stats()
-	update_state_on_stats()
+	health_delta()
 	
 	var severity = 0
 	if current_state == State.DEAD:
