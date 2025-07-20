@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bk0dvuyoesowj"]
 
-[ext_resource type="Texture2D" uid="uid://xp5nfh4cheum" path="res://textures/square.png" id="1_txr5j"]
+[ext_resource type="Texture2D" uid="uid://dqhvce2p1wsm3" path="res://icon.svg" id="1_txr5j"]
 
 [node name="VerbButton" type="Button"]
 custom_minimum_size = Vector2(111, 134)
@@ -23,6 +23,25 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 11
 text = "Order text"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyEvent" type="Label" parent="."]
+z_index = 15
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -52.5
+offset_top = -131.0
+offset_right = -39.5
+offset_bottom = -111.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 11
+text = "H"
 horizontal_alignment = 1
 vertical_alignment = 1
 

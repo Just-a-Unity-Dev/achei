@@ -11,5 +11,6 @@ verb_description = "Halts the subject and clears all orders."
 verb_type = 0
 verb_image = ExtResource("3_03q0b")
 verb_selection_type = 0
+input_event_name = "verb_misc_2"
 order = ExtResource("1_nfdvf")
 metadata/_custom_type_script = "uid://duvi2xmh3uysj"

@@ -100,6 +100,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		Engine.time_scale = 2.0
 	if event.is_action_pressed("time_scale_3"):
 		Engine.time_scale = 3.0
+	
+	if current_focus != null:
+		for verb in current_focus.verbs:
+			if event.is_action_pressed(verb.input_event_name):
+				# Verb keybinds
+				selected_verb.emit(verb)
 
 func enable_menu(to_enable: Panel):
 	for menu in menu_lists:
@@ -139,6 +145,15 @@ func generate_verbs():
 			var new_button: Button = verb_button.instantiate()
 			new_button.get_node("Label").text = verb.verb_name
 			new_button.get_node("Image").texture = verb.verb_image
+			
+			var key_event_node = new_button.get_node("KeyEvent")
+			if verb.input_event_name == "":
+				key_event_node.visible = false
+			else:
+				# TODO: Will need support for multikey/controllers ... if we ever get around to that
+				var event = InputMap.action_get_events(verb.input_event_name)[0]
+				if event is InputEventKey:
+					key_event_node.text = event.as_text_physical_keycode()
 			new_button.pressed.connect(_verb_button_pressed.bind(verb))
 			verb_container.add_child(new_button)
 

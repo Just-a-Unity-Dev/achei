@@ -24,4 +24,5 @@ enum SelectionType {
 @export var verb_type: VerbType
 @export var verb_image: Texture2D
 @export var verb_selection_type: SelectionType
+@export var input_event_name: String
 @export var order: Script

@@ -11,5 +11,6 @@ verb_description = "Treats the wounds of a target."
 verb_type = 0
 verb_image = ExtResource("3_fr5nx")
 verb_selection_type = 2
+input_event_name = "verb_misc_4"
 order = ExtResource("1_fr5nx")
 metadata/_custom_type_script = "uid://duvi2xmh3uysj"
