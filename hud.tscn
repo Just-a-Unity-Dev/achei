@@ -50,7 +50,7 @@ pawn_dropdown = NodePath("MarginContainer/Control/SelectContainer/PawnDropdown")
 menu_lists = [NodePath("MarginContainer/Control/SelectContainer/Health"), NodePath("MarginContainer/Control/SelectContainer/Skills")]
 verb_container = NodePath("MarginContainer/Control/VerbContainer")
 verb_button = ExtResource("2_64ctp")
-skill_containers = [NodePath("MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left"), NodePath("MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right")]
+skill_containers = [NodePath("MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right"), NodePath("MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left")]
 blood_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Blood")
 pain_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Pain")
 conscious_container = NodePath("MarginContainer/Control/SelectContainer/Health/MarginContainer/VBoxContainer/HBoxContainer/Left/Awareness")
@@ -420,7 +420,6 @@ step = 0.0
 value = 1.0
 
 [node name="Skills" type="Panel" parent="MarginContainer/Control/SelectContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 375)
 layout_mode = 2
 
@@ -453,26 +452,25 @@ size_flags_horizontal = 3
 
 [node name="Header" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left"]
 layout_mode = 2
-text = "Body"
+text = "Combat"
 label_settings = SubResource("LabelSettings_8sq4i")
 
-[node name="strength" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+[node name="toughness" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
-[node name="endurance" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+[node name="firearms" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
-[node name="sneak" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+[node name="throwing" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left"]
-layout_mode = 2
-text = "Ingenuinity"
-
-[node name="doctor" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+[node name="archery" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
-[node name="engineer" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+[node name="unarmed" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="melee" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
 [node name="Header2" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left"]
@@ -495,45 +493,32 @@ layout_mode = 2
 [node name="farm" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Left" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
-[node name="HSeparator" type="VSeparator" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
 [node name="Right" type="VBoxContainer" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Header" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right"]
 layout_mode = 2
-text = "Combat"
+text = "Body"
 label_settings = SubResource("LabelSettings_8sq4i")
 
-[node name="toughness" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+[node name="strength" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
-[node name="firearms" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+[node name="endurance" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
-[node name="throwing" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
-layout_mode = 2
-
-[node name="archery" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
-layout_mode = 2
-
-[node name="unarmed" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
-layout_mode = 2
-
-[node name="melee" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+[node name="sneak" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
 [node name="Header2" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right"]
 layout_mode = 2
-text = "Perception"
-label_settings = SubResource("LabelSettings_8sq4i")
+text = "Ingenuinity"
 
-[node name="scavenge" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+[node name="doctor" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
-[node name="navigate" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+[node name="engineer" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
 layout_mode = 2
 
 [node name="Header3" type="Label" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right"]
@@ -545,6 +530,9 @@ label_settings = SubResource("LabelSettings_8sq4i")
 layout_mode = 2
 
 [node name="intimidate" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer/Right" instance=ExtResource("3_8sq4i")]
+layout_mode = 2
+
+[node name="HSeparator" type="VSeparator" parent="MarginContainer/Control/SelectContainer/Skills/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
 [node name="PawnDropdown" type="Panel" parent="MarginContainer/Control/SelectContainer"]

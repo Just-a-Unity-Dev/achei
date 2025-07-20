@@ -25,10 +25,6 @@ class_name SkillStatsComponent
 @export var unarmed:		float = 600.0 # You can be strong, and still not know how to punch.
 @export var melee:			float = 600.0 # How good are you at using melee weapons?
 
-@export_category("Perception")
-@export var scavenge:		float = 600.0 # How good are you at scavenging items?
-@export var navigate:		float = 600.0 # How good are you at navigating terrain?
-
 @export_category("Composure")
 @export var reason:			float = 600.0 # Can you reason or negotiate your way in or out of a situation?
 @export var intimidate:		float = 600.0 # Can you intimidate or make someone fear you?
@@ -45,30 +41,6 @@ func get_level(xp: float) -> int:
 
 func get_modifier(xp: float) -> float:
 	return modifier_amount[get_level(xp)]
-
-func save() -> Dictionary:
-	return {
-		"strength": strength,
-		"endurance": endurance,
-		"sneak": sneak,
-		"doctor": doctor,
-		"engineer": engineer,
-		"repair": repair,
-		"cook": cook,
-		"fish": fish,
-		"craft": craft,
-		"farm": farm,
-		"toughness": toughness,
-		"firearms": firearms,
-		"archery": archery,
-		"throwing": throwing,
-		"unarmed": unarmed,
-		"melee": melee,
-		"scavenge": scavenge,
-		"navigate": navigate,
-		"reason": reason,
-		"intimidate": intimidate
-	}
 
 func _ready() -> void:
 	pass
