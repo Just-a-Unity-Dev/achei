@@ -22,6 +22,7 @@ var is_selected = false
 signal selected
 signal deselected
 signal info_updated(info: Dictionary)
+@warning_ignore("unused_signal")
 signal received_order(order: BaseOrder, target: Noun, parameters: Dictionary, add_onto: bool)
 
 func _ready() -> void:

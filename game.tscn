@@ -54,6 +54,7 @@ sources/2 = SubResource("TileSetAtlasSource_7jktm")
 [node name="Node" type="Node"]
 
 [node name="PlayerCamera" parent="." instance=ExtResource("1_7jktm")]
+physics_interpolation_mode = 2
 
 [node name="Pawn" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("2_e2o6t")]
 position = Vector2(-61, -66)

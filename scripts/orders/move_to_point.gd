@@ -2,7 +2,7 @@ extends BaseOrder
 
 var destination: Vector2
 
-func setup(new_subject: Character, new_target: Noun = null, new_with: Noun = null, new_parameters: Dictionary = {}) -> void:
+func setup(new_subject: Character, _new_target: Noun = null, _new_with: Noun = null, new_parameters: Dictionary = {}) -> void:
 	super(new_subject, null, null, new_parameters)
 	destination = parameters["mouse_pos"]
 
@@ -20,8 +20,6 @@ func do(delta: float) -> void:
 		else:
 			var direction = subject.global_position.direction_to(destination)
 			subject.velocity = (direction * speed).limit_length(distance / delta)
-			print((direction * speed).length())
-			print(subject.velocity.length())
 
 func end(succeed: bool):
 	if not succeed: # Move order failed, stop moving

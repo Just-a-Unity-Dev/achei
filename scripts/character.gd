@@ -121,7 +121,7 @@ func _draw() -> void:
 		draw_circle(Vector2.ZERO, current_weapon.long_range * 32, Color.RED * TRANSPARENCY, false, 2.20)
 
 @onready var progress_bar = $ProgressBar
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if list_of_orders.size() > 0:
 		var current_order = list_of_orders[0]
 		progress_bar.visible = current_order.progress > 0.0
@@ -150,7 +150,6 @@ func clear_orders():
 
 func _received_order(order: BaseOrder, target: Noun, parameters: Dictionary, add_onto: bool):
 	# Noun emits this signal, which then determines what order to add to the queue
-	var mouse_pos = parameters["mouse_pos"]
 	if not add_onto:
 		clear_orders()
 	

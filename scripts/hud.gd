@@ -130,7 +130,7 @@ func update_hud(info: Dictionary):
 func _info_updated(new_info: Dictionary):
 	update_hud(new_info)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	update_skill_hud() # TODO: On skill delta, update skill HUD
 
 func clear_verbs():

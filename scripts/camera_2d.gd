@@ -102,7 +102,7 @@ func _on_hud_selected_verb(verb: Verb) -> void:
 		SelectionManager.send_verb(verb, selected, target, parameters, add_onto)
 
 ## Quickly dispatches a verb based on the mouse cursor context (movement, attack, etc)
-func shortcut_order_sending(event: InputEventMouseButton, add_onto: bool):
+func shortcut_order_sending(add_onto: bool):
 	if not SelectionManager.has_selection:
 		return # Can't issue orders to a non-existent selection
 	var selected = SelectionManager.selected_list[0]
@@ -190,6 +190,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				zoom_in()
 		
 		if event.button_index == MOUSE_BUTTON_RIGHT and not event.is_pressed():
-			shortcut_order_sending(event, event.shift_pressed)
+			shortcut_order_sending(event.shift_pressed)
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			handle_lmb_interactions(event)

@@ -7,5 +7,6 @@ func start() -> void:
 	set_status("Attacking other pawn with melee")
 	super()
 
+@warning_ignore("unused_parameter")
 func do(delta: float) -> void:
 	pass

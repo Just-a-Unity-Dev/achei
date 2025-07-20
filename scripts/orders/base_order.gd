@@ -37,9 +37,10 @@ func setup(new_subject: Character, new_target: Noun = null, new_with: Noun = nul
 func start() -> void:
 	started = true
 
+@warning_ignore("unused_parameter")
 func do(delta: float) -> void:
-	pass
+	breakpoint # Should be overriden by base class
 
-func end(succeed: bool):
+func end(succeed: bool) -> void:
 	finished = true
 	order_finished.emit(succeed)

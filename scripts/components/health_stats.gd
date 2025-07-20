@@ -143,7 +143,7 @@ func adjust_base_stats():
 		for key in data.factors.keys():
 			self[key] += data.factors[key] * hp_percent
 	base_awareness = max(base_awareness, 0)
-	base_pain = bleeding_severity / 8
+	base_pain = bleeding_severity / 8.0
 
 func recalculate_stats():
 	var pain_modifier = 0.0

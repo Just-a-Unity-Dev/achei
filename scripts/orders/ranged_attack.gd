@@ -38,7 +38,7 @@ func start() -> void:
 	subject.current_gun_node.show()
 	super()
 
-func end(succeed: bool):
+func end(succeed: bool) -> void:
 	subject.current_gun_node.hide()
 	subject.current_gun_node.rotation = 0.0
 	super(succeed)
@@ -88,7 +88,7 @@ func do(delta: float) -> void:
 		else:
 			# Miss
 			BulletManager.create_bullet(target_host, subject, 0)
-		await subject.get_tree().create_timer(weapon_data.time_between_shots)
+		await subject.get_tree().create_timer(weapon_data.time_between_shots).timeout
 	
 	cache_recalculate = true
 	time_since_last_hit = 0.0
