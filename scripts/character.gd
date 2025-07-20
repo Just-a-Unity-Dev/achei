@@ -25,7 +25,7 @@ enum MovementState {
 
 var list_of_orders: Array[BaseOrder]
 
-const BASE_SPEED = 5000
+const BASE_SPEED = 2*60*32
 var cache_speed: int = 0
 
 func try_switch_movement_state(target_state: MovementState):
@@ -40,7 +40,7 @@ func recalculate_speed():
 	speed *= health._actual_movement
 	
 	if current_movement_state == MovementState.SPRINT:
-		speed *= 1.5
+		speed *= 3
 	elif current_movement_state == MovementState.SNEAK:
 		speed *= 0.65
 	
@@ -70,6 +70,7 @@ func _on_state_change(new_state: int):
 		tween.tween_property(sprite, "rotation_degrees", 0, .15)
 	if new_state >= health.State.DOWN_AND_OUT:
 		clear_orders()
+	velocity = Vector2.ZERO
 	trigger_info_update()
 
 func _on_death():
