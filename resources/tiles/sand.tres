@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MapTileData" load_steps=2 format=3 uid="uid://hc6g0r0acifl"]
+
+[ext_resource type="Script" uid="uid://c0skl0im6ot7x" path="res://scripts/resources/tile_data.gd" id="1_2jhvg"]
+
+[resource]
+script = ExtResource("1_2jhvg")
+tile_id = &"tile_sand"
+movement_penalty = 0.7
+tile_name = "Sand"
+metadata/_custom_type_script = "uid://c0skl0im6ot7x"

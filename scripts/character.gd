@@ -18,8 +18,10 @@ enum MovementState {
 }
 
 @export var current_movement_state: MovementState
-
 @export var current_weapon: GunData
+
+## Used for getting the current tile data and current_tile deltas on trigger_info_update
+var current_tile: StringName = &"unknown"
 
 @onready var noun = $Noun
 
@@ -46,9 +48,8 @@ func recalculate_speed():
 	elif current_movement_state == MovementState.SNEAK:
 		speed *= 0.65 * (skills.get_modifier(skills.sneak) + 1.0)
 	
-	var coords = tilemap.local_to_map(position)
-	var tile = tilemap.get_cell_tile_data(coords)
-	speed *= tile.get_custom_data("movement_penalty")
+	var map_tile_data = get_map_tile_data_below()
+	speed *= map_tile_data.movement_penalty
 	
 	cache_speed = speed
 
@@ -148,6 +149,17 @@ func clear_orders():
 		current_order.end(false)
 	list_of_orders.clear()
 
+## Returns the map tile id below this character
+func get_map_tile_id_below() -> StringName:
+	var coords = tilemap.local_to_map(position)
+	var tile = tilemap.get_cell_tile_data(coords)
+	var tile_id = tile.get_custom_data("tile_id")
+	return tile_id
+
+## Returns the map tile data below this character
+func get_map_tile_data_below() -> MapTileData:
+	return TileManager.get_tile_data(get_map_tile_id_below())
+
 func _received_order(order: BaseOrder, target: Noun, parameters: Dictionary, add_onto: bool):
 	# Noun emits this signal, which then determines what order to add to the queue
 	if not add_onto:
@@ -179,9 +191,8 @@ func trigger_info_update() -> void:
 	
 		if current_weapon != null: values.append("Holding a %s" % current_weapon.gun_name)
 	
-	var coords = tilemap.local_to_map(position)
-	var tile = tilemap.get_cell_tile_data(coords)
-	values.append("Currently on: %s (%d%% speed)" % [tile.get_custom_data("tile_name"), tile.get_custom_data("movement_penalty") * 100])
+	var map_tile_data = get_map_tile_data_below()
+	values.append("Currently on: %s (%d%% speed)" % [map_tile_data.tile_name, map_tile_data.movement_penalty * 100])
 	
 	var speed = ((cache_speed / 32.0) / float(Engine.physics_ticks_per_second))
 	values.append("Moving at %.2f u/s" % [speed])
@@ -189,9 +200,6 @@ func trigger_info_update() -> void:
 	for i in range(values.size()):
 		new_info["key"+str(i+1)] = values[i]
 	noun.update_info(new_info)
-
-## Used for current_tile deltas on trigger_info_update
-var previous_tile: String = "None"
 
 func _physics_process(delta: float) -> void:
 	if health.current_state != health.State.ALIVE: return
@@ -211,15 +219,13 @@ func _physics_process(delta: float) -> void:
 		else:
 			current_order.do(delta)
 	
-	# Tile-based movement penalties
-	var coords = tilemap.local_to_map(position)
-	var tile = tilemap.get_cell_tile_data(coords)
-	var tile_name = tile.get_custom_data("tile_name")
-	if previous_tile != tile_name:
-		# TODO: This is a shitty method. Fix this.
+	# Handles tile delta-ing
+	var tile_id = get_map_tile_id_below()
+	if current_tile != tile_id:
+		# TODO: This should be a signal, a lot of these deltas should be signals
 		recalculate_speed()
 		trigger_info_update()
-		previous_tile = tile_name
+		current_tile = tile_id
 	
 	queue_redraw()
 	move_and_slide()
