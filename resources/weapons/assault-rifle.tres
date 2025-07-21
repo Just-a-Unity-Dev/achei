@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="GunData" load_steps=3 format=3 uid="uid://bjj0rks7m22s7"]
+
+[ext_resource type="Texture2D" uid="uid://b8qmdtk6pinte" path="res://textures/assault-rifle.png" id="1_u3ipl"]
+[ext_resource type="Script" uid="uid://ba1r3g08i6j7a" path="res://scripts/resources/gun_data.gd" id="2_qsv2b"]
+
+[resource]
+script = ExtResource("2_qsv2b")
+gun_name = "assault rifle"
+accuracy_skill = &"firearms"
+image = ExtResource("1_u3ipl")
+damage_min = 28
+damage_max = 42
+shots_fired = 4
+base_cooldown = 1.4
+base_reload = 2.4
+time_between_shots = 0.13
+minimum_range = 1.5
+short_range = 4.0
+medium_range = 8.2
+long_range = 18.0
+metadata/_custom_type_script = "uid://ba1r3g08i6j7a"
