@@ -88,7 +88,6 @@ func do(delta: float) -> void:
 		else:
 			# Miss
 			BulletManager.create_bullet(target_host, subject, 0)
-		print(i)
 		if weapon_data.time_between_shots > 0.0:
 			await subject.get_tree().create_timer(weapon_data.time_between_shots).timeout
 	
