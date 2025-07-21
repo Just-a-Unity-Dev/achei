@@ -21,9 +21,6 @@
 [ext_resource type="Resource" uid="uid://l6wgwjnmu3yf" path="res://resources/limbs/human_right_leg.tres" id="13_kjduu"]
 [ext_resource type="Texture2D" uid="uid://c2l1wgqsst4va" path="res://textures/bolt-action-rifle.png" id="15_sm1rv"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pjt0s"]
-radius = 16.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wfnr8"]
 shader = ExtResource("3_wa5vi")
 shader_parameter/allow_out_of_bounds = true
@@ -34,6 +31,9 @@ shader_parameter/inner_stroke_opacity = 1.0
 shader_parameter/inside_opacity = 0.0
 shader_parameter/frequency = 8.0
 shader_parameter/phase_speed = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pjt0s"]
+radius = 16.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y0ipg"]
 bg_color = Color(0.08, 0.08, 0.08, 0.8)
@@ -64,20 +64,19 @@ z_index = -3
 position = Vector2(0.5, 0)
 texture = ExtResource("3_kjduu")
 
+[node name="SelectedSprite" type="Sprite2D" parent="Sprite2D"]
+z_index = -1
+material = SubResource("ShaderMaterial_wfnr8")
+texture = ExtResource("3_kjduu")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pjt0s")
-
-[node name="SelectedSprite" type="Sprite2D" parent="."]
-z_index = -4
-material = SubResource("ShaderMaterial_wfnr8")
-position = Vector2(0.5, 0)
-texture = ExtResource("3_kjduu")
 
 [node name="Noun" type="Node" parent="." node_paths=PackedStringArray("get_position_from", "show_when_selected", "host")]
 script = ExtResource("2_pjt0s")
 selectable_id = &"Pawn"
 get_position_from = NodePath("..")
-show_when_selected = NodePath("../SelectedSprite")
+show_when_selected = NodePath("../Sprite2D/SelectedSprite")
 host = NodePath("..")
 verbs = Array[ExtResource("6_lpiy1")]([ExtResource("7_kjduu"), ExtResource("7_88tkl"), ExtResource("9_y0ipg"), ExtResource("8_88tkl")])
 metadata/_custom_type_script = "uid://daipew5657usq"
@@ -93,8 +92,8 @@ script = ExtResource("6_0qfo5")
 metadata/_custom_type_script = "uid://bg10dp8klqjy3"
 
 [node name="CurrentGun" type="Node2D" parent="."]
-visible = false
 z_index = -1
+scale = Vector2(0.611374, 0.611374)
 
 [node name="Sprite" type="Sprite2D" parent="CurrentGun"]
 position = Vector2(11, 0)
