@@ -30,7 +30,7 @@ func start() -> void:
 func try_heal_target():
 	if target_host.health.bleeding_severity > 0:
 		target_host.health.bleeding_severity = max(target_host.health.bleeding_severity - 1, 0)
-		PopupManager.popup("bleed -1", target_host.global_position, 0)
+		PopupManager.popup("bleed -1", target_host.global_position, PopupManager.SEVERITY_GOOD)
 	else:
 		# Iterate from most important to least important
 		var skipped_limbs = 0
@@ -41,12 +41,12 @@ func try_heal_target():
 				var heal_amount = randi_range(25, 45)
 				var prev_hp = limb.hp
 				limb.hp = min(limb.hp + heal_amount, effective_max_hp)
-				PopupManager.popup("%s: +%d hp" % [limb.limb_data.limb_name, limb.hp - prev_hp], target_host.global_position, 0)
+				PopupManager.popup("+%d hp" % [limb.hp - prev_hp], target_host.global_position, PopupManager.SEVERITY_GOOD)
 				if limb.hp >= effective_max_hp: successful_limbs += 1
 				break
 			skipped_limbs += 1
 		if (skipped_limbs + successful_limbs) >= target_host.health.limbs.size():
-			PopupManager.popup("treatment finished", target_host.global_position)
+			PopupManager.popup("treatment finished", target_host.global_position, PopupManager.SEVERITY_GREAT)
 			end(true) # No more bleed, no more damage, end treatment
 	target_host.health.health_delta() # Trigger health deltas
 
