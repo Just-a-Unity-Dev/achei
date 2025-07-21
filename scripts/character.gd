@@ -61,9 +61,15 @@ func _ready() -> void:
 	noun.selected.connect(_selected)
 	health.died.connect(_on_death)
 	health.state_change.connect(_on_state_change)
+	health.took_damage.connect(_on_took_damage)
 	current_gun_sprite.texture = current_weapon.image
 	
 	recalculate_speed()
+
+func _on_took_damage(_amount: int, _limb: LimbComponent):
+	sprite.self_modulate = Color(1,0,0)
+	var tween = get_tree().create_tween().bind_node(sprite)
+	tween.tween_property(sprite, "self_modulate", Color(1,1,1), 0.2)
 
 func _on_state_change(new_state: int):
 	var tween = get_tree().create_tween().bind_node(sprite)

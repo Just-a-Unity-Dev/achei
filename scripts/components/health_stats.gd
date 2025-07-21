@@ -169,6 +169,8 @@ func roll_bleed_chance(amount: int):
 	if success:
 		bleeding_severity = min(bleeding_severity + 1, 3)
 
+## Fires in the take_damage function before health_delta is ticked.
+signal took_damage(amount: int, limb: LimbComponent)
 func take_damage(amount: int):
 	# Choose a random limb to take damage
 	var weighted_sum = 0
@@ -179,15 +181,14 @@ func take_damage(amount: int):
 	var item = randi_range(0, weighted_sum)
 	for n in limb_rarities:
 		if item <= limb_rarities[n]:
-			n.take_damage(amount)
 			targeted_limb = n
 			break
 		item -= limb_rarities[n]
 	
+	targeted_limb.take_damage(amount)
 	roll_bleed_chance(amount)
-	
 	_actual_pain += PAIN_PER_DAMAGE * amount
-	
+	took_damage.emit(amount, targeted_limb)
 	health_delta()
 	
 	var severity = 0
