@@ -4,9 +4,9 @@ extends Camera2D
 # TODO: Mouse interactions / verb handling should be delegated to their own nodes
 
 #region Zoom
-var _target_zoom: float = 1.0
+var _target_zoom: float = 2.0
 const MIN_ZOOM: float = 0.2
-const MAX_ZOOM: float = 2
+const MAX_ZOOM: float = 4
 const ZOOM_INCREMENT: float = 0.1
 const ZOOM_RATE: float = 8.0
 
