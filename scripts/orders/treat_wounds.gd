@@ -48,6 +48,7 @@ func try_heal_target():
 		if (skipped_limbs + successful_limbs) >= target_host.health.limbs.size():
 			PopupManager.popup("treatment finished", target_host.global_position)
 			end(true) # No more bleed, no more damage, end treatment
+	target_host.health.health_delta() # Trigger health deltas
 
 func do(delta: float) -> void:
 	if target_host.health.current_state == HealthStatsComponent.State.DEAD:

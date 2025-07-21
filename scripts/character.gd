@@ -75,6 +75,7 @@ func _on_state_change(new_state: int):
 		clear_orders()
 	velocity = Vector2.ZERO
 	trigger_info_update()
+	queue_redraw()
 
 func _on_death():
 	velocity = Vector2.ZERO
