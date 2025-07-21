@@ -12,7 +12,7 @@ class_name GunData
 @export_category("Cooldown")
 @export var base_cooldown: float = 0
 @export var base_reload: float = 0
-@export var time_between_shots: int = 0
+@export var time_between_shots: float = 0
 @export_category("Ranges")
 @export var minimum_range: float = 1.5
 @export var short_range: float = 2
