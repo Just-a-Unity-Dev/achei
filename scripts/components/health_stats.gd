@@ -196,4 +196,4 @@ func take_damage(amount: int):
 	elif current_state == State.DOWN_AND_OUT:
 		severity = PopupManager.SEVERITY_MED
 	
-	PopupManager.popup("%s: %d" % [targeted_limb.limb_data.limb_name, amount], host.global_position, severity)
+	PopupManager.popup(str(amount), host.global_position, severity)
