@@ -8,6 +8,7 @@ var cache_aiming_time := 0.0
 var cache_accuracy := -1.0
 var cache_recalculate := true
 
+var actively_firing := false
 var attack_progress = 0.0
 
 var target_host: Character
@@ -46,6 +47,8 @@ func end(succeed: bool) -> void:
 func do(delta: float) -> void:
 	if target_host.health.current_state != end_when_target_is_not_state:
 		end(true) # End this order when the target is dead
+	if actively_firing:
+		return # Prevent firing if we are already firing (remove this option and try the assault rifle, I dare you)
 	time_since_last_hit += delta
 	
 	var cg = subject.current_gun_node
@@ -80,6 +83,8 @@ func do(delta: float) -> void:
 		cache_accuracy = accuracy
 		return # Do not waste ammo
 	
+	# Prevent do() from running several times
+	actively_firing = true
 	for i in range(weapon_data.shots_fired):
 		if randf() < accuracy:
 			# Hit!
@@ -92,4 +97,5 @@ func do(delta: float) -> void:
 			await subject.get_tree().create_timer(weapon_data.time_between_shots).timeout
 	
 	cache_recalculate = true
+	actively_firing = false
 	time_since_last_hit = 0.0
