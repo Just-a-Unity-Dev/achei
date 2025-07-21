@@ -1,23 +1,80 @@
 shader_type canvas_item;
 
-uniform vec4 color: source_color = vec4(1.0);
-uniform float direction: hint_range(-1.0, 1.0, 1.0) = -1.0;
-uniform float frequency: hint_range(0.1, 30.0, 0.1) = 15.0; // the number of dotted lines
-uniform float speed: hint_range(0.5, 20, 0.5) = 3.0;     // rotation speed
-uniform float radius: hint_range(0.01, 1.0, 0.01) = 1.0;
-uniform float line_thickness: hint_range(0.0, 0.5, 0.01) = 0.03;
+uniform bool allow_out_of_bounds = true;
+uniform float outline_thickness: hint_range(0.0, 16.0, 1.0) = 1.0;
+uniform vec4 outline_color: source_color = vec4(1.0);
+
+uniform float inner_stroke_thickness = 1.0; // Inner stroke thickness, adjust according to sprite size
+uniform float inner_stroke_opacity = 1.0; // Inner stroke opacity, ranges from 0.0 to 1.0
+uniform float inside_opacity = 0.0;
+uniform float frequency = 8.0; // Controls the number of dotted lines
+uniform float phase_speed = 1.0; // Controls the rotation of the border
+
+
+bool is_inside_usquare(vec2 x) {
+	return x == clamp(x, vec2(0.0), vec2(1.0));
+}
+
+vec4 blend(vec4 bottom, vec4 top) {
+    float alpha = top.a + bottom.a * (1.0 - top.a);
+    if (alpha < 0.0001) return vec4(0.0);
+
+    vec3 color = mix(bottom.rgb * bottom.a, top.rgb, top.a) / alpha;
+    return vec4(color, alpha);
+}
+
+void vertex() {
+	if (allow_out_of_bounds) VERTEX += (UV * 2.0 - 1.0) * outline_thickness;
+}
 
 void fragment() {
-  vec4 circle_outline;
-  vec2 pos = UV - vec2(0.5);
-  float circle = step(length(pos), radius);
-  float angle = atan(pos.y, pos.x);
+	if (outline_thickness > 0.0 && outline_color.a > 0.0) {
+		vec2 uv = UV;
+		vec4 texture_color = texture(TEXTURE, UV);
 
-  float wave = 0.5 * sin(direction * frequency * angle + TIME * speed) + 0.5;
+		if (allow_out_of_bounds) {
+			vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(outline_thickness * 2.0));
+			uv = (uv - texture_pixel_size * outline_thickness) * TEXTURE_PIXEL_SIZE / texture_pixel_size;
 
-  circle *= step(0.5, wave);
-  circle_outline = vec4(color.rgb, circle * color.a);
+			if (is_inside_usquare(uv)) {
+				texture_color = texture(TEXTURE, uv);
+			} else {
+				texture_color = vec4(0.0);
+			}
+		}
 
-  float rect_alpha = 1.0 - step(abs(pos.x), (0.5-line_thickness)) * step(abs(pos.y), (0.5-line_thickness));
-  COLOR =  circle_outline * vec4(1.0, 1.0, 1.0, rect_alpha);
+		float alpha = 0.0;
+		
+		for (float y = 1.0; y <= outline_thickness; y++) {
+			for (float x = 0.0; x <= y; x++) {
+				if (length(vec2(x, y - 0.5)) > outline_thickness) break;
+
+				float look_at_alpha;
+				vec2 look_at_uv[8] = {
+					uv + vec2(x, y) * TEXTURE_PIXEL_SIZE,
+					uv + vec2(-x, y) * TEXTURE_PIXEL_SIZE,
+					uv + vec2(x, -y) * TEXTURE_PIXEL_SIZE,
+					uv + vec2(-x, -y) * TEXTURE_PIXEL_SIZE,
+					uv + vec2(y, x) * TEXTURE_PIXEL_SIZE,
+					uv + vec2(-y, x) * TEXTURE_PIXEL_SIZE,
+					uv + vec2(y, -x) * TEXTURE_PIXEL_SIZE,
+					uv + vec2(-y, -x) * TEXTURE_PIXEL_SIZE
+				};
+
+				for (int i = 0; i < 8; i++) {
+					if (is_inside_usquare(look_at_uv[i])) {
+						look_at_alpha = texture(TEXTURE, look_at_uv[i]).a;
+						if (look_at_alpha > alpha) alpha = look_at_alpha;
+						if (1.0 - alpha < 0.0001) break;
+					}
+				}
+				
+				if (1.0 - alpha < 0.0001) break;
+			}
+				
+			if (1.0 - alpha < 0.0001) break;
+		}
+
+		COLOR = blend(vec4(outline_color.rgb, alpha * outline_color.a), vec4(0,0,0,0));
+	}
 }
