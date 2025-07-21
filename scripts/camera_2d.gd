@@ -6,7 +6,7 @@ extends Camera2D
 #region Zoom
 var _target_zoom: float = 2.0
 const MIN_ZOOM: float = 0.2
-const MAX_ZOOM: float = 4
+const MAX_ZOOM: float = 2
 const ZOOM_INCREMENT: float = 0.1
 const ZOOM_RATE: float = 8.0
 

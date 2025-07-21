@@ -92,6 +92,7 @@ script = ExtResource("6_0qfo5")
 metadata/_custom_type_script = "uid://bg10dp8klqjy3"
 
 [node name="CurrentGun" type="Node2D" parent="."]
+visible = false
 z_index = -1
 scale = Vector2(0.611374, 0.611374)
 
