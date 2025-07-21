@@ -161,13 +161,13 @@ func generate_verbs():
 			verb_container.add_child(new_button)
 
 func try_connect_signal(to_bind: Signal, function: Callable) -> bool:
-	if not to_bind.is_connected(_info_updated):
+	if not to_bind.is_connected(function):
 		to_bind.connect(function)
 		return true
 	return false
 
 func try_disconnect_signal(to_unbind: Signal, function: Callable) -> bool:
-	if to_unbind.is_connected(_info_updated):
+	if to_unbind.is_connected(function):
 		to_unbind.disconnect(function)
 		return true
 	return false
