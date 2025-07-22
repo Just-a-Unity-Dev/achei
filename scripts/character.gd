@@ -182,12 +182,12 @@ func _received_order(order: BaseOrder, target: Noun, parameters: Dictionary, add
 ## Updates the Selectable's status info. Expensive, and should be called when an update happens.
 func trigger_info_update() -> void:
 	var values: Array[String] = []
-	var new_info = {"title": character_name}
+	var title := character_name
 	if health.current_state == health.State.DEAD: 
-		new_info.title = "%s (dead)" % character_name
+		title = "%s (dead)" % character_name
 		values.append("Dead.")
 	elif health.current_state == health.State.DOWN_AND_OUT: 
-		new_info.title = "%s (downed)" % character_name
+		title = "%s (downed)" % character_name
 		values.append("Downed (%s)." % tr("down-reason-%d" % health.down_reason))
 	else:
 		if list_of_orders.size() > 0:
@@ -206,9 +206,7 @@ func trigger_info_update() -> void:
 	var speed = ((cache_speed / 32.0) / float(Engine.physics_ticks_per_second))
 	values.append("Moving at %.2f u/s" % [speed])
 	
-	for i in range(values.size()):
-		new_info["key"+str(i+1)] = values[i]
-	noun.update_info(new_info)
+	noun.update_info_array(title, values)
 
 func _physics_process(delta: float) -> void:
 	if health.current_state != health.State.ALIVE: return

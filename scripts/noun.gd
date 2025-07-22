@@ -40,6 +40,12 @@ func _init() -> void:
 	add_to_group("noun", false)
 
 ## Updates the info in the selectable info variable.
-func update_info(new_info: Dictionary):
+func update_info(new_info: Dictionary) -> void:
 	info_updated.emit(new_info)
 	info = new_info
+
+func update_info_array(title: String, values: Array) -> void:
+	var new_info = {"title": title}
+	for i in range(values.size()):
+		new_info["key"+str(i+1)] = values[i]
+	update_info(new_info)

@@ -18,6 +18,6 @@ medium_range = 13.8
 long_range = 28.0
 item_id = "weapon_basic_rifle_bolt"
 item_texture_resource = ExtResource("1_v70ul")
-item_name = "Unknown item"
+item_name = "bolt action rifle"
 item_description = "I don't know..."
 metadata/_custom_type_script = "uid://ba1r3g08i6j7a"

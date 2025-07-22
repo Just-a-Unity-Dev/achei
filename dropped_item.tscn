@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://da6ed1mv68o58"]
+[gd_scene load_steps=8 format=3 uid="uid://da6ed1mv68o58"]
 
 [ext_resource type="Script" uid="uid://8oy3hgke8k3h" path="res://scripts/dropped_item.gd" id="1_1y2xd"]
 [ext_resource type="Texture2D" uid="uid://bfrufventc5up" path="res://textures/block.png" id="2_qpxn3"]
 [ext_resource type="Script" uid="uid://daipew5657usq" path="res://scripts/noun.gd" id="3_762pt"]
 [ext_resource type="Shader" uid="uid://d1eh2k82dlrtu" path="res://outline.gdshader" id="3_hi56c"]
+[ext_resource type="Texture2D" uid="uid://c2l1wgqsst4va" path="res://textures/bolt-action-rifle.png" id="3_mbl1o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wil3b"]
 radius = 16.0
@@ -31,11 +32,9 @@ shape = SubResource("CircleShape2D_wil3b")
 visible = false
 z_index = -1
 material = SubResource("ShaderMaterial_mbl1o")
-rotation = -0.261799
-texture = ExtResource("2_qpxn3")
+texture = ExtResource("3_mbl1o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 rotation = -0.261799
 texture = ExtResource("2_qpxn3")
 
@@ -43,12 +42,13 @@ texture = ExtResource("2_qpxn3")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -23.0
+offset_left = -25.0
 offset_top = 17.0
-offset_right = 23.0
-offset_bottom = 37.0
+offset_right = 225.0
+offset_bottom = 58.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 12
+scale = Vector2(0.2, 0.2)
+theme_override_font_sizes/font_size = 30
 text = "dropped item name"
 horizontal_alignment = 1
 
