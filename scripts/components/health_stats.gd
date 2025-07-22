@@ -64,9 +64,8 @@ func kill():
 	died.emit()
 
 func _ready() -> void:
-	initialize_limbs()
-	adjust_base_stats()
-	recalculate_stats()
+	# Initialize health stats
+	health_delta()
 	blood.died.connect(update_state_on_stats)
 
 ## Automatically adjusts base stats, actual stats, and updates the state.
@@ -82,6 +81,7 @@ const PAIN_HEAL_RATE = 0.005
 const PAIN_PER_DAMAGE = 0.00125
 
 var time_since_last_delta = 0.0
+
 func _physics_process(delta: float) -> void:
 	if current_state == State.DEAD: 
 		return # Don't tick health stats if we're dead, idiot
