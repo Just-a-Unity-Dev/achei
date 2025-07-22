@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://da6ed1mv68o58"]
+
+[ext_resource type="Script" uid="uid://8oy3hgke8k3h" path="res://scripts/dropped_item.gd" id="1_1y2xd"]
+[ext_resource type="Texture2D" uid="uid://bfrufventc5up" path="res://textures/block.png" id="2_qpxn3"]
+[ext_resource type="Script" uid="uid://daipew5657usq" path="res://scripts/noun.gd" id="3_762pt"]
+[ext_resource type="Shader" uid="uid://d1eh2k82dlrtu" path="res://outline.gdshader" id="3_hi56c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wil3b"]
+radius = 16.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mbl1o"]
+shader = ExtResource("3_hi56c")
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 1.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/inner_stroke_thickness = 1.0
+shader_parameter/inner_stroke_opacity = 1.0
+shader_parameter/inside_opacity = 0.0
+shader_parameter/frequency = 8.0
+shader_parameter/phase_speed = 1.0
+
+[node name="DroppedItem" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_1y2xd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wil3b")
+
+[node name="SelectedSprite" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+material = SubResource("ShaderMaterial_mbl1o")
+rotation = -0.261799
+texture = ExtResource("2_qpxn3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+rotation = -0.261799
+texture = ExtResource("2_qpxn3")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.0
+offset_top = 17.0
+offset_right = 23.0
+offset_bottom = 37.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 12
+text = "dropped item name"
+horizontal_alignment = 1
+
+[node name="Noun" type="Node" parent="." node_paths=PackedStringArray("get_position_from", "show_when_selected")]
+script = ExtResource("3_762pt")
+selectable_id = &"Items"
+get_position_from = NodePath("..")
+show_when_selected = NodePath("../SelectedSprite")
+metadata/_custom_type_script = "uid://daipew5657usq"
