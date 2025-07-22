@@ -64,7 +64,8 @@ func kill():
 	died.emit()
 
 func _ready() -> void:
-	# Initialize health stats
+	# Initialize limbs and health stats
+	initialize_limbs()
 	health_delta()
 	blood.died.connect(update_state_on_stats)
 
