@@ -65,11 +65,15 @@ func dict_representation_get() -> Dictionary:
 		if serialized_property_names.has(property_name):
 			# vectors into arrays
 			if property_name.ends_with("position") or property_name.ends_with("pos"):
-				var pos: Vector2 = property_value	# typecast
+				var pos: Vector2 = property_value # typecast
 				property_value = [pos.x, pos.y]
+			# convert resources to resource_paths
+			if property_name.ends_with("resource") or property_name.ends_with("resource"):
+				var res: Resource = property_value # typecast
+				property_value = res.resource_path
 			# stringify colors to html codes
 			if property_name.ends_with("color"):
-				var color: Color = property_value	# typecast
+				var color: Color = property_value # typecast
 				property_value = color.to_html(true)
 			
 			dict_repr[property_name] = property_value
@@ -85,6 +89,9 @@ func dict_representation_set(dict_repr: Dictionary) -> void:
 		# unstringify colors from html code
 		if key.ends_with("color"):
 			value = Color(value)
+		# convert resource_paths to resources
+		if key.ends_with("resource") or key.ends_with("resource"):
+			value = load(value)
 		# vectors from arrays
 		if key.ends_with("position") or key.ends_with("pos"):
 			var vector_x = value[0]

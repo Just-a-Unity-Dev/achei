@@ -5,9 +5,7 @@
 
 [resource]
 script = ExtResource("1_ixnwk")
-gun_name = "pump shotgun"
 accuracy_skill = &"firearms"
-image = ExtResource("1_vrdax")
 damage_min = 33
 damage_max = 62
 shots_fired = 5
@@ -18,4 +16,8 @@ minimum_range = 1.5
 short_range = 4.0
 medium_range = 6.5
 long_range = 8.5
+item_id = "weapon_ranged_shotgun_basic"
+item_texture_resource = ExtResource("1_vrdax")
+item_name = "Unknown item"
+item_description = "I don't know..."
 metadata/_custom_type_script = "uid://ba1r3g08i6j7a"

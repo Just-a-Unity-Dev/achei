@@ -5,9 +5,7 @@
 
 [resource]
 script = ExtResource("1_fqyh4")
-gun_name = "longbow"
 accuracy_skill = &"archery"
-image = ExtResource("1_eeg8f")
 damage_min = 67
 damage_max = 105
 shots_fired = 1
@@ -18,4 +16,8 @@ minimum_range = 1.5
 short_range = 3.5
 medium_range = 8.5
 long_range = 16.5
+item_id = "weapon_basic_bow_basic"
+item_texture_resource = ExtResource("1_eeg8f")
+item_name = "Unknown item"
+item_description = "I don't know..."
 metadata/_custom_type_script = "uid://ba1r3g08i6j7a"

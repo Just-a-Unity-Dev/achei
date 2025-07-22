@@ -5,9 +5,7 @@
 
 [resource]
 script = ExtResource("1_bkg0d")
-gun_name = "bolt action rifle"
 accuracy_skill = &"firearms"
-image = ExtResource("1_v70ul")
 damage_min = 120
 damage_max = 165
 shots_fired = 1
@@ -18,4 +16,8 @@ minimum_range = 1.5
 short_range = 3.0
 medium_range = 13.8
 long_range = 28.0
+item_id = "weapon_basic_rifle_bolt"
+item_texture_resource = ExtResource("1_v70ul")
+item_name = "Unknown item"
+item_description = "I don't know..."
 metadata/_custom_type_script = "uid://ba1r3g08i6j7a"

@@ -62,7 +62,9 @@ func _ready() -> void:
 	health.died.connect(_on_death)
 	health.state_change.connect(_on_state_change)
 	health.took_damage.connect(_on_took_damage)
-	current_gun_sprite.texture = current_weapon.image
+	current_gun_sprite.texture = current_weapon.item_texture_resource
+	
+	print(current_weapon.dict_representation_get())
 	
 	recalculate_speed()
 
@@ -196,7 +198,7 @@ func trigger_info_update() -> void:
 		else:
 			values.append("Idling around")
 	
-		if current_weapon != null: values.append("Holding a %s" % current_weapon.gun_name)
+		if current_weapon != null: values.append("Holding a %s" % current_weapon.item_name)
 	
 	var map_tile_data = get_map_tile_data_below()
 	values.append("Currently on: %s (%d%% speed)" % [map_tile_data.tile_name, map_tile_data.movement_penalty * 100])

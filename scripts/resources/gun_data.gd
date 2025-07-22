@@ -1,10 +1,8 @@
-extends Resource
+extends ItemData
 class_name GunData
 
 @export_category("Metadata")
-@export var gun_name: String = "template weapon"
 @export var accuracy_skill: StringName = &"firearms"
-@export var image: Texture2D
 @export_category("Damage and Stats")
 @export var damage_min: int = 0
 @export var damage_max: int = 0
