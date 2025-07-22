@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://da6ed1mv68o58"]
+[gd_scene load_steps=9 format=3 uid="uid://da6ed1mv68o58"]
 
 [ext_resource type="Script" uid="uid://8oy3hgke8k3h" path="res://scripts/dropped_item.gd" id="1_1y2xd"]
+[ext_resource type="Resource" uid="uid://bjj0rks7m22s7" path="res://resources/weapons/assault-rifle.tres" id="2_fhvpp"]
 [ext_resource type="Texture2D" uid="uid://bfrufventc5up" path="res://textures/block.png" id="2_qpxn3"]
 [ext_resource type="Script" uid="uid://daipew5657usq" path="res://scripts/noun.gd" id="3_762pt"]
 [ext_resource type="Shader" uid="uid://d1eh2k82dlrtu" path="res://outline.gdshader" id="3_hi56c"]
@@ -24,14 +25,15 @@ shader_parameter/phase_speed = 1.0
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_1y2xd")
+attached_item = ExtResource("2_fhvpp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_wil3b")
 
 [node name="SelectedSprite" type="Sprite2D" parent="."]
-visible = false
 z_index = -1
 material = SubResource("ShaderMaterial_mbl1o")
+rotation = -0.261799
 texture = ExtResource("3_mbl1o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -48,6 +50,7 @@ offset_right = 225.0
 offset_bottom = 58.0
 grow_horizontal = 2
 scale = Vector2(0.2, 0.2)
+theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 30
 text = "dropped item name"
 horizontal_alignment = 1
