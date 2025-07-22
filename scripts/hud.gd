@@ -84,11 +84,12 @@ func update_health_hud():
 		for x in range(character.health.bleeding_severity): bleed_severity_label.text += "<"
 		
 		for limb in character.health.limbs:
-			generic_update_container(
-				limb_source_container.get_node(str(limb.limb_data.gui_bar_name)),
-				limb.hp,
-				limb.max_hp
-			)
+			var box: HBoxContainer = limb_source_container.get_node(str(limb.limb_data.gui_bar_name))
+			if box == null: continue
+			generic_update_container(box, limb.hp, limb.max_hp)
+			generic_update_container(box, limb.hp, limb.max_hp)
+			box.get_node("Name").text = limb.limb_data.limb_name
+			box.get_node("Label/Value").text = "%d/%d hp" % [limb.hp, limb.max_hp]
 
 var base_physics_ticks_per_second = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 func _unhandled_input(event: InputEvent) -> void:
