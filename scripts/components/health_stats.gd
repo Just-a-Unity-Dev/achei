@@ -159,7 +159,7 @@ func recalculate_stats():
 	var blood_modifier = 0.0
 	var blood_percentage = blood.hp / blood.max_hp
 	if blood_percentage <= .9:
-		blood_modifier = -max(.25, 1.0 - blood_percentage)
+		blood_modifier = -max(.35, 1.0 - (blood_percentage + .1))
 	_actual_awareness = base_awareness + pain_modifier + blood_modifier
 	
 	_actual_finesse = base_finesse * _actual_awareness
