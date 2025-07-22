@@ -17,6 +17,7 @@ var colors = {
 func popup(text: String, where: Vector2, severity: int = 0):
 	var label = PopupLabel.new()
 	label.text = text
-	label.position = where + (Vector2.ONE * 32 * randf_range(-1,1))
+	label.before_float_position = where + (Vector2.ONE * 32 * randf_range(-1,1))
+	label.initial_position = where
 	label.add_theme_color_override("font_color", colors[severity])
 	get_tree().current_scene.add_child(label)
