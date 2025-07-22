@@ -90,6 +90,8 @@ func update_health_hud():
 			generic_update_container(box, limb.hp, limb.max_hp)
 			box.get_node("Name").text = limb.limb_data.limb_name
 			box.get_node("Label/Value").text = "%d/%d hp" % [limb.hp, limb.max_hp]
+			box.get_node("Label/Value").visible = not limb.mangled
+			box.get_node("Label/Mangled").visible = limb.mangled
 
 var base_physics_ticks_per_second = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 func _unhandled_input(event: InputEvent) -> void:

@@ -185,6 +185,8 @@ func take_damage(amount: int):
 			break
 		item -= limb_rarities[n]
 	
+	if targeted_limb.hp < 0:
+		targeted_limb.mangled = true
 	targeted_limb.take_damage(amount)
 	roll_bleed_chance(amount)
 	_actual_pain += PAIN_PER_DAMAGE * amount

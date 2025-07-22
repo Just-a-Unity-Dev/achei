@@ -36,6 +36,9 @@ func try_heal_target():
 		var skipped_limbs = 0
 		var successful_limbs = 0
 		for limb in target_host.health.limbs:
+			if limb.mangled:
+				skipped_limbs += 1
+				continue
 			var effective_max_hp = limb.max_hp * MAX_HEAL_AMOUNT
 			if limb.hp < effective_max_hp:
 				var heal_amount = randi_range(25, 45)

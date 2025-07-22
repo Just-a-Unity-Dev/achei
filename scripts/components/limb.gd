@@ -3,3 +3,5 @@ extends HealthComponent
 class_name LimbComponent
 
 @export var limb_data: LimbData
+## Is this limb mangled?
+@export var mangled: bool = false
