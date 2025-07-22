@@ -136,12 +136,17 @@ func adjust_base_stats():
 		for key in limb.limb_data.factors.keys():
 			self[key] = 0
 	for limb in limbs:
+		if limb.mangled: # Do a shortened version of the below if the limb is mangled
+			if limb.limb_data.critical:
+				base_awareness = -100.0 # Mangled head = death
+			continue # Don't bother
+		
 		var data = limb.limb_data
 		var hp_percent = limb.hp / limb.max_hp
 		if limb.hp <= 0 and limb.limb_data.critical:
 			base_awareness = -100.0
 		for key in data.factors.keys():
-			self[key] += data.factors[key] * hp_percent
+			self[key] += data.factors[key] * min(hp_percent, 0)
 	base_awareness = max(base_awareness, 0)
 	base_pain = bleeding_severity / 8.0
 
