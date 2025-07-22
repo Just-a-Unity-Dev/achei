@@ -146,7 +146,7 @@ func adjust_base_stats():
 		if limb.hp <= 0 and limb.limb_data.critical:
 			base_awareness = -100.0
 		for key in data.factors.keys():
-			self[key] += data.factors[key] * max(hp_percent, 0)
+			self[key] += data.factors[key] * max(hp_percent, 0.0)
 	base_awareness = max(base_awareness, 0)
 	base_pain = bleeding_severity / 8.0
 
