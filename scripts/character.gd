@@ -65,8 +65,17 @@ func _ready() -> void:
 	current_gun_sprite.texture = current_weapon.item_texture_resource
 	
 	print(current_weapon.dict_representation_get())
+	print(DefinitionManager.recursively_save(self))
 	
-	recalculate_speed()
+	if tilemap != null:
+		recalculate_speed()
+
+func get_serialized_property_names():
+	return [
+		"character_name",
+		"current_weapon",
+		"health"
+	]
 
 func _on_took_damage(_amount: int, _limb: LimbComponent):
 	sprite.self_modulate = Color(1,0,0)

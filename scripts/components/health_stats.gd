@@ -206,3 +206,6 @@ func take_damage(amount: int):
 		severity = PopupManager.SEVERITY_MED
 	
 	PopupManager.popup(str(amount), host.global_position, severity)
+
+func get_serialized_property_names() -> Array:
+	return ["blood", "_actual_pain", "limbs", "bleed_severity"]
