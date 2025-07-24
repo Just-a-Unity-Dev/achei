@@ -169,7 +169,7 @@ func handle_lmb_interactions(event: InputEventMouseButton):
 
 func _process(delta: float) -> void:
 	var axis = Input.get_vector("camera_move_left", "camera_move_right", "camera_move_up", "camera_move_down")
-	position += axis * 32 / _target_zoom
+	position += axis * delta * (32**2) * 2 / _target_zoom
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
