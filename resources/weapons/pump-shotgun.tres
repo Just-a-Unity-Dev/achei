@@ -18,6 +18,6 @@ medium_range = 6.5
 long_range = 8.5
 item_id = "weapon_ranged_shotgun_basic"
 item_texture_resource = ExtResource("1_vrdax")
-item_name = "Unknown item"
+item_name = "pump shotgun"
 item_description = "I don't know..."
 metadata/_custom_type_script = "uid://ba1r3g08i6j7a"
